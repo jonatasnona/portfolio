@@ -1,42 +1,42 @@
 # AGENTS.md
 
-Guia operacional para agentes de IA neste portfolio. Ler antes de abrir docs longos.
+Operational guide for AI agents on this portfolio. Read this before long docs.
 
-## Visão do projeto
+## Project vision
 
-Site estático one-page de apresentação profissional de **Jonatas Pedraza**, publicado no GitHub Pages.
+Static one-page professional site for **Jonatas Pedraza**, published on GitHub Pages.
 
 - Stack: Astro + TypeScript
-- Idiomas do site: `pt` (default), `en`, `es`
-- Seções MVP: Hero, Sobre, Experiência, Competências; contato via ícones no header (+ fecho leve em Poster/Twin/Folio)
-- Marca pessoal no conteúdo; logo Mandril Solutions em `public/brand/`
-- Layouts versionados em `src/versions/` — produção usa só `siteConfig.activeVersion`
+- Site locales: `pt` (default), `en`, `es`
+- MVP sections: Hero, About, Experience, Skills; contact via header icons (+ light closing panel on Poster / Twin / Folio)
+- Personal brand in copy; Mandril Solutions logo in `public/brand/`
+- Versioned layouts in `src/versions/` — production serves only `siteConfig.activeVersion`
 
-## Idioma dos artefatos
+## Artifact languages
 
-- Specs, plans, tasks, checklists, issues e docs de processo: **pt-BR**
-- Código, IDs de rota e nomes de componente: inglês (convenção do stack)
-- Copy do site: locale correspondente em `src/content/`
+- Specs, plans, tasks, checklists, issues, and process docs: **English**
+- Code, route IDs, and component names: English (stack convention)
+- Site copy: matching locale in `src/content/`
 
-## Mapa de docs
+## Docs map
 
-- `docs/architecture.md` — estrutura, versões de layout, i18n, deploy
-- `docs/design.md` — role UX Design Engineer, sistema visual, contato
-- `docs/development-workflow.md` — fluxo Issue → spec (quando couber) → PR
+- `docs/architecture.md` — structure, layout versions, i18n, deploy
+- `docs/design.md` — UX Design Engineer role, visual system, contact
+- `docs/development-workflow.md` — Issue → spec (when needed) → PR
 - `docs/github-pages.md` — base path, Actions, URLs
-- `docs/layout-versions.md` — como criar/promover/reverter versões de layout
-- `specs/` — Spec Kit (artefatos em pt-BR)
+- `docs/layout-versions.md` — create / promote / revert layout versions
+- `specs/` — Spec Kit (artifacts in English)
 
-## Leitura seletiva
+## Selective reading
 
-- Mudança de copy: `src/content/{pt,en,es}.ts`
-- Design / UI / contato / tipografia / paleta: `docs/design.md`, `.cursor/rules/portfolio-ux-frontend.mdc`
-- Nova versão de layout: `docs/layout-versions.md`, depois `src/versions/<id>/`
-- i18n / rotas: `astro.config.mjs`, `src/pages/`, `src/lib/paths.ts`
-- Deploy Pages: `docs/github-pages.md`, `.github/workflows/deploy.yml`
-- Tokens visuais: `src/styles/tokens.css`, `src/styles/palettes.css`, `src/styles/typography.css`
+- Copy changes: `src/content/{pt,en,es}.ts`
+- Design / UI / contact / typography / palette: `docs/design.md`, `.cursor/rules/portfolio-ux-frontend.mdc`
+- New layout version: `docs/layout-versions.md`, then `src/versions/<id>/`
+- i18n / routes: `astro.config.mjs`, `src/pages/`, `src/lib/paths.ts`
+- Pages deploy: `docs/github-pages.md`, `.github/workflows/deploy.yml`
+- Visual tokens: `src/styles/tokens.css`, `src/styles/palettes.css`, `src/styles/typography.css`
 
-## Comandos
+## Commands
 
 ```sh
 npm run dev
@@ -45,23 +45,23 @@ npm run preview
 npm run check
 ```
 
-Dev local com base path: abrir `http://localhost:4321/portfolio/`.
+Local dev with base path: open `http://localhost:4321/portfolio/`.
 
-## Não negociáveis
+## Non-negotiables
 
-- Não editar a versão ativa “no lugar” para experimentos grandes — criar `versions/vN` nova
-- Promover layout só alterando `activeVersion` em `src/site.config.ts`
-- Versões não importam umas às outras
-- Conteúdo fica em `src/content/`; layouts só consomem
-- Rodar `npm run check` e `npm run build` após mudanças relevantes
-- Specs e docs de processo em pt-BR
-- Não commitar `dist/`, `.env` com segredos, nem credenciais
-- Não incluir `Co-authored-by: Cursor` (nem trailers de AI) em commits — ver `.cursor/rules/no-cursor-coauthor.mdc`
+- Do not edit the active version in place for large experiments — create a new `versions/vN`
+- Promote a layout only by changing `activeVersion` in `src/site.config.ts`
+- Versions must not import each other
+- Content lives in `src/content/`; layouts only consume it
+- Run `npm run check` and `npm run build` after relevant changes
+- Specs and process docs stay in English
+- Do not commit `dist/`, secret-bearing `.env`, or credentials
+- Do not include `Co-authored-by: Cursor` (or AI attribution trailers) in commits — see `.cursor/rules/no-cursor-coauthor.mdc`
 
-## Perspectivas
+## Perspectives
 
-- Mudança de produto/copy: product manager — valor para contratante, clareza, exclusões
-- Design / layout / contato / tipografia / paleta: **UX Design Engineer** — ver `docs/design.md` e `.cursor/rules/portfolio-ux-frontend.mdc`
-- Nova versão de layout: UX Design Engineer — uma composição no first viewport, brand first, adaptação por versão
-- i18n/routing/deploy: software architect — contratos estáveis, base path, hreflang
-- Implementação: engineer — menor mudança coesa, testes/checks proporcionais
+- Product / copy changes: product manager — hiring-manager value, clarity, exclusions
+- Design / layout / contact / typography / palette: **UX Design Engineer** — see `docs/design.md` and `.cursor/rules/portfolio-ux-frontend.mdc`
+- New layout version: UX Design Engineer — one first-viewport composition, brand first, per-version adaptation
+- i18n / routing / deploy: software architect — stable contracts, base path, hreflang
+- Implementation: engineer — smallest cohesive change, proportional checks

@@ -1,49 +1,49 @@
-# Arquitetura
+# Architecture
 
-## Objetivo
+## Goal
 
-Portfolio estático one-page para apresentar Jonatas Pedraza a contratantes e interessados em serviços, com i18n e layouts experimentáveis sem quebrar produção.
+Static one-page portfolio to present Jonatas Pedraza to hiring managers and people interested in his work, with i18n and experimentable layouts that do not break production.
 
-## Camadas
+## Layers
 
-1. **Conteúdo** (`src/content/`) — textos tipados por locale
-2. **Configuração** (`src/site.config.ts`) — versão ativa, contatos, paths de assets
-3. **Apresentação** (`src/versions/<id>/`) — Layout + seções isoladas por versão
-4. **Rotas** (`src/pages/`) — produção e preview
+1. **Content** (`src/content/`) — typed copy per locale
+2. **Configuration** (`src/site.config.ts`) — active version, contacts, asset paths
+3. **Presentation** (`src/versions/<id>/`) — layout + sections isolated per version
+4. **Routes** (`src/pages/`) — production and preview
 
-## Rotas
+## Routes
 
-| URL | Função |
-|-----|--------|
-| `/portfolio/` | Produção PT (`activeVersion`) |
-| `/portfolio/en/` | Produção EN |
-| `/portfolio/es/` | Produção ES |
-| `/portfolio/v/<version>/` | Preview PT da versão |
-| `/portfolio/v/<version>/en/` | Preview EN |
-| `/portfolio/v/<version>/es/` | Preview ES |
+| URL | Role |
+|-----|------|
+| `/portfolio/` | Production PT (`activeVersion`) |
+| `/portfolio/en/` | Production EN |
+| `/portfolio/es/` | Production ES |
+| `/portfolio/v/<version>/` | Version preview (PT) |
+| `/portfolio/v/<version>/en/` | Version preview (EN) |
+| `/portfolio/v/<version>/es/` | Version preview (ES) |
 
-## Fluxo de render
+## Render flow
 
 ```text
 page → loadVersionLayout(active|param) → Layout.astro + sections
      → getContent(locale)
 ```
 
-Layouts carregados via `import.meta.glob` em `src/versions/registry.ts`.
+Layouts load via `import.meta.glob` in `src/versions/registry.ts`.
 
 ## Assets
 
-- Logo Mandril (PNG transparente, poly-art Ubuntu): `public/brand/mandril-logo.png`
-- Currículo PDF: `public/resume/resume_jonatas_pedraza_pt.pdf`
-- Paths públicos passam por `src/lib/paths.ts` (`withBase`) por causa do `base: '/portfolio'`
+- Mandril logo (transparent PNG, Ubuntu poly-art): `public/brand/mandril-logo.png`
+- Resume PDF: `public/resume/resume_jonatas_pedraza_pt.pdf`
+- Public paths go through `src/lib/paths.ts` (`withBase`) because of `base: '/portfolio'`
 
 ## Design / UI
 
-Role e diretrizes de interface: `docs/design.md`.  
-Regra Cursor (UX Design Engineer): `.cursor/rules/portfolio-ux-frontend.mdc`.
+Interface role and guidelines: `docs/design.md`.  
+Cursor rule (UX Design Engineer): `.cursor/rules/portfolio-ux-frontend.mdc`.
 
 Tokens: `src/styles/tokens.css` + `palettes.css` + `typography.css`.
 
 ## Deploy
 
-Build SSG (`astro build`) → artifact → GitHub Pages (`actions/deploy-pages`). Detalhes em `docs/github-pages.md`.
+SSG build (`astro build`) → artifact → GitHub Pages (`actions/deploy-pages`). Details in `docs/github-pages.md`.

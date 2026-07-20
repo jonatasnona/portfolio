@@ -1,43 +1,43 @@
 # Spec 001 — Portfolio MVP
 
-## Problema
+## Problem
 
-Jonatas Pedraza precisa de um site público para se apresentar a contratantes e interessados em serviços, com currículo e trajetória profissional, em múltiplos idiomas, publicado no GitHub Pages.
+Jonatas Pedraza needs a public site to present himself to hiring managers and people interested in his services, with resume and career history, in multiple languages, published on GitHub Pages.
 
-## Resultado desejado
+## Desired outcome
 
-One-page estático com Hero, Sobre, Experiência, Competências e Contato; i18n pt/en/es; logo Mandril como asset; estrutura de versões de layout para experimentar sem quebrar produção.
+Static one-page with Hero, About, Experience, Skills, and contact actions; i18n pt/en/es; Mandril logo as an asset; layout-version structure so experiments do not break production.
 
-## Escopo
+## Scope
 
-### Inclui
+### In
 
-- Astro + TypeScript + deploy GitHub Pages
-- Conteúdo derivado do resume PT
-- Seletor de idioma e hreflang
-- Download do PDF do currículo
-- `activeVersion` + rotas `/v/<version>/`
-- Docs e AGENTS.md em pt-BR
+- Astro + TypeScript + GitHub Pages deploy
+- Content derived from the PT resume
+- Language switcher and hreflang
+- Resume PDF download
+- `activeVersion` + `/v/<version>/` routes
+- Docs and `AGENTS.md` in English
 
-### Fora
+### Out
 
 - Blog / CMS
-- Seção Projetos dedicada
-- Preview automático por PR
-- Domínio custom
+- Dedicated Projects section
+- Automatic preview per PR
+- Custom domain
 
-## Critérios de aceite
+## Acceptance criteria
 
-1. Visitante em `/portfolio/` vê one-page PT com as 5 seções
-2. `/en/` e `/es/` mostram o mesmo layout com copy traduzida
-3. Logo Mandril aparece no header/hero/footer
-4. CTA de currículo baixa o PDF
-5. `/v/v1/` renderiza preview com banner; produção usa `activeVersion`
-6. `npm run check` e `npm run build` passam
-7. Specs/docs de processo em pt-BR
+1. Visitor on `/portfolio/` sees the PT one-page with the core sections
+2. `/en/` and `/es/` show the same layout with translated copy
+3. Mandril logo appears in header/hero/footer as designed per layout
+4. Resume CTA downloads the PDF
+5. `/v/v1/` renders a preview with banner; production uses `activeVersion`
+6. `npm run check` and `npm run build` pass
+7. Specs and process docs are in English
 
 ## Assumptions
 
-- Repo publicado como project site `jonatasnona.github.io/portfolio`
-- PDF único em PT no MVP para todos os locales
-- Uma versão de layout (`v1`) no lançamento
+- Repo published as project site `jonatasnona.github.io/portfolio`
+- Single PT PDF in the MVP for all locales
+- One layout version (`v1`) at launch

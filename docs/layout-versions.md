@@ -1,36 +1,36 @@
-# Versões de layout
+# Layout versions
 
-## Layouts atuais
+## Current layouts
 
-| ID | Nome | Ideia |
-|----|------|--------|
-| `v1` | Classic | Header sticky, hero split, timeline |
-| `v2` | Split | Painel de marca + coluna de conteúdo |
-| `v3` | Ledger | Currículo/documento técnico |
-| `v4` | Cover | Hero full-viewport + conteúdo após scroll |
-| `v5` | Stack | Experiência em cards empilhados |
-| `v6` | Wire | Blueprint / grid técnico |
-| `v7` | Poster | Seções como painéis verticais |
-| `v8` | Accordion | Experiência em linhas expansíveis |
-| `v9` | Masthead | Jornal: cabeçalho + colunas |
-| `v10` | Twin | Seções 50/50 tela cheia |
-| `v11` | Mosaic | Blocos masonry de altura variável |
-| `v12` | Pulse | Faixa de anos + detalhe abaixo |
-| `v13` | Folio | Spreads de revista ímpares/pares |
-| `v14` | Ingress | Carta/longo lead + seções |
-| `v15` | Lattice | Multi-coluna densa broadsheet |
+| ID | Name | Idea |
+|----|------|------|
+| `v1` | Classic | Sticky header, split hero, timeline |
+| `v2` | Split | Brand panel + content column |
+| `v3` | Ledger | Resume / technical document look |
+| `v4` | Cover | Full-viewport hero, then scroll content |
+| `v5` | Stack | Stacked experience cards |
+| `v6` | Wire | Blueprint / technical grid |
+| `v7` | Poster | Vertical full-height section panels |
+| `v8` | Accordion | Expandable experience rows |
+| `v9` | Masthead | Newspaper masthead + columns |
+| `v10` | Twin | Full-bleed 50/50 section splits |
+| `v11` | Mosaic | Variable-height masonry blocks |
+| `v12` | Pulse | Year/company scrubber + detail below |
+| `v13` | Folio | Magazine spreads (odd/even compositions) |
+| `v14` | Ingress | Letter / long lead, then structured sections |
+| `v15` | Lattice | Dense multi-column broadsheet |
 
-## Dev: troca ao vivo
+## Dev: live switching
 
-Em `npm run dev`, painel canto inferior direito:
+In `npm run dev`, bottom-right panel:
 
-- **Tipografia** — CSS imediato (`data-fonts`)
-- **Paleta** — CSS imediato (`data-palette`)
-- **Layout** — navega para `/v/<id>/`
+- **Typography** — instant CSS (`data-fonts`)
+- **Palette** — instant CSS (`data-palette`)
+- **Layout** — navigates to `/v/<id>/`
 
-Produção: `activeVersion` em `src/site.config.ts`.
+Production: `activeVersion` in `src/site.config.ts`.
 
 ## Design
 
-Mudanças de composição, contato e hierarquia visual: seguir `docs/design.md` (role **UX Design Engineer**).
-Contato por ícones deve adaptar a disposição à linguagem de cada versão — não um único bloco genérico.
+Composition, contact, and visual hierarchy changes: follow `docs/design.md` (**UX Design Engineer** role).
+Contact icons live in the header; panel layouts may keep a light `#fecho` closing — not a generic contact block cloned everywhere.

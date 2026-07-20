@@ -1,42 +1,42 @@
-# Fluxo de desenvolvimento
+# Development workflow
 
-Inspirado no FluentPage: Issues como verdade operacional, Spec Kit seletivo, PRs com checks.
+Inspired by FluentPage: Issues as operational truth, selective Spec Kit, PRs with checks.
 
-## Fonte da verdade
+## Source of truth
 
-- GitHub Issues: tarefas
-- Pull requests: revisão e merge
-- `specs/`: intenção e requisitos de features que merecem spec
-- `docs/`: arquitetura e operação
+- GitHub Issues: tasks
+- Pull requests: review and merge
+- `specs/`: intent and requirements for features that deserve a spec
+- `docs/`: architecture and operations
 
-## Quando escrever spec completa
+## When to write a full spec
 
-Usar Spec Kit (em **pt-BR**) quando:
+Use Spec Kit (in **English**) when:
 
-- nova versão de layout (`versions/vN`)
-- mudança de i18n routing ou contrato de `site.config`
-- mudança que cruza conteúdo + rotas + deploy
+- adding a new layout version (`versions/vN`)
+- changing i18n routing or the `site.config` contract
+- changing something that crosses content + routes + deploy
 
-Fluxo direto Issue → PR para:
+Go Issue → PR directly for:
 
-- ajuste de copy
-- polish visual pequeno na versão já ativa
-- docs mecânicas
-- dependências
+- copy tweaks
+- small visual polish on the already-active version
+- mechanical docs
+- dependency bumps
 
-## Sequência padrão
+## Standard sequence
 
-1. Criar ou escolher Issue (pt-BR)
-2. Se qualificar: `specs/<feature>/spec.md` (+ plan/tasks quando necessário)
-3. Branch a partir de `main`
-4. Implementar (nova versão de layout se for experimento grande)
-5. `npm run check` e `npm run build`
-6. PR ligando Issue; descrição em pt-BR
-7. Merge em `main` publica via Actions
+1. Create or pick an Issue (English)
+2. If it qualifies: `specs/<feature>/spec.md` (+ plan/tasks when needed)
+3. Branch from `main`
+4. Implement (new layout version for large experiments)
+5. `npm run check` and `npm run build`
+6. PR linked to the Issue; description in English
+7. Merge to `main` (Pages publish is **manual** until auto-deploy is re-enabled)
 
-## Regras para agentes
+## Agent rules
 
-- Ler `AGENTS.md` primeiro
-- UI/layout/contato/tipografia/paleta: role **UX Design Engineer** (`docs/design.md`)
-- Specs e docs de processo em pt-BR
-- Não quebrar a versão ativa sem promoção explícita via `activeVersion`
+- Read `AGENTS.md` first
+- UI / layout / contact / typography / palette: **UX Design Engineer** role (`docs/design.md`)
+- Specs and process docs in English
+- Do not break the active version without an explicit `activeVersion` promotion

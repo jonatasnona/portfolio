@@ -1,19 +1,19 @@
 # Portfolio — Jonatas Pedraza
 
-Site one-page (Astro + TypeScript) publicado no GitHub Pages.
+One-page personal site (Astro + TypeScript) for GitHub Pages.
 
-- Produção: `https://jonatasnona.github.io/portfolio/`
-- Idiomas: PT (default), EN, ES
-- Layouts versionados: ver [docs/layout-versions.md](docs/layout-versions.md)
+- Production: `https://jonatasnona.github.io/portfolio/`
+- Locales: PT (default), EN, ES
+- Versioned layouts: see [docs/layout-versions.md](docs/layout-versions.md)
 
-## Desenvolvimento
+## Development
 
 ```sh
 npm install
 npm run dev
 ```
 
-Abra `http://localhost:4321/portfolio/`.
+Open `http://localhost:4321/portfolio/`.
 
 ```sh
 npm run check
@@ -21,20 +21,23 @@ npm run build
 npm run preview
 ```
 
-## Estrutura rápida
+In `npm run dev`, use the bottom-right DevTools panel to switch typography, color palette, and layout previews (`/v/<id>/`).
 
-| Caminho | Uso |
-|---------|-----|
-| `src/content/` | Copy pt/en/es |
-| `src/versions/v1/` | Layout ativo |
-| `src/site.config.ts` | `activeVersion` e contatos |
-| `docs/` | Arquitetura e fluxo |
-| `AGENTS.md` | Guia para agentes |
+## Quick structure
+
+| Path | Purpose |
+|------|---------|
+| `src/content/` | Copy for pt / en / es |
+| `src/versions/` | Layout versions (`v1`–`v15`) |
+| `src/site.config.ts` | `activeVersion`, contacts, assets |
+| `src/components/` | Shared UI (`ContactLinks`, `DevTools`, …) |
+| `docs/` | Architecture & process |
+| `AGENTS.md` | Guidance for AI agents |
 
 ## Deploy
 
-Por enquanto o workflow só roda **manual** (`workflow_dispatch`) — push em `main` não publica.
+The GitHub Actions workflow is **manual only** (`workflow_dispatch`) for now — pushes to `main` do not publish.
 
-Actions → Deploy GitHub Pages → Run workflow.
+Actions → **Deploy GitHub Pages** → Run workflow.
 
-Detalhes: [docs/github-pages.md](docs/github-pages.md).
+Details: [docs/github-pages.md](docs/github-pages.md).

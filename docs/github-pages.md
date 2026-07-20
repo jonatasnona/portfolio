@@ -1,22 +1,22 @@
 # GitHub Pages
 
-## Configuração Astro
+## Astro config
 
 - `site`: `https://jonatasnona.github.io`
-- `base`: `/portfolio` (project site do repo `portfolio`)
+- `base`: `/portfolio` (project site for the `portfolio` repo)
 - `trailingSlash`: `always`
 
-Se o site virar user site (`jonatasnona.github.io`), mudar `base` para `/` e ajustar workflow/paths.
+If this becomes a user site (`jonatasnona.github.io`), set `base` to `/` and adjust the workflow/paths.
 
 ## Workflow
 
-Arquivo: `.github/workflows/deploy.yml`
+File: `.github/workflows/deploy.yml`
 
-**Deploy está só em `workflow_dispatch`** (manual) até a revisão fechar. Push em `main` **não** publica.
+**Deploy is `workflow_dispatch` only** (manual) until review is done. Pushes to `main` do **not** publish.
 
-Para publicar: Actions → “Deploy GitHub Pages” → Run workflow.
+To publish: Actions → “Deploy GitHub Pages” → Run workflow.
 
-Quando quiser auto-deploy, reative no YAML:
+When you want auto-deploy, restore in the YAML:
 
 ```yaml
 on:
@@ -25,18 +25,18 @@ on:
   workflow_dispatch:
 ```
 
-Passos do job:
+Job steps:
 
 1. Checkout
 2. Setup Node
 3. `npm ci`
 4. `npm run check` + `npm run build`
-5. Upload de `dist/` como Pages artifact
-6. Deploy com `actions/deploy-pages`
+5. Upload `dist/` as a Pages artifact
+6. Deploy with `actions/deploy-pages`
 
-No GitHub: Settings → Pages → Source = **GitHub Actions**.
+On GitHub: Settings → Pages → Source = **GitHub Actions**.
 
-## URLs locais
+## Local URLs
 
 ```sh
 npm run dev
@@ -47,10 +47,10 @@ npm run dev
 npm run build && npm run preview
 ```
 
-## Checklist pós-deploy
+## Post-deploy checklist
 
-- [ ] Home PT carrega com assets (logo + PDF)
-- [ ] `/en/` e `/es/` ok
-- [ ] Seletor de idioma troca locale
-- [ ] `/v/v1/` mostra banner de preview
-- [ ] Âncoras do menu funcionam com base path
+- [ ] PT home loads with assets (logo + PDF)
+- [ ] `/en/` and `/es/` work
+- [ ] Language switcher changes locale
+- [ ] `/v/v1/` shows the preview banner
+- [ ] Menu anchors work with the base path

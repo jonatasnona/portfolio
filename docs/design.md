@@ -1,57 +1,57 @@
-# Design do portfolio
+# Portfolio design
 
-## Role padrão para UI/UX
+## Default UI/UX role
 
-Para sugestões e mudanças de layout, tipografia, paleta, seções e contato, o agente atua como **UX Design Engineer**:
+For layout, typography, palette, section, and contact suggestions or changes, the agent acts as a **UX Design Engineer**:
 
-- **UX / product design** — hierarquia, escaneabilidade, jornada do contratante
-- **Frontend** — Astro, CSS tokens, i18n de copy, acessibilidade, responsivo
+- **UX / product design** — hierarchy, scanability, hiring-manager journey
+- **Frontend** — Astro, CSS tokens, copy i18n, accessibility, responsive behavior
 
-Regra Cursor: `.cursor/rules/portfolio-ux-frontend.mdc` (ativa em `src/versions/**`, `src/styles/**`, `src/components/**`).
+Cursor rule: `.cursor/rules/portfolio-ux-frontend.mdc` (active on `src/versions/**`, `src/styles/**`, `src/components/**`).
 
-## Objetivo da interface
+## Interface goal
 
-Em poucos segundos o visitante deve entender:
+Within a few seconds the visitor should understand:
 
-1. Quem é (nome / marca)
-2. O que faz (headline + apoio)
-3. Como falar / baixar currículo
+1. Who it is (name / brand)
+2. What they do (headline + support line)
+3. How to reach out / download the resume
 
-Tudo o mais serve esse funil — não compete com ele.
+Everything else serves that funnel — it must not compete with it.
 
-## Sistema visual
+## Visual system
 
-| Camada | Onde | Dev switcher |
-|--------|------|----------------|
-| Tipografia | `src/styles/typography.css` (`data-fonts`) | DevTools → Tipografia |
-| Paleta | `src/styles/palettes.css` (`data-palette`) | DevTools → Paleta |
-| Espaço / base | `src/styles/tokens.css` | — |
-| Composição | `src/versions/<id>/` | DevTools → Layout |
+| Layer | Where | Dev switcher |
+|-------|-------|----------------|
+| Typography | `src/styles/typography.css` (`data-fonts`) | DevTools → Typography |
+| Palette | `src/styles/palettes.css` (`data-palette`) | DevTools → Palette |
+| Space / base | `src/styles/tokens.css` | — |
+| Composition | `src/versions/<id>/` | DevTools → Layout |
 
-Produção: tipografia/paleta padrão no HTML; layout = `siteConfig.activeVersion`.
+Production: default typography/palette on HTML; layout = `siteConfig.activeVersion`.
 
-## Contato (diretriz)
+## Contact (guideline)
 
-- Componente: `src/components/ContactLinks.astro`
-- Ícones: e-mail, LinkedIn, GitHub, **currículo** (sempre)
-- **Localização principal:** header / top bar via `variant="header"` — ação sempre visível, junto ao seletor de idioma
-- **Seção `#contato` removida** na maioria dos layouts; CTA do hero usa `mailto:${siteConfig.email}`
-- **Fecho leve (`#fecho`)** só em Poster (v7), Twin (v10) e Folio (v13): copy curta + ícones (`spread` / `rail` / `spread`) + copyright — sem heading grande de contato
-- Variantes de fecho: `row` | `stack` | `rail` | `spread` | `mono` | `inline` — cada layout painel escolhe uma
-- Nav / dots: sem item para contato; em v7 o último ponto aponta para `#fecho`
-- `aria-label` via `content.contact.labels` + `content.nav.resume`
+- Component: `src/components/ContactLinks.astro`
+- Icons: email, LinkedIn, GitHub, **resume** (always)
+- **Primary placement:** header / top bar via `variant="header"` — always visible, next to the language switcher
+- **`#contato` section removed** on most layouts; hero CTA uses `mailto:${siteConfig.email}`
+- **Light closing (`#fecho`)** only on Poster (v7), Twin (v10), and Folio (v13): short copy + icons (`spread` / `rail` / `spread`) + copyright — no large contact heading
+- Closing variants: `row` | `stack` | `rail` | `spread` | `mono` | `inline` — each panel layout picks one
+- Nav / dots: no contact item; on v7 the last dot points to `#fecho`
+- `aria-label` from `content.contact.labels` + `content.nav.resume`
 
-## Checklist rápido (antes de shippar UI)
+## Quick checklist (before shipping UI)
 
-- [ ] First viewport ainda lê como uma composição?
-- [ ] Brand não sumiu atrás da headline?
-- [ ] Tokens de cor/tipo usados (não hex soltos)?
-- [ ] Ícones de contato têm nome acessível?
-- [ ] Mobile: alvos ≥ ~44px, sem overflow horizontal?
-- [ ] Preview em `/v/<id>/` se a mudança for grande?
+- [ ] Does the first viewport still read as one composition?
+- [ ] Is the brand still stronger than the headline?
+- [ ] Are color/type tokens used (no stray hex)?
+- [ ] Do contact icons have accessible names?
+- [ ] Mobile: targets ≥ ~44px, no horizontal overflow?
+- [ ] Preview at `/v/<id>/` if the change is large?
 
-## Relacionado
+## Related
 
-- Versões: `docs/layout-versions.md`
-- Arquitetura: `docs/architecture.md`
-- Operação agentes: `AGENTS.md`
+- Versions: `docs/layout-versions.md`
+- Architecture: `docs/architecture.md`
+- Agent ops: `AGENTS.md`
