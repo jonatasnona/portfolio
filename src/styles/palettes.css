@@ -1,0 +1,144 @@
+/**
+ * Paletas — trocar via data-palette no <html>
+ * Dev switcher: só em import.meta.env.DEV
+ *
+ * mandril — Ubuntu / Mandril (padrão)
+ * slate   — aço + teal
+ * forest  — verde profundo + âmbar
+ * noir    — carvão + azul elétrico
+ * clay    — pedra quente + índigo
+ * ocean   — navy + coral
+ */
+
+:root,
+html[data-palette='mandril'] {
+	--color-ink: #2c001e;
+	--color-ink-soft: #5e2750;
+	--color-muted: #7a726c;
+	--color-surface: #f7f3ef;
+	--color-surface-elevated: #fffdfb;
+	--color-accent: #e95420;
+	--color-accent-deep: #c7461a;
+	--color-brand: #77216f;
+	--color-brand-mid: #5e2750;
+	--color-line: rgba(119, 33, 111, 0.14);
+	--color-glow: rgba(233, 84, 32, 0.18);
+	--color-glow-alt: rgba(74, 45, 117, 0.14);
+	--color-bg-top: #fbf8f4;
+	--color-bg-bot: #f3eee8;
+	--color-canvas: #efe8df;
+	--color-paper: #fbf7f0;
+	--color-on-brand: #ffffff;
+	--color-on-ink: #f8f2ea;
+	--color-preview-link: #ffd7c4;
+}
+
+html[data-palette='slate'] {
+	--color-ink: #1a2332;
+	--color-ink-soft: #3d4f66;
+	--color-muted: #6b7785;
+	--color-surface: #eef1f5;
+	--color-surface-elevated: #f8fafc;
+	--color-accent: #0d9488;
+	--color-accent-deep: #0f766e;
+	--color-brand: #334155;
+	--color-brand-mid: #475569;
+	--color-line: rgba(51, 65, 85, 0.16);
+	--color-glow: rgba(13, 148, 136, 0.16);
+	--color-glow-alt: rgba(71, 85, 105, 0.12);
+	--color-bg-top: #f4f7fa;
+	--color-bg-bot: #e8edf2;
+	--color-canvas: #e2e8f0;
+	--color-paper: #f1f5f9;
+	--color-on-brand: #ffffff;
+	--color-on-ink: #eef2f7;
+	--color-preview-link: #99f6e4;
+}
+
+html[data-palette='forest'] {
+	--color-ink: #14261c;
+	--color-ink-soft: #2d4a38;
+	--color-muted: #6a756c;
+	--color-surface: #eef2eb;
+	--color-surface-elevated: #f7faf5;
+	--color-accent: #c8922a;
+	--color-accent-deep: #a6761f;
+	--color-brand: #1f4d36;
+	--color-brand-mid: #2a6346;
+	--color-line: rgba(31, 77, 54, 0.16);
+	--color-glow: rgba(200, 146, 42, 0.18);
+	--color-glow-alt: rgba(42, 99, 70, 0.12);
+	--color-bg-top: #f5f8f2;
+	--color-bg-bot: #e6ebe0;
+	--color-canvas: #dde5d6;
+	--color-paper: #f2f6ee;
+	--color-on-brand: #ffffff;
+	--color-on-ink: #eef5ea;
+	--color-preview-link: #f5d78e;
+}
+
+html[data-palette='noir'] {
+	--color-ink: #0e1116;
+	--color-ink-soft: #2a303a;
+	--color-muted: #6e7580;
+	--color-surface: #eceef1;
+	--color-surface-elevated: #f7f8fa;
+	--color-accent: #3b82f6;
+	--color-accent-deep: #2563eb;
+	--color-brand: #111827;
+	--color-brand-mid: #1f2937;
+	--color-line: rgba(17, 24, 39, 0.14);
+	--color-glow: rgba(59, 130, 246, 0.16);
+	--color-glow-alt: rgba(31, 41, 55, 0.1);
+	--color-bg-top: #f4f5f7;
+	--color-bg-bot: #e5e7eb;
+	--color-canvas: #dfe3e8;
+	--color-paper: #f3f4f6;
+	--color-on-brand: #ffffff;
+	--color-on-ink: #f3f4f6;
+	--color-preview-link: #93c5fd;
+}
+
+html[data-palette='clay'] {
+	--color-ink: #1f1a17;
+	--color-ink-soft: #4a4038;
+	--color-muted: #7a7168;
+	--color-surface: #f0ebe4;
+	--color-surface-elevated: #faf7f3;
+	--color-accent: #4f46e5;
+	--color-accent-deep: #4338ca;
+	--color-brand: #3b322c;
+	--color-brand-mid: #52463d;
+	--color-line: rgba(59, 50, 44, 0.14);
+	--color-glow: rgba(79, 70, 229, 0.14);
+	--color-glow-alt: rgba(82, 70, 61, 0.1);
+	--color-bg-top: #f7f3ee;
+	--color-bg-bot: #ebe4db;
+	--color-canvas: #e4dbd0;
+	--color-paper: #f5f0ea;
+	--color-on-brand: #ffffff;
+	--color-on-ink: #f5f0ea;
+	--color-preview-link: #c7d2fe;
+}
+
+html[data-palette='ocean'] {
+	--color-ink: #0b1f2a;
+	--color-ink-soft: #1e3a4c;
+	--color-muted: #6a7c88;
+	--color-surface: #eaf1f4;
+	--color-surface-elevated: #f5fafc;
+	--color-accent: #f07167;
+	--color-accent-deep: #d9554c;
+	--color-brand: #0e4d6b;
+	--color-brand-mid: #166088;
+	--color-line: rgba(14, 77, 107, 0.16);
+	--color-glow: rgba(240, 113, 103, 0.16);
+	--color-glow-alt: rgba(22, 96, 136, 0.12);
+	--color-bg-top: #f2f7fa;
+	--color-bg-bot: #e0ebf0;
+	--color-canvas: #d4e2ea;
+	--color-paper: #eef5f8;
+	--color-on-brand: #ffffff;
+	--color-on-ink: #eaf4f8;
+	--color-preview-link: #ffc9c4;
+}

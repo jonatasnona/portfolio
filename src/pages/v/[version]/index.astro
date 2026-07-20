@@ -1,0 +1,18 @@
+---
+import { getContent } from '../../../content';
+import { isVersionId, loadVersionLayout, versionIds } from '../../../versions/registry';
+
+export function getStaticPaths() {
+	return versionIds.map((version) => ({ params: { version } }));
+}
+
+const { version } = Astro.params;
+if (!version || !isVersionId(version)) {
+	return Astro.redirect('../../');
+}
+
+const Layout = await loadVersionLayout(version);
+const content = getContent('pt');
+---
+
+<Layout locale="pt" content={content} versionId={version} isPreview />

@@ -1,0 +1,15 @@
+---
+import { getContent } from '../../content';
+import { siteConfig } from '../../site.config';
+import { isVersionId, loadVersionLayout } from '../../versions/registry';
+
+const versionId = siteConfig.activeVersion;
+if (!isVersionId(versionId)) {
+	throw new Error(`activeVersion inválida: ${versionId}`);
+}
+
+const Layout = await loadVersionLayout(versionId);
+const content = getContent('en');
+---
+
+<Layout locale="en" content={content} versionId={versionId} />

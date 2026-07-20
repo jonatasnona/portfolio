@@ -1,0 +1,249 @@
+---
+/**
+ * Painel DEV: tipografia + paleta + layout (ao vivo).
+ * Layouts navegam para /v/<id>/ — tipografia e paleta trocam via CSS.
+ */
+import type { Locale } from '../site.config';
+import type { VersionId } from '../versions/registry';
+import { versionIds, versionMeta } from '../versions/registry';
+import { siteConfig } from '../site.config';
+
+type Props = {
+	locale: Locale;
+	versionId: VersionId;
+};
+
+const isDev = import.meta.env.DEV;
+const { locale, versionId } = Astro.props;
+const base = siteConfig.base.replace(/\/$/, '') || '';
+
+const palettes = [
+	{ id: 'mandril', label: 'Mandril', title: 'Ubuntu / Mandril' },
+	{ id: 'slate', label: 'Slate', title: 'Aço + teal' },
+	{ id: 'forest', label: 'Forest', title: 'Verde + âmbar' },
+	{ id: 'noir', label: 'Noir', title: 'Carvão + azul' },
+	{ id: 'clay', label: 'Clay', title: 'Pedra + índigo' },
+	{ id: 'ocean', label: 'Ocean', title: 'Navy + coral' },
+] as const;
+---
+
+{
+	isDev && (
+		<div
+			class="dev-tools"
+			data-dev-tools
+			data-base={base}
+			data-locale={locale}
+			data-version={versionId}
+		>
+			<div class="dev-tools__block" data-dev-fonts>
+				<p class="dev-tools__label">Tipografia</p>
+				<div class="dev-tools__row" role="group" aria-label="Tipografia">
+					<button type="button" data-fonts="outfit" title="Outfit + Literata">
+						Outfit
+					</button>
+					<button type="button" data-fonts="space" title="Space Grotesk + Source Serif 4">
+						Space
+					</button>
+					<button type="button" data-fonts="bricolage" title="Bricolage + Figtree">
+						Bricolage
+					</button>
+				</div>
+			</div>
+
+			<div class="dev-tools__block" data-dev-palettes>
+				<p class="dev-tools__label">Paleta</p>
+				<div class="dev-tools__row" role="group" aria-label="Paletas">
+					{
+						palettes.map((p) => (
+							<button type="button" data-palette={p.id} title={p.title}>
+								{p.label}
+							</button>
+						))
+					}
+				</div>
+			</div>
+
+			<div class="dev-tools__block" data-dev-layouts>
+				<p class="dev-tools__label">Layout</p>
+				<div class="dev-tools__row" role="group" aria-label="Layouts">
+					{
+						versionIds.map((id) => (
+							<button
+								type="button"
+								data-layout={id}
+								title={`${versionMeta[id].title}: ${versionMeta[id].blurb}`}
+								aria-pressed={id === versionId ? 'true' : 'false'}
+							>
+								{versionMeta[id].label} · {versionMeta[id].title}
+							</button>
+						))
+					}
+				</div>
+			</div>
+		</div>
+	)
+}
+
+{
+	isDev && (
+		<script is:inline>
+			(() => {
+				const tools = document.querySelector('[data-dev-tools]');
+				if (!tools) return;
+
+				const FONT_KEY = 'portfolio:dev-fonts';
+				const PALETTE_KEY = 'portfolio:dev-palette';
+				const LAYOUT_KEY = 'portfolio:dev-layout';
+				const FONTS = new Set(['outfit', 'space', 'bricolage']);
+				const PALETTES = new Set(['mandril', 'slate', 'forest', 'noir', 'clay', 'ocean']);
+				const FONT_DEFAULT = 'outfit';
+				const PALETTE_DEFAULT = 'mandril';
+				const root = document.documentElement;
+				const fontPanel = tools.querySelector('[data-dev-fonts]');
+				const palettePanel = tools.querySelector('[data-dev-palettes]');
+				const layoutPanel = tools.querySelector('[data-dev-layouts]');
+				const base = tools.getAttribute('data-base') || '';
+				const locale = tools.getAttribute('data-locale') || 'pt';
+
+				const applyFont = (id) => {
+					if (!FONTS.has(id)) id = FONT_DEFAULT;
+					root.setAttribute('data-fonts', id);
+					try {
+						localStorage.setItem(FONT_KEY, id);
+					} catch {}
+					fontPanel?.querySelectorAll('button[data-fonts]').forEach((btn) => {
+						btn.setAttribute(
+							'aria-pressed',
+							btn.getAttribute('data-fonts') === id ? 'true' : 'false',
+						);
+					});
+				};
+
+				const applyPalette = (id) => {
+					if (!PALETTES.has(id)) id = PALETTE_DEFAULT;
+					root.setAttribute('data-palette', id);
+					try {
+						localStorage.setItem(PALETTE_KEY, id);
+					} catch {}
+					palettePanel?.querySelectorAll('button[data-palette]').forEach((btn) => {
+						btn.setAttribute(
+							'aria-pressed',
+							btn.getAttribute('data-palette') === id ? 'true' : 'false',
+						);
+					});
+				};
+
+				let fontInitial = FONT_DEFAULT;
+				let paletteInitial = PALETTE_DEFAULT;
+				try {
+					const savedFont = localStorage.getItem(FONT_KEY);
+					if (savedFont && FONTS.has(savedFont)) fontInitial = savedFont;
+					const savedPalette = localStorage.getItem(PALETTE_KEY);
+					if (savedPalette && PALETTES.has(savedPalette)) paletteInitial = savedPalette;
+				} catch {}
+				applyFont(fontInitial);
+				applyPalette(paletteInitial);
+
+				fontPanel?.addEventListener('click', (event) => {
+					const btn = event.target.closest('button[data-fonts]');
+					if (!btn) return;
+					applyFont(btn.getAttribute('data-fonts'));
+				});
+
+				palettePanel?.addEventListener('click', (event) => {
+					const btn = event.target.closest('button[data-palette]');
+					if (!btn) return;
+					applyPalette(btn.getAttribute('data-palette'));
+				});
+
+				const layoutUrl = (id) => {
+					if (locale === 'pt') return `${base}/v/${id}/`;
+					return `${base}/v/${id}/${locale}/`;
+				};
+
+				layoutPanel?.addEventListener('click', (event) => {
+					const btn = event.target.closest('button[data-layout]');
+					if (!btn) return;
+					const id = btn.getAttribute('data-layout');
+					if (!id) return;
+					try {
+						localStorage.setItem(LAYOUT_KEY, id);
+					} catch {}
+					const next = layoutUrl(id);
+					if (location.pathname.replace(/\/$/, '') === next.replace(/\/$/, '')) return;
+					location.assign(next);
+				});
+			})();
+		</script>
+	)
+}
+
+<style>
+	.dev-tools {
+		position: fixed;
+		right: 1rem;
+		bottom: 1rem;
+		z-index: 100;
+		display: grid;
+		gap: 0.75rem;
+		width: min(24rem, calc(100vw - 2rem));
+		max-height: min(70vh, 36rem);
+		overflow: auto;
+		padding: 0.75rem 0.85rem;
+		border: 1px solid var(--color-line);
+		border-radius: 0.55rem;
+		background: color-mix(in srgb, var(--color-surface-elevated) 96%, transparent);
+		box-shadow: var(--shadow-soft);
+		backdrop-filter: blur(10px);
+		font-family: var(--font-body);
+	}
+
+	.dev-tools__block {
+		display: grid;
+		gap: 0.4rem;
+	}
+
+	.dev-tools__label {
+		margin: 0;
+		font-size: 0.68rem;
+		font-weight: 700;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+	}
+
+	.dev-tools__row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+	}
+
+	.dev-tools__row button {
+		appearance: none;
+		border: 1px solid var(--color-line);
+		border-radius: 0.3rem;
+		background: var(--color-surface-elevated);
+		color: var(--color-ink-soft);
+		font: inherit;
+		font-size: 0.72rem;
+		font-weight: 700;
+		padding: 0.38rem 0.5rem;
+		cursor: pointer;
+		transition:
+			background 0.15s var(--ease-out),
+			color 0.15s var(--ease-out),
+			border-color 0.15s var(--ease-out);
+	}
+
+	.dev-tools__row button:hover {
+		border-color: var(--color-accent);
+		color: var(--color-brand);
+	}
+
+	.dev-tools__row button[aria-pressed='true'] {
+		background: var(--color-brand);
+		border-color: var(--color-brand);
+		color: var(--color-on-brand);
+	}
+</style>

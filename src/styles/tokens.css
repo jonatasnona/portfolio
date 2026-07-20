@@ -1,0 +1,106 @@
+@import './palettes.css';
+
+:root {
+	/* Cores: ver palettes.css (data-palette) */
+	--font-display: 'Outfit', 'Avenir Next', 'Segoe UI', sans-serif;
+	--font-body: 'Literata', 'Iowan Old Style', Georgia, serif;
+	--font-display-weight: 700;
+	--font-tracking-display: -0.025em;
+
+	--space-xs: 0.5rem;
+	--space-sm: 0.875rem;
+	--space-md: 1.5rem;
+	--space-lg: 2.5rem;
+	--space-xl: 4.5rem;
+	--space-2xl: 7rem;
+
+	--radius: 0.35rem;
+	--max-width: 68rem;
+	--header-h: 4.25rem;
+
+	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+	--shadow-soft: 0 18px 50px rgba(26, 18, 40, 0.08);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	color: var(--color-ink);
+	font-family: var(--font-body);
+	font-size: 1.05rem;
+	line-height: 1.65;
+	background:
+		radial-gradient(1200px 600px at 10% -10%, var(--color-glow), transparent 55%),
+		radial-gradient(900px 500px at 90% 0%, var(--color-glow-alt), transparent 50%),
+		linear-gradient(180deg, var(--color-bg-top) 0%, var(--color-surface) 45%, var(--color-bg-bot) 100%);
+	background-attachment: fixed;
+}
+
+img {
+	max-width: 100%;
+	display: block;
+}
+
+a {
+	color: inherit;
+}
+
+:focus-visible {
+	outline: 2px solid var(--color-accent);
+	outline-offset: 3px;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+@keyframes rise-in {
+	from {
+		opacity: 0;
+		transform: translateY(1.1rem);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}

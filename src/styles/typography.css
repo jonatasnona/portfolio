@@ -1,0 +1,30 @@
+/**
+ * Temas tipográficos — trocar via data-fonts no <html>
+ * Dev switcher: só em import.meta.env.DEV
+ *
+ * A) outfit    — Outfit + Literata (padrão)
+ * B) space     — Space Grotesk + Source Serif 4
+ * C) bricolage — Bricolage Grotesque + Figtree
+ */
+
+:root,
+html[data-fonts='outfit'] {
+	--font-display: 'Outfit', 'Avenir Next', 'Segoe UI', sans-serif;
+	--font-body: 'Literata', 'Iowan Old Style', Georgia, serif;
+	--font-display-weight: 700;
+	--font-tracking-display: -0.025em;
+}
+
+html[data-fonts='space'] {
+	--font-display: 'Space Grotesk', 'Avenir Next', 'Segoe UI', sans-serif;
+	--font-body: 'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+	--font-display-weight: 700;
+	--font-tracking-display: -0.03em;
+}
+
+html[data-fonts='bricolage'] {
+	--font-display: 'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', sans-serif;
+	--font-body: 'Figtree', 'Gill Sans', 'Trebuchet MS', sans-serif;
+	--font-display-weight: 700;
+	--font-tracking-display: -0.035em;
+}

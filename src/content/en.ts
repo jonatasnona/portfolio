@@ -1,0 +1,208 @@
+import type { PortfolioContent } from './types';
+
+export const en: PortfolioContent = {
+	meta: {
+		title: 'Jonatas Pedraza — Software Engineer',
+		description:
+			'Software Engineer focused on backend, architecture, cloud, and DevOps. Experience across credit, payments, delivery, telecom, and video platforms.',
+	},
+	nav: {
+		about: 'About',
+		experience: 'Experience',
+		skills: 'Skills',
+		contact: 'Contact',
+		resume: 'Resume',
+		versionPreview: 'Layout versions',
+	},
+	hero: {
+		eyebrow: 'Jonatas Pedraza',
+		headline: 'Software Engineer',
+		tagline:
+			'Backend, architecture, and cloud for products that must scale with reliability.',
+		ctaContact: 'Get in touch',
+		ctaResume: 'Download resume',
+	},
+	about: {
+		title: 'About',
+		body: 'Software Engineer with experience in backend development, scalable platforms, software architecture, cloud computing, and DevOps practices. Worked on credit, payments, delivery, telecom, video, and big data products — from requirements and architectural design through implementation, observability, automation, and production support. Generalist, collaborative, quality-oriented profile with a strong foundation in Node.js, TypeScript, Python, AWS, relational and NoSQL databases, messaging/cache, and infrastructure as code.',
+	},
+	experience: {
+		title: 'Experience',
+		items: [
+			{
+				company: 'Nuvemshop',
+				role: 'Software Engineer',
+				period: 'Mar 2024 — Present',
+				location: 'São Paulo, Brazil',
+				bullets: [
+					'Building and evolving the credit platform with focus on scalability, reliability, and business alignment.',
+					'Integrating partner APIs for credit engine flows, data exchange, and process automation.',
+					'Developing internal backoffice tools in a lean squad with product, design, and operations.',
+					'Investigating and resolving production incidents with Datadog and observability practices.',
+				],
+				technologies: [
+					'TypeScript',
+					'Node.js',
+					'React',
+					'PostgreSQL',
+					'Redis',
+					'AWS',
+					'Datadog',
+				],
+			},
+			{
+				company: 'Delivery Much Brasil',
+				role: 'Software Architect',
+				period: 'Jun 2021 — Feb 2024',
+				location: 'Santa Catarina, Brazil',
+				bullets: [
+					'Designed and delivered food-delivery solutions using microservices, design patterns, and AWS.',
+					'Led requirements analysis, refinements, and technical alignment with the business.',
+					'Supported tech leads on standards, architecture, documentation, and CI practices.',
+					'Coded in critical squads dealing with legacy systems, integrations, and high-priority deliveries.',
+				],
+				technologies: [
+					'NestJS',
+					'Node.js',
+					'TypeScript',
+					'Docker',
+					'MongoDB',
+					'PostgreSQL',
+					'Redis',
+					'Elasticsearch',
+				],
+			},
+			{
+				company: 'Pagar.me',
+				role: 'Software Engineer',
+				period: 'Aug 2017 — Jun 2021',
+				location: 'São Paulo, Brazil',
+				bullets: [
+					'SRE work on online payment systems: architecture, development, and infrastructure improvement.',
+					'Supported squads on Elasticsearch clusters and DevOps practices for performance, reliability, and scale.',
+				],
+				technologies: [
+					'Python',
+					'JavaScript',
+					'Go',
+					'C#',
+					'AWS',
+					'Terraform',
+					'Packer',
+					'Ansible',
+					'Docker',
+				],
+			},
+			{
+				company: 'Nokia Networks',
+				role: 'System Integration Engineer',
+				period: 'Dec 2015 — Aug 2017',
+				location: 'Rio de Janeiro, Brazil',
+				bullets: [
+					'Developed, provisioned, and orchestrated telecom solutions, including IoT and ETL with Greenplum and MySQL.',
+					'Automated Linux environments with Ansible and Shell Script using cloud, Git, Elasticsearch, and design patterns.',
+				],
+				technologies: [
+					'Ansible',
+					'Shell Script',
+					'Linux',
+					'MySQL',
+					'Greenplum',
+					'Elasticsearch',
+					'Git',
+				],
+			},
+			{
+				company: 'Globo.com',
+				role: 'Software Engineer',
+				period: 'Nov 2014 — Nov 2015',
+				location: 'Brazil',
+				bullets: [
+					'Backend services for the video platform focused on performance, scale, and resilience (live and on-demand).',
+					'Contributed to DevOps and CI/CD with Python, Node.js, Redis, Docker, PostgreSQL, MongoDB, Elasticsearch, and Nginx.',
+				],
+				technologies: [
+					'Python',
+					'Node.js',
+					'JavaScript',
+					'Redis',
+					'Docker',
+					'PostgreSQL',
+					'MongoDB',
+					'Elasticsearch',
+					'Nginx',
+				],
+			},
+		],
+	},
+	skills: {
+		title: 'Skills',
+		groups: [
+			{
+				title: 'Backend & APIs',
+				items: [
+					'Node.js',
+					'TypeScript',
+					'NestJS',
+					'Python',
+					'Go',
+					'C#',
+					'REST',
+					'Microservices',
+				],
+			},
+			{
+				title: 'Architecture',
+				items: [
+					'Clean Code',
+					'Clean Architecture',
+					'Design patterns',
+					'Distributed systems',
+					'Scalability',
+					'Resilience',
+				],
+			},
+			{
+				title: 'Cloud & DevOps',
+				items: [
+					'AWS',
+					'Docker',
+					'Terraform',
+					'Packer',
+					'Ansible',
+					'CI/CD',
+					'Linux',
+					'Shell Script',
+				],
+			},
+			{
+				title: 'Data & Observability',
+				items: [
+					'PostgreSQL',
+					'MySQL',
+					'MongoDB',
+					'Redis',
+					'Elasticsearch',
+					'Datadog',
+					'Metrics',
+					'Logs',
+				],
+			},
+		],
+	},
+	contact: {
+		title: 'Contact',
+		body: 'Open to conversations about engineering, architecture, and opportunities. Prefer email or LinkedIn.',
+		ctaEmail: 'Send email',
+		labels: {
+			email: 'Email',
+			linkedin: 'LinkedIn',
+			github: 'GitHub',
+			location: 'Location',
+		},
+	},
+	footer: {
+		rights: 'Jonatas Pedraza. All rights reserved.',
+		brandNote: 'Visual identity: Mandril Solutions',
+	},
+};

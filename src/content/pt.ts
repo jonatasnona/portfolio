@@ -1,0 +1,208 @@
+import type { PortfolioContent } from './types';
+
+export const pt: PortfolioContent = {
+	meta: {
+		title: 'Jonatas Pedraza — Engenheiro de Software',
+		description:
+			'Engenheiro de Software com foco em backend, arquitetura, cloud e DevOps. Experiência em crédito, pagamentos, delivery, telecom e vídeo.',
+	},
+	nav: {
+		about: 'Sobre',
+		experience: 'Experiência',
+		skills: 'Competências',
+		contact: 'Contato',
+		resume: 'Currículo',
+		versionPreview: 'Versões de layout',
+	},
+	hero: {
+		eyebrow: 'Jonatas Pedraza',
+		headline: 'Engenheiro de Software',
+		tagline:
+			'Backend, arquitetura e cloud para produtos que precisam escalar com confiabilidade.',
+		ctaContact: 'Fale comigo',
+		ctaResume: 'Baixar currículo',
+	},
+	about: {
+		title: 'Sobre',
+		body: 'Engenheiro de Software com experiência em desenvolvimento backend, plataformas escaláveis, arquitetura de software, cloud computing e práticas DevOps. Atuação em produtos de crédito, pagamentos, delivery, telecom, vídeo e big data, contribuindo desde a análise de requisitos e desenho arquitetural até implementação, observabilidade, automação e sustentação de sistemas em produção. Perfil generalista, colaborativo e orientado à qualidade, com forte base em Node.js, TypeScript, Python, AWS, bancos de dados relacionais e NoSQL, mensageria/cache e infraestrutura como código.',
+	},
+	experience: {
+		title: 'Experiência',
+		items: [
+			{
+				company: 'Nuvemshop',
+				role: 'Engenheiro de Software',
+				period: 'Mar 2024 — Atual',
+				location: 'São Paulo, Brasil',
+				bullets: [
+					'Construção e evolução da plataforma de crédito, com foco em escalabilidade, confiabilidade e alinhamento ao negócio.',
+					'Integração de APIs com parceiros estratégicos para fluxos do motor de crédito, troca de dados e automação.',
+					'Desenvolvimento de ferramentas internas de backoffice em squad enxuto com produto, design e operações.',
+					'Investigação e resolução de incidentes em produção com Datadog e práticas de observabilidade.',
+				],
+				technologies: [
+					'TypeScript',
+					'Node.js',
+					'React',
+					'PostgreSQL',
+					'Redis',
+					'AWS',
+					'Datadog',
+				],
+			},
+			{
+				company: 'Delivery Much Brasil',
+				role: 'Software Architect',
+				period: 'Jun 2021 — Fev 2024',
+				location: 'Santa Catarina, Brasil',
+				bullets: [
+					'Desenho e implementação de soluções para food delivery com microserviços, design patterns e AWS.',
+					'Condução de análise de requisitos, refinamentos e alinhamentos técnicos com o negócio.',
+					'Apoio a tech leads na definição de padrões, arquitetura, documentação e CI.',
+					'Atuação como desenvolvedor em times críticos com legado, integrações e entregas de alta prioridade.',
+				],
+				technologies: [
+					'NestJS',
+					'Node.js',
+					'TypeScript',
+					'Docker',
+					'MongoDB',
+					'PostgreSQL',
+					'Redis',
+					'Elasticsearch',
+				],
+			},
+			{
+				company: 'Pagar.me',
+				role: 'Software Engineer',
+				period: 'Ago 2017 — Jun 2021',
+				location: 'São Paulo, Brasil',
+				bullets: [
+					'Atuação no time de SRE em sistemas de pagamentos online: arquitetura, desenvolvimento e melhoria de infraestrutura.',
+					'Suporte a squads em clusters Elasticsearch e práticas DevOps de performance, confiabilidade e escala.',
+				],
+				technologies: [
+					'Python',
+					'JavaScript',
+					'Go',
+					'C#',
+					'AWS',
+					'Terraform',
+					'Packer',
+					'Ansible',
+					'Docker',
+				],
+			},
+			{
+				company: 'Nokia Networks',
+				role: 'System Integration Engineer',
+				period: 'Dez 2015 — Ago 2017',
+				location: 'Rio de Janeiro, Brasil',
+				bullets: [
+					'Desenvolvimento, provisionamento e orquestração de soluções para telecom, incluindo IoT e ETL com Greenplum e MySQL.',
+					'Automação em Linux com Ansible e Shell Script, aplicando cloud, Git, Elasticsearch e padrões de projeto.',
+				],
+				technologies: [
+					'Ansible',
+					'Shell Script',
+					'Linux',
+					'MySQL',
+					'Greenplum',
+					'Elasticsearch',
+					'Git',
+				],
+			},
+			{
+				company: 'Globo.com',
+				role: 'Software Engineer',
+				period: 'Nov 2014 — Nov 2015',
+				location: 'Brasil',
+				bullets: [
+					'Serviços backend para plataforma de vídeo, com foco em performance, escala e resiliência (ao vivo e sob demanda).',
+					'Contribuição em DevOps e CI/CD com Python, Node.js, Redis, Docker, PostgreSQL, MongoDB, Elasticsearch e Nginx.',
+				],
+				technologies: [
+					'Python',
+					'Node.js',
+					'JavaScript',
+					'Redis',
+					'Docker',
+					'PostgreSQL',
+					'MongoDB',
+					'Elasticsearch',
+					'Nginx',
+				],
+			},
+		],
+	},
+	skills: {
+		title: 'Competências',
+		groups: [
+			{
+				title: 'Backend & APIs',
+				items: [
+					'Node.js',
+					'TypeScript',
+					'NestJS',
+					'Python',
+					'Go',
+					'C#',
+					'REST',
+					'Microserviços',
+				],
+			},
+			{
+				title: 'Arquitetura',
+				items: [
+					'Clean Code',
+					'Arquitetura limpa',
+					'Design patterns',
+					'Sistemas distribuídos',
+					'Escalabilidade',
+					'Resiliência',
+				],
+			},
+			{
+				title: 'Cloud & DevOps',
+				items: [
+					'AWS',
+					'Docker',
+					'Terraform',
+					'Packer',
+					'Ansible',
+					'CI/CD',
+					'Linux',
+					'Shell Script',
+				],
+			},
+			{
+				title: 'Dados & Observabilidade',
+				items: [
+					'PostgreSQL',
+					'MySQL',
+					'MongoDB',
+					'Redis',
+					'Elasticsearch',
+					'Datadog',
+					'Métricas',
+					'Logs',
+				],
+			},
+		],
+	},
+	contact: {
+		title: 'Contato',
+		body: 'Aberto a conversas sobre engenharia, arquitetura e oportunidades. Prefira e-mail ou LinkedIn.',
+		ctaEmail: 'Enviar e-mail',
+		labels: {
+			email: 'E-mail',
+			linkedin: 'LinkedIn',
+			github: 'GitHub',
+			location: 'Localização',
+		},
+	},
+	footer: {
+		rights: 'Jonatas Pedraza. Todos os direitos reservados.',
+		brandNote: 'Identidade visual: Mandril Solutions',
+	},
+};
