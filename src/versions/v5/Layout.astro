@@ -1,0 +1,95 @@
+---
+/** v5 · Stack — experiência em cards empilhados */
+import type { Locale } from '../../site.config';
+import type { PortfolioContent } from '../../content/types';
+import type { VersionId } from '../registry';
+import { assetPath, localeHomePath, previewPath } from '../../lib/paths';
+import { locales, siteConfig } from '../../site.config';
+import '../../styles/tokens.css';
+import '../../styles/typography.css';
+import SiteHead from '../../components/SiteHead.astro';
+import DevTools from '../../components/DevTools.astro';
+import ContactLinks from '../../components/ContactLinks.astro';
+
+type Props = { locale: Locale; content: PortfolioContent; versionId: VersionId; isPreview?: boolean };
+const { locale, content, versionId, isPreview = false } = Astro.props;
+const year = new Date().getFullYear();
+const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeHomePath(l));
+---
+
+<!doctype html>
+<html lang={locale} translate="no" class="notranslate" data-fonts="outfit" data-layout="v5">
+	<head><SiteHead locale={locale} content={content} /></head>
+	<body class="stack">
+		{isPreview && <div class="preview-banner">Preview <strong>{versionId}</strong> · Stack <a href={localeHomePath(locale)}>Produção</a></div>}
+		<header class="top shell">
+			<a class="brand" href="#topo"><img src={assetPath(siteConfig.brandLogo)} alt="" width="48" height="26" />{siteConfig.name}</a>
+			<div class="header-actions">
+				<ContactLinks content={content} variant="header" />
+				<div class="lang">{locales.map((l) => <a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>{l.toUpperCase()}</a>)}</div>
+			</div>
+		</header>
+		<main class="shell" id="topo">
+			<p class="role">{content.hero.headline}</p>
+			<h1>{content.hero.eyebrow}</h1>
+			<p class="tag">{content.hero.tagline}</p>
+			<p class="cta"><a href={`mailto:${siteConfig.email}`}>{content.hero.ctaContact}</a> · <a href={assetPath(siteConfig.resumePath)} download>{content.hero.ctaResume}</a></p>
+
+			<section id="sobre"><h2>{content.about.title}</h2><p>{content.about.body}</p></section>
+
+			<section id="experiencia">
+				<h2>{content.experience.title}</h2>
+				<div class="deck">
+					{content.experience.items.map((item, i) => (
+						<article class="card" style={`--i:${i}`}>
+							<p class="when">{item.period}</p>
+							<h3>{item.role}</h3>
+							<p class="co">{item.company} · {item.location}</p>
+							<ul>{item.bullets.map((b) => <li>{b}</li>)}</ul>
+							<p class="tech">{item.technologies.join(' · ')}</p>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<section id="competencias">
+				<h2>{content.skills.title}</h2>
+				<div class="skills">{content.skills.groups.map((g) => <div><h3>{g.title}</h3><p>{g.items.join(' · ')}</p></div>)}</div>
+			</section>
+
+			<footer>© {year} {content.footer.rights}</footer>
+		</main>
+		<DevTools locale={locale} versionId={versionId} />
+	</body>
+</html>
+
+<style>
+	.preview-banner{display:flex;justify-content:space-between;padding:.45rem 1rem;background:var(--color-brand);color:var(--color-on-brand);font-size:.85rem}
+	.preview-banner a{color:var(--color-preview-link);font-weight:700}
+	.stack{margin:0;color:var(--color-ink);background:var(--color-canvas)}
+	.shell{width:min(44rem,calc(100% - 2rem));margin-inline:auto}
+	.top{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
+	.header-actions{display:flex;align-items:center;gap:.65rem}
+	.brand{display:inline-flex;gap:.5rem;align-items:center;text-decoration:none;font-family:var(--font-display);font-weight:700;color:var(--color-brand)}
+	.brand img{width:2.5rem;height:auto}
+	.lang a{margin-left:.4rem;text-decoration:none;font-size:.72rem;font-weight:800;color:var(--color-muted)}
+	.lang a[aria-current='page']{color:var(--color-brand)}
+	.role{margin:1rem 0 0;font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-deep)}
+	h1{margin:.35rem 0 0;font-family:var(--font-display);font-size:clamp(2.4rem,6vw,3.6rem);font-weight:var(--font-display-weight);letter-spacing:var(--font-tracking-display);color:var(--color-brand);line-height:1.05}
+	.tag{margin:.8rem 0 0;color:var(--color-ink-soft)}
+	.cta a{font-weight:700;color:var(--color-brand)}
+	section{padding:2rem 0;border-top:1px solid var(--color-line)}
+	h2{margin:0 0 1rem;font-family:var(--font-display);color:var(--color-brand)}
+	.deck{display:grid;gap:1rem}
+	.card{background:var(--color-surface-elevated);border:1px solid var(--color-line);border-radius:1rem;padding:1.25rem 1.35rem;box-shadow:0 calc(4px + var(--i) * 2px) calc(18px + var(--i) * 2px) color-mix(in srgb, var(--color-ink) 8%, transparent);transform:rotate(calc((var(--i) % 2) * .4deg - .2deg))}
+	.when{margin:0;font-size:.85rem;font-weight:700;color:var(--color-muted)}
+	.card h3{margin:.3rem 0 0;font-family:var(--font-display)}
+	.co{margin:.2rem 0 .6rem;font-weight:700;color:var(--color-brand-mid)}
+	.card ul{margin:0;padding-left:1.05rem;color:var(--color-ink-soft)}
+	.tech{margin:.6rem 0 0;font-size:.82rem;font-weight:600;color:var(--color-muted)}
+	.skills{display:grid;gap:1rem}
+	.skills h3{margin:0 0 .25rem;font-family:var(--font-display);font-size:1rem}
+	.skills p{margin:0;color:var(--color-ink-soft)}
+	footer{padding:1.5rem 0 7rem;color:var(--color-muted);font-size:.88rem}
+	@media (min-width:720px){.skills{grid-template-columns:1fr 1fr}}
+</style>

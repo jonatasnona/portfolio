@@ -1,0 +1,361 @@
+---
+/**
+ * v2 · Split — painel de marca (esq.) + coluna de conteúdo (dir.)
+ */
+import type { Locale } from '../../site.config';
+import type { PortfolioContent } from '../../content/types';
+import type { VersionId } from '../registry';
+import { assetPath, localeHomePath, previewPath } from '../../lib/paths';
+import { locales, siteConfig } from '../../site.config';
+import '../../styles/tokens.css';
+import '../../styles/typography.css';
+import SiteHead from '../../components/SiteHead.astro';
+import DevTools from '../../components/DevTools.astro';
+import ContactLinks from '../../components/ContactLinks.astro';
+
+type Props = {
+	locale: Locale;
+	content: PortfolioContent;
+	versionId: VersionId;
+	isPreview?: boolean;
+};
+
+const { locale, content, versionId, isPreview = false } = Astro.props;
+const year = new Date().getFullYear();
+const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeHomePath(l));
+
+const nav = [
+	{ href: '#sobre', label: content.nav.about },
+	{ href: '#experiencia', label: content.nav.experience },
+	{ href: '#competencias', label: content.nav.skills },
+] as const;
+---
+
+<!doctype html>
+<html lang={locale} translate="no" class="notranslate" data-fonts="outfit" data-layout="v2">
+	<head>
+		<SiteHead locale={locale} content={content} />
+	</head>
+	<body class="split">
+		{
+			isPreview && (
+				<div class="preview-banner">
+					Preview <strong>{versionId}</strong> · Split
+					<a href={localeHomePath(locale)}>Produção</a>
+				</div>
+			)
+		}
+
+		<div class="split-grid">
+			<aside class="brand-pane" aria-label="Brand">
+				<div class="brand-pane__inner">
+					<img src={assetPath(siteConfig.brandLogo)} alt="Mandril Solutions" width="220" height="120" />
+					<p class="brand-pane__name">{siteConfig.name}</p>
+					<p class="brand-pane__role">{content.hero.headline}</p>
+					<div class="brand-pane__cta">
+						<a href={`mailto:${siteConfig.email}`}>{content.hero.ctaContact}</a>
+						<a href={assetPath(siteConfig.resumePath)} download>{content.hero.ctaResume}</a>
+					</div>
+				</div>
+			</aside>
+
+			<div class="content-pane" id="topo">
+				<header class="top">
+					<nav aria-label="Primary">
+						{nav.map((item) => <a href={item.href}>{item.label}</a>)}
+					</nav>
+					<div class="header-actions">
+						<ContactLinks content={content} variant="header" />
+						<div class="lang">
+							{
+								locales.map((l) => (
+									<a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>
+										{l.toUpperCase()}
+									</a>
+								))
+							}
+						</div>
+					</div>
+				</header>
+
+				<header class="hero">
+					<h1>{content.hero.eyebrow}</h1>
+					<p>{content.hero.tagline}</p>
+				</header>
+
+				<section id="sobre">
+					<h2>{content.about.title}</h2>
+					<p>{content.about.body}</p>
+				</section>
+
+				<section id="experiencia">
+					<h2>{content.experience.title}</h2>
+					{
+						content.experience.items.map((item) => (
+							<article class="job">
+								<div class="job__meta">
+									<span>{item.period}</span>
+									<span>{item.location}</span>
+								</div>
+								<h3>
+									{item.role}
+									<em>{item.company}</em>
+								</h3>
+								<ul>
+									{item.bullets.map((b) => (
+										<li>{b}</li>
+									))}
+								</ul>
+								<p class="tech">{item.technologies.join(' · ')}</p>
+							</article>
+						))
+					}
+				</section>
+
+				<section id="competencias">
+					<h2>{content.skills.title}</h2>
+					<ol class="skills">
+						{
+							content.skills.groups.map((g, i) => (
+								<li>
+									<span class="num">{String(i + 1).padStart(2, '0')}</span>
+									<div>
+										<h3>{g.title}</h3>
+										<p>{g.items.join(' · ')}</p>
+									</div>
+								</li>
+							))
+						}
+					</ol>
+				</section>
+
+				<footer>
+					<p>© {year} {content.footer.rights}</p>
+					<p>{content.footer.brandNote}</p>
+				</footer>
+			</div>
+		</div>
+
+		<DevTools locale={locale} versionId={versionId} />
+	</body>
+</html>
+
+<style>
+	.preview-banner {
+		display: flex;
+		justify-content: space-between;
+		padding: 0.45rem 1rem;
+		background: var(--color-ink);
+		color: var(--color-on-brand);
+		font-size: 0.85rem;
+	}
+	.preview-banner a {
+		color: var(--color-preview-link);
+		font-weight: 700;
+	}
+
+	.split {
+		margin: 0;
+		color: var(--color-ink);
+		background: var(--color-paper);
+	}
+
+	.brand-pane {
+		background:
+			radial-gradient(600px 400px at 20% 20%, rgba(233, 84, 32, 0.28), transparent 55%),
+			linear-gradient(160deg, var(--color-brand-mid) 0%, var(--color-brand) 45%, var(--color-ink) 100%);
+		color: var(--color-on-ink);
+		padding: 2rem 1.5rem;
+	}
+	.brand-pane__inner {
+		position: sticky;
+		top: 2rem;
+		display: grid;
+		gap: 0.75rem;
+		justify-items: start;
+	}
+	.brand-pane img {
+		width: min(100%, 12rem);
+		height: auto;
+		filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.25));
+	}
+	.brand-pane__name {
+		margin: 0.5rem 0 0;
+		font-family: var(--font-display);
+		font-size: 1.4rem;
+		font-weight: 700;
+	}
+	.brand-pane__role {
+		margin: 0;
+		font-size: 0.85rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-preview-link);
+	}
+	.brand-pane__cta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+		margin-top: 0.75rem;
+	}
+	.brand-pane__cta a {
+		color: var(--color-on-brand);
+		font-weight: 700;
+		text-decoration: none;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+		padding-bottom: 0.1rem;
+	}
+
+	.content-pane {
+		padding: 1.5rem 1.25rem 7rem;
+	}
+	.top {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		align-items: center;
+		margin-bottom: 2rem;
+	}
+	.top nav {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem 1rem;
+	}
+	.top nav a {
+		text-decoration: none;
+		font-weight: 700;
+		font-size: 0.9rem;
+		color: var(--color-ink-soft);
+	}
+	.header-actions {
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+	}
+	.lang {
+		display: flex;
+		gap: 0.4rem;
+	}
+	.lang a {
+		text-decoration: none;
+		font-size: 0.72rem;
+		font-weight: 800;
+		color: var(--color-muted);
+	}
+	.lang a[aria-current='page'] {
+		color: var(--color-brand);
+	}
+
+	.hero h1 {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: clamp(2.4rem, 5vw, 3.6rem);
+		font-weight: var(--font-display-weight);
+		letter-spacing: var(--font-tracking-display);
+		color: var(--color-brand);
+		line-height: 1.05;
+	}
+	.hero p {
+		margin: 0.9rem 0 0;
+		max-width: 34rem;
+		font-size: 1.1rem;
+		color: var(--color-ink-soft);
+	}
+
+	section {
+		padding: 2.25rem 0;
+		border-top: 1px solid var(--color-line);
+	}
+	h2 {
+		margin: 0 0 1rem;
+		font-family: var(--font-display);
+		font-size: 1.35rem;
+		color: var(--color-brand);
+	}
+	.job + .job {
+		margin-top: 1.6rem;
+	}
+	.job__meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1rem;
+		font-size: 0.85rem;
+		font-weight: 700;
+		color: var(--color-muted);
+	}
+	.job h3 {
+		margin: 0.35rem 0 0.55rem;
+		font-family: var(--font-display);
+		font-size: 1.15rem;
+	}
+	.job h3 em {
+		font-style: normal;
+		display: block;
+		color: var(--color-accent-deep);
+		font-size: 0.95rem;
+		margin-top: 0.15rem;
+	}
+	.job ul {
+		margin: 0;
+		padding-left: 1.1rem;
+		color: var(--color-ink-soft);
+	}
+	.tech {
+		margin: 0.65rem 0 0;
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--color-muted);
+	}
+
+	.skills {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 1rem;
+	}
+	.skills li {
+		display: grid;
+		grid-template-columns: 2.5rem 1fr;
+		gap: 0.75rem;
+		align-items: start;
+	}
+	.num {
+		font-family: var(--font-display);
+		font-weight: 700;
+		color: var(--color-accent);
+	}
+	.skills h3 {
+		margin: 0 0 0.25rem;
+		font-family: var(--font-display);
+		font-size: 1rem;
+	}
+	.skills p {
+		margin: 0;
+		color: var(--color-ink-soft);
+	}
+
+	footer {
+		margin-top: 2rem;
+		color: var(--color-muted);
+		font-size: 0.88rem;
+	}
+	footer p {
+		margin: 0.15rem 0;
+	}
+
+	@media (min-width: 960px) {
+		.split-grid {
+			display: grid;
+			grid-template-columns: minmax(18rem, 34vw) 1fr;
+			min-height: 100vh;
+		}
+		.brand-pane {
+			padding: 3rem 2.25rem;
+		}
+		.content-pane {
+			padding: 2.5rem 3rem 7rem;
+		}
+	}
+</style>

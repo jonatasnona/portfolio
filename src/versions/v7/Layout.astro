@@ -1,0 +1,131 @@
+---
+/** v7 · Poster — seções como painéis verticais (slides) */
+import type { Locale } from '../../site.config';
+import type { PortfolioContent } from '../../content/types';
+import type { VersionId } from '../registry';
+import { assetPath, localeHomePath, previewPath } from '../../lib/paths';
+import { locales, siteConfig } from '../../site.config';
+import '../../styles/tokens.css';
+import '../../styles/typography.css';
+import SiteHead from '../../components/SiteHead.astro';
+import DevTools from '../../components/DevTools.astro';
+import ContactLinks from '../../components/ContactLinks.astro';
+
+type Props = { locale: Locale; content: PortfolioContent; versionId: VersionId; isPreview?: boolean };
+const { locale, content, versionId, isPreview = false } = Astro.props;
+const year = new Date().getFullYear();
+const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeHomePath(l));
+---
+
+<!doctype html>
+<html lang={locale} translate="no" class="notranslate" data-fonts="outfit" data-layout="v7">
+	<head><SiteHead locale={locale} content={content} /></head>
+	<body class="poster">
+		{isPreview && <div class="preview-banner">Preview <strong>{versionId}</strong> · Poster <a href={localeHomePath(locale)}>Produção</a></div>}
+
+		<header class="top-bar">
+			<ContactLinks content={content} variant="header" />
+			<div class="lang">{locales.map((l) => <a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>{l.toUpperCase()}</a>)}</div>
+		</header>
+
+		<nav class="dots" aria-label="Primary">
+			<a href="#topo">01</a><a href="#sobre">02</a><a href="#experiencia">03</a><a href="#competencias">04</a><a href="#fecho">05</a>
+		</nav>
+
+		<section class="panel hero" id="topo">
+			<div class="panel-inner">
+				<img src={assetPath(siteConfig.brandLogo)} alt="" width="96" height="52" />
+				<p class="role">{content.hero.headline}</p>
+				<h1>{content.hero.eyebrow}</h1>
+				<p class="tag">{content.hero.tagline}</p>
+				<div class="cta">
+					<a href={`mailto:${siteConfig.email}`}>{content.hero.ctaContact}</a>
+					<a class="ghost" href={assetPath(siteConfig.resumePath)} download>{content.hero.ctaResume}</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="panel cream" id="sobre">
+			<div class="panel-inner">
+				<p class="n">02</p>
+				<h2>{content.about.title}</h2>
+				<p>{content.about.body}</p>
+			</div>
+		</section>
+
+		<section class="panel white" id="experiencia">
+			<div class="panel-inner wide">
+				<p class="n">03</p>
+				<h2>{content.experience.title}</h2>
+				{content.experience.items.map((item) => (
+					<article class="job">
+						<p class="when">{item.period} · {item.location}</p>
+						<h3>{item.role} · {item.company}</h3>
+						<ul>{item.bullets.map((b) => <li>{b}</li>)}</ul>
+					</article>
+				))}
+			</div>
+		</section>
+
+		<section class="panel aubergine" id="competencias">
+			<div class="panel-inner">
+				<p class="n">04</p>
+				<h2>{content.skills.title}</h2>
+				{content.skills.groups.map((g) => <p><strong>{g.title}</strong><br />{g.items.join(' · ')}</p>)}
+			</div>
+		</section>
+
+		<section class="panel orange" id="fecho">
+			<div class="panel-inner">
+				<p class="n">05</p>
+				<p>{content.contact.body}</p>
+				<ContactLinks content={content} variant="spread" />
+				<p class="fine">© {year} {content.footer.rights}</p>
+			</div>
+		</section>
+
+		<DevTools locale={locale} versionId={versionId} />
+	</body>
+</html>
+
+<style>
+	.preview-banner{display:flex;justify-content:space-between;padding:.45rem 1rem;background:var(--color-ink);color:var(--color-on-brand);font-size:.85rem}
+	.preview-banner a{color:var(--color-preview-link);font-weight:700}
+	.poster{margin:0;color:var(--color-ink)}
+	.top-bar{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:flex-end;align-items:center;gap:.65rem;padding:.75rem 1.25rem;pointer-events:none}
+	.top-bar :global(*){pointer-events:auto}
+	.dots{position:fixed;right:1rem;top:50%;transform:translateY(-50%);z-index:30;display:grid;gap:.45rem}
+	.dots a{display:grid;place-items:center;width:2rem;height:2rem;border-radius:999px;background:color-mix(in srgb, var(--color-surface-elevated) 90%, transparent);border:1px solid var(--color-line);text-decoration:none;font-size:.68rem;font-weight:800;color:var(--color-brand)}
+	.panel{min-height:100vh;display:grid;align-items:center;padding:4rem 0}
+	.panel-inner{width:min(42rem,calc(100% - 4rem));margin-inline:auto}
+	.panel-inner.wide{width:min(52rem,calc(100% - 4rem))}
+	.hero{background:linear-gradient(160deg,var(--color-bg-top),var(--color-canvas))}
+	.cream{background:var(--color-canvas)}
+	.white{background:var(--color-surface-elevated)}
+	.aubergine{background:linear-gradient(145deg,var(--color-brand-mid),var(--color-brand));color:var(--color-on-ink)}
+	.orange{background:linear-gradient(145deg,var(--color-accent),var(--color-accent-deep));color:var(--color-on-brand)}
+	.lang{display:flex;gap:.45rem}
+	.lang a{text-decoration:none;font-size:.72rem;font-weight:800;color:var(--color-muted)}
+	.lang a[aria-current='page']{color:var(--color-brand)}
+	.hero img{width:5rem;height:auto}
+	.role,.n{margin:0;font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+	.role{margin-top:1rem;color:var(--color-accent-deep)}
+	.n{color:var(--color-accent);margin-bottom:.75rem}
+	.aubergine .n,.orange .n{color:color-mix(in srgb, var(--color-on-brand) 70%, transparent)}
+	h1{margin:.4rem 0 0;font-family:var(--font-display);font-size:clamp(2.8rem,8vw,4.8rem);font-weight:var(--font-display-weight);letter-spacing:var(--font-tracking-display);line-height:.98;color:var(--color-brand);max-width:10ch}
+	.tag{margin:1rem 0 0;font-size:1.15rem;color:var(--color-ink-soft);max-width:34rem}
+	.cta{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem}
+	.cta a{text-decoration:none;font-weight:700;padding:.75rem 1.1rem;border-radius:.35rem;background:var(--color-accent);color:var(--color-on-brand)}
+	.cta a.ghost{background:transparent;border:1px solid var(--color-line);color:var(--color-brand)}
+	h2{margin:0 0 1rem;font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.6rem)}
+	.aubergine h2,.orange h2{color:var(--color-on-brand)}
+	.job+.job{margin-top:1.5rem}
+	.when{margin:0;font-weight:700;color:var(--color-muted)}
+	.job h3{margin:.25rem 0 .5rem;font-family:var(--font-display)}
+	.job ul{margin:0;padding-left:1.1rem;color:var(--color-ink-soft)}
+	.aubergine p,.orange p{opacity:.92}
+	.mail{display:inline-flex;margin:.5rem 0 1rem;padding:.75rem 1.1rem;border-radius:.35rem;background:var(--color-surface-elevated);color:var(--color-accent-deep);font-weight:800;text-decoration:none}
+	.orange a{color:var(--color-on-brand);font-weight:700}
+	.fine{opacity:.8;font-size:.9rem}
+	@media (max-width:700px){.dots{display:none}}
+</style>

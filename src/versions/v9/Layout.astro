@@ -1,0 +1,121 @@
+---
+/** v9 · Masthead — jornal: cabeçalho tipográfico + colunas */
+import type { Locale } from '../../site.config';
+import type { PortfolioContent } from '../../content/types';
+import type { VersionId } from '../registry';
+import { assetPath, localeHomePath, previewPath } from '../../lib/paths';
+import { locales, siteConfig } from '../../site.config';
+import '../../styles/tokens.css';
+import '../../styles/typography.css';
+import SiteHead from '../../components/SiteHead.astro';
+import DevTools from '../../components/DevTools.astro';
+import ContactLinks from '../../components/ContactLinks.astro';
+
+type Props = { locale: Locale; content: PortfolioContent; versionId: VersionId; isPreview?: boolean };
+const { locale, content, versionId, isPreview = false } = Astro.props;
+const year = new Date().getFullYear();
+const location = siteConfig.location[locale];
+const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeHomePath(l));
+const today = new Date().toLocaleDateString(locale === 'en' ? 'en-US' : locale === 'es' ? 'es-ES' : 'pt-BR', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+---
+
+<!doctype html>
+<html lang={locale} translate="no" class="notranslate" data-fonts="outfit" data-layout="v9">
+	<head><SiteHead locale={locale} content={content} /></head>
+	<body class="mast">
+		{isPreview && <div class="preview-banner">Preview <strong>{versionId}</strong> · Masthead <a href={localeHomePath(locale)}>Produção</a></div>}
+		<main class="paper" id="topo">
+			<header class="masthead">
+				<div class="meta-row">
+					<span>{today}</span>
+					<div class="header-actions">
+						<ContactLinks content={content} variant="header" />
+						<div class="lang">{locales.map((l) => <a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>{l.toUpperCase()}</a>)}</div>
+					</div>
+					<span>{location}</span>
+				</div>
+				<div class="title-block">
+					<img src={assetPath(siteConfig.brandLogo)} alt="" width="64" height="35" />
+					<h1>{siteConfig.name}</h1>
+				</div>
+				<p class="deck">{content.hero.headline} — {content.hero.tagline}</p>
+				<nav class="rail" aria-label="Primary">
+					<a href="#sobre">{content.nav.about}</a>
+					<a href="#experiencia">{content.nav.experience}</a>
+					<a href="#competencias">{content.nav.skills}</a>
+				</nav>
+			</header>
+
+			<section class="lead" id="sobre">
+				<p class="kicker">{content.about.title}</p>
+				<p class="lead-body">{content.about.body}</p>
+			</section>
+
+			<div class="cols">
+				<section id="experiencia" class="col-main">
+					<p class="kicker">{content.experience.title}</p>
+					{content.experience.items.map((item) => (
+						<article class="story">
+							<h2>{item.role}</h2>
+							<p class="byline">{item.company} · {item.period} · {item.location}</p>
+							<ul>{item.bullets.map((b) => <li>{b}</li>)}</ul>
+							<p class="tech">{item.technologies.join(' · ')}</p>
+						</article>
+					))}
+				</section>
+				<aside class="col-side" id="competencias">
+					<p class="kicker">{content.skills.title}</p>
+					{content.skills.groups.map((g) => (
+						<div class="side-block">
+							<h3>{g.title}</h3>
+							<p>{g.items.join(', ')}</p>
+						</div>
+					))}
+				</aside>
+			</div>
+
+			<footer>© {year} {content.footer.rights} · {content.footer.brandNote}</footer>
+		</main>
+		<DevTools locale={locale} versionId={versionId} />
+	</body>
+</html>
+
+<style>
+	.preview-banner{display:flex;justify-content:space-between;padding:.45rem 1rem;background:var(--color-brand);color:var(--color-on-brand);font-size:.85rem}
+	.preview-banner a{color:var(--color-preview-link);font-weight:700}
+	.mast{margin:0;color:var(--color-ink);background:var(--color-canvas)}
+	.paper{width:min(58rem,calc(100% - 1.5rem));margin:1rem auto 6rem;padding:1.25rem 1.5rem 2rem;background:var(--color-paper);box-shadow:0 12px 40px var(--color-line)}
+	.masthead{border-bottom:3px double var(--color-ink);padding-bottom:1rem;margin-bottom:1.25rem}
+	.meta-row{display:flex;justify-content:space-between;align-items:center;gap:1rem;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--color-muted);border-bottom:1px solid var(--color-ink);padding-bottom:.45rem}
+	.header-actions{display:flex;align-items:center;gap:.5rem}
+	.lang a{margin-left:.35rem;text-decoration:none;font-weight:800;color:var(--color-muted)}
+	.lang a[aria-current='page']{color:var(--color-brand)}
+	.title-block{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:1rem 0 .5rem}
+	.title-block img{width:3.5rem;height:auto}
+	h1{margin:0;font-family:var(--font-display);font-size:clamp(2.2rem,7vw,3.8rem);font-weight:var(--font-display-weight);letter-spacing:var(--font-tracking-display);line-height:.95;text-align:center;color:var(--color-ink)}
+	.deck{margin:.35rem 0 0;text-align:center;font-size:1.05rem;color:var(--color-ink-soft);max-width:40rem;margin-inline:auto}
+	.rail{display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem 1.25rem;margin-top:1rem;padding-top:.75rem;border-top:1px solid var(--color-ink)}
+	.rail a{text-decoration:none;font-family:var(--font-display);font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-brand)}
+	.lead{margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid color-mix(in srgb, var(--color-ink) 20%, transparent)}
+	.kicker{margin:0 0 .5rem;font-family:var(--font-display);font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-deep)}
+	.lead-body{margin:0;font-size:1.15rem;column-count:1}
+	.cols{display:grid;gap:1.5rem}
+	.story{padding:1rem 0;border-bottom:1px solid var(--color-line)}
+	.story h2{margin:0;font-family:var(--font-display);font-size:1.35rem;line-height:1.15}
+	.byline{margin:.35rem 0 .6rem;font-size:.85rem;font-style:italic;color:var(--color-muted)}
+	.story ul{margin:0;padding-left:1.05rem;color:var(--color-ink-soft)}
+	.tech{margin:.5rem 0 0;font-size:.78rem;font-weight:600;color:var(--color-muted)}
+	.side-block{margin-bottom:1rem;padding-bottom:.85rem;border-bottom:1px solid var(--color-line)}
+	.side-block h3{margin:0 0 .25rem;font-family:var(--font-display);font-size:1rem}
+	.side-block p{margin:0;font-size:.92rem;color:var(--color-ink-soft)}
+	footer{margin-top:2rem;padding-top:1rem;border-top:3px double var(--color-ink);font-size:.85rem;color:var(--color-muted);text-align:center}
+	@media (min-width:860px){
+		.lead-body{column-count:2;column-gap:1.5rem}
+		.cols{grid-template-columns:1.6fr 1fr;gap:2rem}
+		.col-side{border-left:1px solid color-mix(in srgb, var(--color-ink) 20%, transparent);padding-left:1.5rem}
+	}
+</style>

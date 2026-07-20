@@ -1,0 +1,136 @@
+---
+import type { PortfolioContent } from '../../../content/types';
+
+type Props = {
+	content: PortfolioContent;
+};
+
+const { content } = Astro.props;
+---
+
+<section id="experiencia" class="section" aria-labelledby="experience-title">
+	<div class="shell">
+		<h2 id="experience-title">{content.experience.title}</h2>
+		<ol class="timeline">
+			{
+				content.experience.items.map((item) => (
+					<li class="item">
+						<div class="meta">
+							<p class="period">{item.period}</p>
+							<p class="location">{item.location}</p>
+						</div>
+						<div class="body">
+							<h3>
+								{item.role}
+								<span class="company"> · {item.company}</span>
+							</h3>
+							<ul>
+								{item.bullets.map((bullet) => (
+									<li>{bullet}</li>
+								))}
+							</ul>
+							<p class="tech">{item.technologies.join(' · ')}</p>
+						</div>
+					</li>
+				))
+			}
+		</ol>
+	</div>
+</section>
+
+<style>
+	.shell {
+		width: min(100% - 2rem, var(--max-width));
+		margin-inline: auto;
+	}
+
+	.section {
+		padding: var(--space-xl) 0;
+	}
+
+	h2 {
+		margin: 0 0 2rem;
+		font-family: var(--font-display);
+		font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+		letter-spacing: -0.03em;
+		color: var(--color-brand);
+	}
+
+	.timeline {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0;
+		border-left: 2px solid var(--color-line);
+	}
+
+	.item {
+		display: grid;
+		gap: 0.75rem;
+		padding: 0 0 2.25rem 1.4rem;
+		position: relative;
+	}
+
+	.item::before {
+		content: '';
+		position: absolute;
+		left: -0.45rem;
+		top: 0.35rem;
+		width: 0.7rem;
+		height: 0.7rem;
+		border-radius: 50%;
+		background: var(--color-accent);
+		box-shadow: 0 0 0 4px rgba(232, 93, 42, 0.15);
+	}
+
+	.meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1rem;
+		color: var(--color-muted);
+		font-size: 0.92rem;
+		font-weight: 600;
+	}
+
+	.period,
+	.location {
+		margin: 0;
+	}
+
+	h3 {
+		margin: 0 0 0.75rem;
+		font-family: var(--font-display);
+		font-size: 1.25rem;
+		letter-spacing: -0.02em;
+	}
+
+	.company {
+		color: var(--color-brand-mid);
+		font-weight: 700;
+	}
+
+	ul {
+		margin: 0;
+		padding-left: 1.1rem;
+		color: var(--color-ink-soft);
+	}
+
+	ul li + li {
+		margin-top: 0.4rem;
+	}
+
+	.tech {
+		margin: 0.9rem 0 0;
+		font-size: 0.88rem;
+		font-weight: 600;
+		color: var(--color-muted);
+	}
+
+	@media (min-width: 800px) {
+		.item {
+			grid-template-columns: 14rem 1fr;
+			gap: 1.5rem;
+		}
+	}
+</style>

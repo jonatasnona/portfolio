@@ -1,0 +1,396 @@
+---
+import type { Locale } from '../../site.config';
+import type { PortfolioContent } from '../../content/types';
+import type { VersionId } from '../registry';
+import { assetPath, localeHomePath, localePath, previewPath } from '../../lib/paths';
+import { locales, siteConfig } from '../../site.config';
+import { versionIds } from '../registry';
+import '../../styles/tokens.css';
+import '../../styles/typography.css';
+import DevTools from '../../components/DevTools.astro';
+import ContactLinks from '../../components/ContactLinks.astro';
+import Hero from './sections/Hero.astro';
+import About from './sections/About.astro';
+import Experience from './sections/Experience.astro';
+import Skills from './sections/Skills.astro';
+
+type Props = {
+	locale: Locale;
+	content: PortfolioContent;
+	versionId: VersionId;
+	isPreview?: boolean;
+};
+
+const { locale, content, versionId, isPreview = false } = Astro.props;
+const year = new Date().getFullYear();
+
+const navItems = [
+	{ href: localePath(locale, '#sobre'), label: content.nav.about },
+	{ href: localePath(locale, '#experiencia'), label: content.nav.experience },
+	{ href: localePath(locale, '#competencias'), label: content.nav.skills },
+] as const;
+
+const localeLabels: Record<Locale, string> = {
+	pt: 'PT',
+	en: 'EN',
+	es: 'ES',
+};
+
+const localeNames: Record<Locale, string> = {
+	pt: 'Português',
+	en: 'English',
+	es: 'Español',
+};
+---
+
+<!doctype html>
+<html lang={locale} translate="no" class="notranslate" data-fonts="outfit">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={content.meta.description} />
+		<meta name="google" content="notranslate" />
+		<title>{content.meta.title}</title>
+		<link rel="icon" type="image/png" href={assetPath(siteConfig.brandLogo)} />
+		<link rel="canonical" href={new URL(Astro.url.pathname, siteConfig.siteUrl).href} />
+		{
+			locales.map((l) => (
+				<link
+					rel="alternate"
+					hreflang={l}
+					href={new URL(localeHomePath(l), siteConfig.siteUrl).href}
+				/>
+			))
+		}
+		<link rel="alternate" hreflang="x-default" href={new URL(localeHomePath('pt'), siteConfig.siteUrl).href} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;600;700&family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&family=Outfit:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Space+Grotesk:wght@500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		{
+			import.meta.env.DEV && (
+				<script is:inline>
+					(() => {
+						const FONTS = new Set(['outfit', 'space', 'bricolage']);
+						const PALETTES = new Set(['mandril', 'slate', 'forest', 'noir', 'clay', 'ocean']);
+						try {
+							const savedFont = localStorage.getItem('portfolio:dev-fonts');
+							document.documentElement.setAttribute(
+								'data-fonts',
+								savedFont && FONTS.has(savedFont) ? savedFont : 'outfit',
+							);
+							const savedPalette = localStorage.getItem('portfolio:dev-palette');
+							document.documentElement.setAttribute(
+								'data-palette',
+								savedPalette && PALETTES.has(savedPalette) ? savedPalette : 'mandril',
+							);
+						} catch {
+							document.documentElement.setAttribute('data-fonts', 'outfit');
+							document.documentElement.setAttribute('data-palette', 'mandril');
+						}
+					})();
+				</script>
+			)
+		}
+		{
+			isPreview && (
+				<div class="preview-banner" role="status">
+					<span>
+						Preview layout <strong>{versionId}</strong>
+						{versionId === siteConfig.activeVersion ? ' (ativa)' : ''}
+					</span>
+					<a href={localeHomePath(locale)}>Produção</a>
+				</div>
+			)
+		}
+
+		<header class="site-header">
+			<div class="shell header-inner">
+				<a class="brand" href={localePath(locale, '#topo')} aria-label={siteConfig.name}>
+					<img
+						src={assetPath(siteConfig.brandLogo)}
+						alt=""
+						width="56"
+						height="30"
+						class="brand-mark"
+					/>
+					<span class="brand-text">{siteConfig.name}</span>
+				</a>
+
+				<nav class="nav" aria-label="Primary">
+					{
+						navItems.map((item) => (
+							<a href={item.href}>{item.label}</a>
+						))
+					}
+				</nav>
+
+				<div class="header-actions">
+					<ContactLinks content={content} variant="header" />
+					<div class="lang-switch" aria-label="Language">
+						{
+							locales.map((l) => (
+								<a
+									href={isPreview ? previewPath(versionId, l) : localeHomePath(l)}
+									aria-current={l === locale ? 'page' : undefined}
+									hreflang={l}
+									lang={l}
+									title={localeNames[l]}
+									data-locale={l}
+								>
+									{localeLabels[l]}
+									<span class="sr-only"> ({localeNames[l]})</span>
+								</a>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<main id="topo">
+			<Hero content={content} locale={locale} />
+			<About content={content} />
+			<Experience content={content} />
+			<Skills content={content} />
+		</main>
+
+		<footer class="site-footer">
+			<div class="shell footer-inner">
+				<div class="footer-brand">
+					<img
+						src={assetPath(siteConfig.brandLogo)}
+						alt="Mandril Solutions"
+						width="72"
+						height="40"
+						class="footer-logo"
+					/>
+					<div>
+						<p>© {year} {content.footer.rights}</p>
+						<p class="muted">{content.footer.brandNote}</p>
+					</div>
+				</div>
+				<details class="version-panel">
+					<summary>{content.nav.versionPreview}</summary>
+					<ul>
+						{
+							versionIds.map((id) => (
+								<li>
+									<a href={previewPath(id, locale)}>
+										{id}
+										{id === siteConfig.activeVersion ? ' · ativa' : ''}
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</details>
+			</div>
+		</footer>
+		<DevTools locale={locale} versionId={versionId} />
+	</body>
+</html>
+
+<style>
+	.shell {
+		width: min(100% - 2rem, var(--max-width));
+		margin-inline: auto;
+	}
+
+	.preview-banner {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.55rem 1rem;
+		background: var(--color-brand);
+		color: var(--color-on-brand);
+		font-size: 0.9rem;
+		animation: fade-in 0.4s var(--ease-out);
+	}
+
+	.preview-banner a {
+		color: var(--color-preview-link);
+		font-weight: 600;
+	}
+
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		backdrop-filter: blur(12px);
+		background: rgba(251, 248, 244, 0.82);
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	.header-inner {
+		min-height: var(--header-h);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.7rem;
+		text-decoration: none;
+		font-family: var(--font-display);
+		font-weight: 700;
+		letter-spacing: -0.02em;
+	}
+
+	.brand-mark {
+		width: 3.2rem;
+		height: 1.75rem;
+		object-fit: contain;
+	}
+
+	.brand-text {
+		font-size: 1rem;
+	}
+
+	.nav {
+		display: none;
+		gap: 1.25rem;
+	}
+
+	.nav a {
+		text-decoration: none;
+		color: var(--color-ink-soft);
+		font-weight: 600;
+		font-size: 0.95rem;
+		transition: color 0.2s var(--ease-out);
+	}
+
+	.nav a:hover {
+		color: var(--color-accent-deep);
+	}
+
+	.header-actions {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.lang-switch {
+		display: inline-flex;
+		gap: 0.25rem;
+		padding: 0.2rem;
+		border: 1px solid var(--color-line);
+		border-radius: 999px;
+		background: rgba(255, 253, 251, 0.7);
+	}
+
+	.lang-switch a {
+		text-decoration: none;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		padding: 0.35rem 0.55rem;
+		border-radius: 999px;
+		color: var(--color-muted);
+	}
+
+	.lang-switch a[aria-current='page'] {
+		background: var(--color-brand);
+		color: var(--color-on-brand);
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.4rem;
+		padding: 0.7rem 1.15rem;
+		border-radius: var(--radius);
+		font-weight: 700;
+		text-decoration: none;
+		transition:
+			transform 0.2s var(--ease-out),
+			background 0.2s var(--ease-out),
+			color 0.2s var(--ease-out),
+			border-color 0.2s var(--ease-out);
+	}
+
+	.btn:hover {
+		transform: translateY(-1px);
+	}
+
+	.btn-ghost {
+		border: 1px solid var(--color-line);
+		background: transparent;
+		color: var(--color-brand);
+		font-size: 0.85rem;
+	}
+
+	.site-footer {
+		margin-top: var(--space-xl);
+		padding: var(--space-lg) 0 var(--space-xl);
+		border-top: 1px solid var(--color-line);
+	}
+
+	.footer-inner {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 1.5rem;
+		align-items: flex-start;
+	}
+
+	.footer-brand {
+		display: flex;
+		gap: 0.9rem;
+		align-items: center;
+	}
+
+	.footer-logo {
+		width: 4.25rem;
+		height: 2.35rem;
+		object-fit: contain;
+	}
+
+	.footer-brand p {
+		margin: 0;
+	}
+
+	.muted {
+		color: var(--color-muted);
+		font-size: 0.9rem;
+	}
+
+	.version-panel {
+		min-width: 12rem;
+		font-size: 0.9rem;
+	}
+
+	.version-panel summary {
+		cursor: pointer;
+		font-weight: 700;
+		color: var(--color-brand);
+	}
+
+	.version-panel ul {
+		margin: 0.6rem 0 0;
+		padding-left: 1.1rem;
+	}
+
+	.version-panel a {
+		color: var(--color-ink-soft);
+	}
+
+	@media (min-width: 900px) {
+		.nav {
+			display: flex;
+		}
+
+		.brand-text {
+			font-size: 1.05rem;
+		}
+	}
+</style>

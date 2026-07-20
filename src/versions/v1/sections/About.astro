@@ -1,0 +1,42 @@
+---
+import type { PortfolioContent } from '../../../content/types';
+
+type Props = {
+	content: PortfolioContent;
+};
+
+const { content } = Astro.props;
+---
+
+<section id="sobre" class="section" aria-labelledby="about-title">
+	<div class="shell">
+		<h2 id="about-title">{content.about.title}</h2>
+		<p class="lead">{content.about.body}</p>
+	</div>
+</section>
+
+<style>
+	.shell {
+		width: min(100% - 2rem, var(--max-width));
+		margin-inline: auto;
+	}
+
+	.section {
+		padding: var(--space-xl) 0;
+	}
+
+	h2 {
+		margin: 0 0 1rem;
+		font-family: var(--font-display);
+		font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+		letter-spacing: -0.03em;
+		color: var(--color-brand);
+	}
+
+	.lead {
+		margin: 0;
+		max-width: 48rem;
+		font-size: 1.1rem;
+		color: var(--color-ink-soft);
+	}
+</style>

@@ -1,0 +1,431 @@
+---
+/**
+ * v3 · Ledger — estética de currículo / documento técnico
+ */
+import type { Locale } from '../../site.config';
+import type { PortfolioContent } from '../../content/types';
+import type { VersionId } from '../registry';
+import { assetPath, localeHomePath, previewPath } from '../../lib/paths';
+import { locales, siteConfig } from '../../site.config';
+import '../../styles/tokens.css';
+import '../../styles/typography.css';
+import SiteHead from '../../components/SiteHead.astro';
+import DevTools from '../../components/DevTools.astro';
+import ContactLinks from '../../components/ContactLinks.astro';
+
+type Props = {
+	locale: Locale;
+	content: PortfolioContent;
+	versionId: VersionId;
+	isPreview?: boolean;
+};
+
+const { locale, content, versionId, isPreview = false } = Astro.props;
+const year = new Date().getFullYear();
+const location = siteConfig.location[locale];
+const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeHomePath(l));
+---
+
+<!doctype html>
+<html lang={locale} translate="no" class="notranslate" data-fonts="outfit" data-layout="v3">
+	<head>
+		<SiteHead locale={locale} content={content} />
+	</head>
+	<body class="ledger">
+		{
+			isPreview && (
+				<div class="preview-banner">
+					Preview <strong>{versionId}</strong> · Ledger
+					<a href={localeHomePath(locale)}>Produção</a>
+				</div>
+			)
+		}
+
+		<div class="sheet" id="topo">
+			<header class="doc-head">
+				<div class="identity">
+					<img src={assetPath(siteConfig.brandLogo)} alt="" width="64" height="35" />
+					<div>
+						<p class="doc-label">Portfolio / Resume</p>
+						<h1>{content.hero.eyebrow}</h1>
+						<p class="role">{content.hero.headline}</p>
+					</div>
+				</div>
+				<div class="meta">
+					<div class="meta-top">
+						<div class="lang">
+							{
+								locales.map((l) => (
+									<a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>
+										{l.toUpperCase()}
+									</a>
+								))
+							}
+						</div>
+						<ContactLinks content={content} variant="header" />
+					</div>
+					<p>
+						<span>Email</span>
+						<a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+					</p>
+					<p>
+						<span>Location</span>
+						{location}
+					</p>
+				</div>
+			</header>
+
+			<p class="summary">{content.hero.tagline}</p>
+
+			<nav class="toc" aria-label="Primary">
+				<a href="#sobre">{content.nav.about}</a>
+				<a href="#experiencia">{content.nav.experience}</a>
+				<a href="#competencias">{content.nav.skills}</a>
+			</nav>
+
+			<section id="sobre">
+				<h2>
+					<span>01</span>
+					{content.about.title}
+				</h2>
+				<p>{content.about.body}</p>
+			</section>
+
+			<section id="experiencia">
+				<h2>
+					<span>02</span>
+					{content.experience.title}
+				</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Period</th>
+							<th>Role / Company</th>
+							<th>Notes</th>
+						</tr>
+					</thead>
+					<tbody>
+						{
+							content.experience.items.map((item) => (
+								<tr>
+									<td>
+										<strong>{item.period}</strong>
+										<br />
+										<small>{item.location}</small>
+									</td>
+									<td>
+										<strong>{item.role}</strong>
+										<br />
+										{item.company}
+										<br />
+										<small class="tech">{item.technologies.join(' · ')}</small>
+									</td>
+									<td>
+										<ul>
+											{item.bullets.map((b) => (
+												<li>{b}</li>
+											))}
+										</ul>
+									</td>
+								</tr>
+							))
+						}
+					</tbody>
+				</table>
+			</section>
+
+			<section id="competencias">
+				<h2>
+					<span>03</span>
+					{content.skills.title}
+				</h2>
+				<div class="skills">
+					{
+						content.skills.groups.map((g) => (
+							<div>
+								<h3>{g.title}</h3>
+								<p>{g.items.join(' · ')}</p>
+							</div>
+						))
+					}
+				</div>
+			</section>
+
+			<footer>
+				<p>© {year} {content.footer.rights} · {content.footer.brandNote}</p>
+			</footer>
+		</div>
+
+		<DevTools locale={locale} versionId={versionId} />
+	</body>
+</html>
+
+<style>
+	.preview-banner {
+		display: flex;
+		justify-content: space-between;
+		padding: 0.45rem 1rem;
+		background: var(--color-brand);
+		color: var(--color-on-brand);
+		font-size: 0.85rem;
+	}
+	.preview-banner a {
+		color: var(--color-preview-link);
+		font-weight: 700;
+	}
+
+	.ledger {
+		margin: 0;
+		min-height: 100vh;
+		color: var(--color-ink);
+		background:
+			linear-gradient(180deg, var(--color-canvas) 0%, var(--color-bg-bot) 30%, var(--color-surface) 100%);
+	}
+
+	.sheet {
+		width: min(58rem, calc(100% - 1.5rem));
+		margin: 1rem auto 7rem;
+		padding: 1.75rem 1.25rem 2rem;
+		background: var(--color-surface-elevated);
+		border: 1px solid rgba(44, 0, 30, 0.12);
+		box-shadow: 0 18px 50px rgba(44, 0, 30, 0.06);
+	}
+
+	.doc-head {
+		display: grid;
+		gap: 1.5rem;
+		padding-bottom: 1.25rem;
+		border-bottom: 2px solid var(--color-ink);
+	}
+	.identity {
+		display: flex;
+		gap: 1rem;
+		align-items: flex-start;
+	}
+	.identity img {
+		width: 3.5rem;
+		height: auto;
+		margin-top: 0.2rem;
+	}
+	.doc-label {
+		margin: 0;
+		font-size: 0.7rem;
+		font-weight: 800;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+	}
+	h1 {
+		margin: 0.2rem 0 0;
+		font-family: var(--font-display);
+		font-size: clamp(1.9rem, 4vw, 2.6rem);
+		font-weight: var(--font-display-weight);
+		letter-spacing: var(--font-tracking-display);
+		color: var(--color-ink);
+		line-height: 1.1;
+	}
+	.role {
+		margin: 0.25rem 0 0;
+		font-weight: 700;
+		color: var(--color-accent-deep);
+	}
+	.meta {
+		display: grid;
+		gap: 0.45rem;
+		font-size: 0.9rem;
+	}
+	.meta p {
+		margin: 0;
+		display: grid;
+		grid-template-columns: 5.5rem 1fr;
+		gap: 0.5rem;
+	}
+	.meta span {
+		font-size: 0.68rem;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+		padding-top: 0.2rem;
+	}
+	.meta a {
+		color: var(--color-brand);
+		font-weight: 700;
+		text-decoration: none;
+	}
+	.meta-top {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.65rem;
+		margin-bottom: 0.35rem;
+	}
+	.lang {
+		display: flex;
+		gap: 0.45rem;
+		margin-bottom: 0.35rem;
+	}
+	.lang a {
+		font-size: 0.72rem;
+		font-weight: 800;
+		text-decoration: none;
+		color: var(--color-muted);
+		border: 1px solid var(--color-line);
+		padding: 0.2rem 0.4rem;
+	}
+	.lang a[aria-current='page'] {
+		background: var(--color-ink);
+		border-color: var(--color-ink);
+		color: var(--color-on-brand);
+	}
+
+	.summary {
+		margin: 1.25rem 0 0;
+		font-size: 1.05rem;
+		color: var(--color-ink-soft);
+		max-width: 46rem;
+	}
+
+	.toc {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem 1.25rem;
+		margin: 1.25rem 0 0;
+		padding: 0.85rem 0;
+		border-top: 1px solid var(--color-line);
+		border-bottom: 1px solid var(--color-line);
+	}
+	.toc a {
+		text-decoration: none;
+		font-size: 0.85rem;
+		font-weight: 800;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--color-brand);
+	}
+
+	section {
+		padding: 1.75rem 0;
+		border-bottom: 1px solid var(--color-line);
+	}
+	h2 {
+		margin: 0 0 1rem;
+		display: flex;
+		align-items: baseline;
+		gap: 0.75rem;
+		font-family: var(--font-display);
+		font-size: 1.15rem;
+		color: var(--color-ink);
+	}
+	h2 span {
+		font-size: 0.8rem;
+		color: var(--color-accent);
+		font-weight: 800;
+	}
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 0.92rem;
+	}
+	th {
+		text-align: left;
+		font-size: 0.68rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+		padding: 0.4rem 0.5rem 0.6rem;
+		border-bottom: 1px solid var(--color-ink);
+	}
+	td {
+		vertical-align: top;
+		padding: 0.9rem 0.5rem;
+		border-bottom: 1px solid var(--color-line);
+		color: var(--color-ink-soft);
+	}
+	td strong {
+		color: var(--color-ink);
+	}
+	td ul {
+		margin: 0;
+		padding-left: 1rem;
+	}
+	td small {
+		color: var(--color-muted);
+	}
+	.tech {
+		display: inline-block;
+		margin-top: 0.35rem;
+		font-weight: 600;
+	}
+
+	.skills {
+		display: grid;
+		gap: 1rem;
+	}
+	.skills h3 {
+		margin: 0 0 0.25rem;
+		font-family: var(--font-display);
+		font-size: 0.95rem;
+	}
+	.skills p {
+		margin: 0;
+		color: var(--color-ink-soft);
+	}
+
+	footer {
+		padding-top: 1.25rem;
+		font-size: 0.82rem;
+		color: var(--color-muted);
+	}
+	footer p {
+		margin: 0;
+	}
+
+	@media (min-width: 820px) {
+		.sheet {
+			margin-top: 2rem;
+			padding: 2.25rem 2.5rem 2.5rem;
+		}
+		.doc-head {
+			grid-template-columns: 1.2fr 1fr;
+			align-items: start;
+		}
+		.skills {
+			grid-template-columns: 1fr 1fr;
+			gap: 1rem 2rem;
+		}
+		th:nth-child(1),
+		td:nth-child(1) {
+			width: 9.5rem;
+		}
+		th:nth-child(2),
+		td:nth-child(2) {
+			width: 14rem;
+		}
+	}
+
+	@media (max-width: 719px) {
+		thead {
+			display: none;
+		}
+		table,
+		tbody,
+		tr,
+		td {
+			display: block;
+			width: 100%;
+		}
+		tr {
+			padding: 0.75rem 0;
+		}
+		td {
+			padding: 0.25rem 0;
+			border: 0;
+		}
+		tr {
+			border-bottom: 1px solid var(--color-line);
+		}
+	}
+</style>

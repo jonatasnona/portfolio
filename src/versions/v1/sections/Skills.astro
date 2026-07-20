@@ -1,0 +1,87 @@
+---
+import type { PortfolioContent } from '../../../content/types';
+
+type Props = {
+	content: PortfolioContent;
+};
+
+const { content } = Astro.props;
+---
+
+<section id="competencias" class="section" aria-labelledby="skills-title">
+	<div class="shell">
+		<h2 id="skills-title">{content.skills.title}</h2>
+		<div class="groups">
+			{
+				content.skills.groups.map((group, index) => {
+					const headingId = `skill-group-${index}`;
+					return (
+						<section class="group" aria-labelledby={headingId}>
+							<h3 id={headingId}>{group.title}</h3>
+							<ul>
+								{group.items.map((item) => (
+									<li>{item}</li>
+								))}
+							</ul>
+						</section>
+					);
+				})
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.shell {
+		width: min(100% - 2rem, var(--max-width));
+		margin-inline: auto;
+	}
+
+	.section {
+		padding: var(--space-xl) 0;
+	}
+
+	h2 {
+		margin: 0 0 2rem;
+		font-family: var(--font-display);
+		font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+		letter-spacing: -0.03em;
+		color: var(--color-brand);
+	}
+
+	.groups {
+		display: grid;
+		gap: 1.75rem;
+	}
+
+	.group h3 {
+		margin: 0 0 0.7rem;
+		font-family: var(--font-display);
+		font-size: 1.1rem;
+		color: var(--color-ink);
+	}
+
+	.group ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.group li {
+		padding: 0.4rem 0.75rem;
+		border-bottom: 2px solid rgba(232, 93, 42, 0.35);
+		color: var(--color-ink-soft);
+		font-weight: 600;
+		font-size: 0.95rem;
+	}
+
+	@media (min-width: 800px) {
+		.groups {
+			grid-template-columns: 1fr 1fr;
+			gap: 2rem 2.5rem;
+		}
+	}
+</style>

@@ -1,0 +1,124 @@
+---
+/** v15 · Lattice — multi-coluna densa tipo broadsheet */
+import type { Locale } from '../../site.config';
+import type { PortfolioContent } from '../../content/types';
+import type { VersionId } from '../registry';
+import { assetPath, localeHomePath, previewPath } from '../../lib/paths';
+import { locales, siteConfig } from '../../site.config';
+import '../../styles/tokens.css';
+import '../../styles/typography.css';
+import SiteHead from '../../components/SiteHead.astro';
+import DevTools from '../../components/DevTools.astro';
+import ContactLinks from '../../components/ContactLinks.astro';
+
+type Props = { locale: Locale; content: PortfolioContent; versionId: VersionId; isPreview?: boolean };
+const { locale, content, versionId, isPreview = false } = Astro.props;
+const year = new Date().getFullYear();
+const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeHomePath(l));
+---
+
+<!doctype html>
+<html lang={locale} translate="no" class="notranslate" data-fonts="outfit" data-layout="v15">
+	<head><SiteHead locale={locale} content={content} /></head>
+	<body class="lattice">
+		{isPreview && <div class="preview-banner">Preview <strong>{versionId}</strong> · Lattice <a href={localeHomePath(locale)}>Produção</a></div>}
+		<main class="sheet" id="topo">
+			<header class="head">
+				<div class="brand-row">
+					<img src={assetPath(siteConfig.brandLogo)} alt="" width="52" height="28" />
+					<div>
+						<p class="name">{siteConfig.name}</p>
+						<p class="role">{content.hero.headline}</p>
+					</div>
+				</div>
+				<div class="head-meta">
+					<div class="header-actions">
+						<ContactLinks content={content} variant="header" />
+						<div class="lang">{locales.map((l) => <a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>{l.toUpperCase()}</a>)}</div>
+					</div>
+				</div>
+			</header>
+
+			<p class="banner">{content.hero.eyebrow} — {content.hero.tagline}</p>
+
+			<div class="grid">
+				<section class="cell about" id="sobre">
+					<h2>{content.about.title}</h2>
+					<p>{content.about.body}</p>
+				</section>
+
+				<section class="cell exp" id="experiencia">
+					<h2>{content.experience.title}</h2>
+					{content.experience.items.map((item) => (
+						<article class="job">
+							<p class="when">{item.period}</p>
+							<h3>{item.role}</h3>
+							<p class="co">{item.company} · {item.location}</p>
+							<ul>{item.bullets.map((b) => <li>{b}</li>)}</ul>
+							<p class="tech">{item.technologies.join(' · ')}</p>
+						</article>
+					))}
+				</section>
+
+				<section class="cell skills" id="competencias">
+					<h2>{content.skills.title}</h2>
+					{content.skills.groups.map((g) => (
+						<div class="sg">
+							<h3>{g.title}</h3>
+							<p>{g.items.join(' · ')}</p>
+						</div>
+					))}
+				</section>
+
+			</div>
+
+			<footer>© {year} {content.footer.rights} · {content.footer.brandNote}</footer>
+		</main>
+		<DevTools locale={locale} versionId={versionId} />
+	</body>
+</html>
+
+<style>
+	.preview-banner{display:flex;justify-content:space-between;padding:.45rem 1rem;background:var(--color-brand);color:var(--color-on-brand);font-size:.85rem}
+	.preview-banner a{color:var(--color-preview-link);font-weight:700}
+	.lattice{margin:0;color:var(--color-ink);background:var(--color-canvas)}
+	.sheet{width:min(72rem,calc(100% - 1rem));margin:0.75rem auto 6rem;background:var(--color-paper);border:1px solid color-mix(in srgb, var(--color-ink) 25%, transparent)}
+	.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:1rem;padding:.85rem 1rem;border-bottom:2px solid var(--color-ink)}
+	.brand-row{display:flex;gap:.75rem;align-items:center}
+	.brand-row img{width:3rem;height:auto}
+	.name{margin:0;font-family:var(--font-display);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;line-height:1}
+	.role{margin:.2rem 0 0;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-muted)}
+	.head-meta{display:flex;align-items:center;gap:1rem}
+	.header-actions{display:flex;align-items:center;gap:.5rem}
+	.lang a{margin-left:.3rem;text-decoration:none;font-size:.7rem;font-weight:800;color:var(--color-muted)}
+	.lang a[aria-current='page']{color:var(--color-brand)}
+	.banner{margin:0;padding:.65rem 1rem;border-bottom:1px solid var(--color-ink);font-family:var(--font-display);font-size:clamp(1rem,2.5vw,1.25rem);font-weight:700;line-height:1.3}
+	.grid{display:grid;grid-template-columns:1fr}
+	.cell{padding:1rem;border-bottom:1px solid color-mix(in srgb, var(--color-ink) 20%, transparent)}
+	h2{margin:0 0 .75rem;font-family:var(--font-display);font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-deep);border-bottom:1px solid var(--color-line);padding-bottom:.35rem}
+	.about p{margin:0;font-size:.98rem;line-height:1.55}
+	.job{padding:.65rem 0;border-bottom:1px dotted color-mix(in srgb, var(--color-ink) 20%, transparent)}
+	.job:last-child{border-bottom:0}
+	.when{margin:0;font-size:.75rem;font-weight:700;color:var(--color-muted)}
+	.job h3{margin:.15rem 0 0;font-family:var(--font-display);font-size:1.05rem;line-height:1.2}
+	.co{margin:.15rem 0 .4rem;font-size:.85rem;font-weight:700;color:var(--color-brand-mid)}
+	.job ul{margin:0;padding-left:1rem;font-size:.88rem;line-height:1.45;color:var(--color-ink-soft)}
+	.tech{margin:.35rem 0 0;font-size:.72rem;font-weight:600;color:var(--color-muted)}
+	.sg{margin-bottom:.85rem}
+	.sg h3{margin:0 0 .2rem;font-family:var(--font-display);font-size:.95rem}
+	.sg p{margin:0;font-size:.88rem;line-height:1.4;color:var(--color-ink-soft)}
+	footer{padding:.75rem 1rem;font-size:.78rem;color:var(--color-muted);border-top:2px solid var(--color-ink)}
+	@media (min-width:780px){
+		.grid{grid-template-columns:1.1fr 1.4fr 1fr;grid-template-rows:auto}
+		.about{grid-column:1;grid-row:1;border-right:1px solid color-mix(in srgb, var(--color-ink) 20%, transparent)}
+		.exp{grid-column:2;grid-row:1;border-right:1px solid color-mix(in srgb, var(--color-ink) 20%, transparent);border-bottom:0}
+		.skills{grid-column:3;grid-row:1;border-bottom:0}
+		.cell{border-bottom:0}
+	}
+	@media (min-width:1100px){
+		.grid{grid-template-columns:1fr 1.5fr 1fr}
+		.about{grid-column:1;grid-row:1}
+		.exp{grid-column:2;grid-row:1}
+		.skills{grid-column:3;grid-row:1}
+	}
+</style>

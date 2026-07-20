@@ -1,0 +1,96 @@
+---
+/** v4 · Cover — hero full-viewport; conteúdo após scroll */
+import type { Locale } from '../../site.config';
+import type { PortfolioContent } from '../../content/types';
+import type { VersionId } from '../registry';
+import { assetPath, localeHomePath, previewPath } from '../../lib/paths';
+import { locales, siteConfig } from '../../site.config';
+import '../../styles/tokens.css';
+import '../../styles/typography.css';
+import SiteHead from '../../components/SiteHead.astro';
+import DevTools from '../../components/DevTools.astro';
+import ContactLinks from '../../components/ContactLinks.astro';
+
+type Props = { locale: Locale; content: PortfolioContent; versionId: VersionId; isPreview?: boolean };
+const { locale, content, versionId, isPreview = false } = Astro.props;
+const year = new Date().getFullYear();
+const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeHomePath(l));
+---
+
+<!doctype html>
+<html lang={locale} translate="no" class="notranslate" data-fonts="outfit" data-layout="v4">
+	<head><SiteHead locale={locale} content={content} /></head>
+	<body class="cover">
+		{isPreview && <div class="preview-banner">Preview <strong>{versionId}</strong> · Cover <a href={localeHomePath(locale)}>Produção</a></div>}
+
+		<section class="cover-hero" id="topo">
+			<img class="wm" src={assetPath(siteConfig.brandLogo)} alt="" aria-hidden="true" />
+			<div class="cover-inner">
+				<div class="hero-actions">
+					<div class="lang">{locales.map((l) => <a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>{l.toUpperCase()}</a>)}</div>
+					<ContactLinks content={content} variant="header" />
+				</div>
+				<p class="role">{content.hero.headline}</p>
+				<h1>{content.hero.eyebrow}</h1>
+				<p class="tag">{content.hero.tagline}</p>
+				<div class="cta">
+					<a href="#sobre">{content.nav.about}</a>
+					<a href={`mailto:${siteConfig.email}`}>{content.hero.ctaContact}</a>
+					<a class="ghost" href={assetPath(siteConfig.resumePath)} download>{content.hero.ctaResume}</a>
+				</div>
+				<a class="scroll" href="#sobre" aria-label="Scroll">↓</a>
+			</div>
+		</section>
+
+		<main class="sheet">
+			<section id="sobre"><h2>{content.about.title}</h2><p>{content.about.body}</p></section>
+			<section id="experiencia">
+				<h2>{content.experience.title}</h2>
+				{content.experience.items.map((item) => (
+					<article class="job">
+						<p class="when">{item.period} · {item.location}</p>
+						<h3>{item.role} · {item.company}</h3>
+						<ul>{item.bullets.map((b) => <li>{b}</li>)}</ul>
+					</article>
+				))}
+			</section>
+			<section id="competencias">
+				<h2>{content.skills.title}</h2>
+				{content.skills.groups.map((g) => <p><strong>{g.title}:</strong> {g.items.join(' · ')}</p>)}
+			</section>
+			<footer>© {year} {content.footer.rights}</footer>
+		</main>
+		<DevTools locale={locale} versionId={versionId} />
+	</body>
+</html>
+
+<style>
+	.preview-banner{display:flex;justify-content:space-between;padding:.45rem 1rem;background:var(--color-ink);color:var(--color-on-brand);font-size:.85rem}
+	.preview-banner a{color:var(--color-preview-link);font-weight:700}
+	.cover{margin:0;color:var(--color-ink);background:var(--color-canvas)}
+	.cover-hero{position:relative;min-height:100vh;display:grid;place-items:center;overflow:clip;background:linear-gradient(160deg,var(--color-brand-mid),var(--color-brand) 50%,var(--color-ink));color:var(--color-on-ink)}
+	.wm{position:absolute;inset:auto -8% 5% auto;width:min(55vw,28rem);opacity:.18;pointer-events:none}
+	.cover-inner{position:relative;width:min(48rem,calc(100% - 2rem));padding:4rem 0 5rem}
+	.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.65rem;margin-bottom:2rem}
+	.lang{display:flex;gap:.45rem}
+	.lang a{color:rgba(248,242,234,.7);text-decoration:none;font-size:.72rem;font-weight:800}
+	.lang a[aria-current='page']{color:var(--color-on-brand);border-bottom:2px solid var(--color-accent)}
+	.role{margin:0;font-size:.8rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--color-preview-link)}
+	h1{margin:.5rem 0 0;font-family:var(--font-display);font-size:clamp(3rem,10vw,5.5rem);font-weight:var(--font-display-weight);letter-spacing:var(--font-tracking-display);line-height:.95;max-width:10ch}
+	.tag{margin:1.1rem 0 0;max-width:32rem;font-size:1.15rem;color:rgba(248,242,234,.88)}
+	.cta{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.6rem}
+	.cta a{text-decoration:none;font-weight:700;padding:.75rem 1.1rem;border-radius:.35rem;background:var(--color-accent);color:var(--color-on-brand)}
+	.cta a.ghost{background:transparent;border:1px solid rgba(255,255,255,.35)}
+	.scroll{display:inline-block;margin-top:3rem;color:var(--color-on-brand);text-decoration:none;font-size:1.4rem;animation:bob 2.2s ease-in-out infinite}
+	@keyframes bob{50%{transform:translateY(.35rem)}}
+	@media (prefers-reduced-motion:reduce){.scroll{animation:none}}
+	.sheet{width:min(48rem,calc(100% - 2rem));margin:0 auto;padding:3rem 0 7rem}
+	section{padding:2rem 0;border-top:1px solid var(--color-line)}
+	h2{margin:0 0 1rem;font-family:var(--font-display);color:var(--color-brand)}
+	.job+.job{margin-top:1.4rem}
+	.when{margin:0;font-size:.88rem;font-weight:700;color:var(--color-muted)}
+	.job h3{margin:.25rem 0 .5rem;font-family:var(--font-display);font-size:1.1rem}
+	.job ul{margin:0;padding-left:1.1rem;color:var(--color-ink-soft)}
+	.muted,footer{color:var(--color-muted)}
+	footer{padding-top:1.5rem}
+</style>
