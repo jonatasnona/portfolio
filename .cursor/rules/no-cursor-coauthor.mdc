@@ -1,0 +1,26 @@
+---
+description: Never add Co-authored-by Cursor (or similar AI) trailers on commits
+alwaysApply: true
+---
+
+# Commits sem Co-authored-by Cursor
+
+Ao criar commits neste repo:
+
+- **Não** incluir trailers `Co-authored-by: Cursor` / `Co-authored-by: *cursor*` / atribuição de AI no message
+- **Não** usar flags ou templates do Cursor que injetem co-author automaticamente
+- Message = Conventional Commits limpo (tipo/escopo/assunto + body se preciso)
+
+Exemplo proibido:
+
+```text
+feat: add header contact icons
+
+Co-authored-by: Cursor <cursoragent@cursor.com>
+```
+
+Exemplo ok:
+
+```text
+feat: add header contact icons
+```

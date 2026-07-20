@@ -56,6 +56,7 @@ Dev local com base path: abrir `http://localhost:4321/portfolio/`.
 - Rodar `npm run check` e `npm run build` após mudanças relevantes
 - Specs e docs de processo em pt-BR
 - Não commitar `dist/`, `.env` com segredos, nem credenciais
+- Não incluir `Co-authored-by: Cursor` (nem trailers de AI) em commits — ver `.cursor/rules/no-cursor-coauthor.mdc`
 
 ## Perspectivas
 
