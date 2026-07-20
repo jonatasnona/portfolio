@@ -1,6 +1,5 @@
-# build output
+# build / generated
 dist/
-# generated types
 .astro/
 
 # dependencies
@@ -12,13 +11,29 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-
-# environment variables
+# env / secrets
 .env
-.env.production
+.env.*
+!.env.example
 
-# macOS-specific files
+# OS / editor
 .DS_Store
-
-# jetbrains setting folder
+Thumbs.db
 .idea/
+*.swp
+*.swo
+
+# local scratch (sources kept out of repo; served assets live in public/)
+/logo-*.png
+/logotipo-*.png
+/resume_jonatas_pedraza_pt.pdf
+*.pdf.png
+
+# Cursor (version rule files only)
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+
+# optional local tooling
+.vercel/
+.netlify/
