@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" role="img" aria-label="Mandril Solutions">
+  <!--
+    Mandril Solutions mark - poly-art / shattered geometry
+    Palette: Ubuntu Aubergine #77216F, Orange #E95420, Purple #5E2750, Grey #AEA79F
+    Solid fills only - no gradients, no raster effects
+  -->
+  <g fill-rule="evenodd">
+    <!-- Left: formation / fragmentation particles (speed) -->
+    <polygon fill="#E95420" points="16,70 34,60 38,82"/>
+    <polygon fill="#77216F" points="28,98 48,88 44,112"/>
+    <polygon fill="#5E2750" points="10,120 28,112 24,136"/>
+    <polygon fill="#E95420" points="40,40 58,34 54,54"/>
+    <polygon fill="#AEA79F" points="52,128 68,122 64,142"/>
+    <polygon fill="#77216F" points="20,150 38,142 34,164"/>
+    <polygon fill="#E95420" points="48,168 66,160 60,180"/>
+    <polygon fill="#5E2750" points="62,52 78,46 74,66"/>
+    <polygon fill="#E95420" points="8,88 22,82 18,100"/>
+    <polygon fill="#77216F" points="56,196 74,188 68,208"/>
+    <polygon fill="#AEA79F" points="34,54 46,50 44,64"/>
+    <polygon fill="#5E2750" points="70,150 86,144 80,164"/>
+
+    <!-- Data lines + nodes -->
+    <g stroke-linecap="round" fill="none">
+      <path stroke="#77216F" stroke-width="1.8" d="M36 46 L84 30"/>
+      <path stroke="#E95420" stroke-width="1.8" d="M22 86 L76 68"/>
+      <path stroke="#77216F" stroke-width="1.8" d="M30 156 L82 140"/>
+      <path stroke="#E95420" stroke-width="1.8" d="M58 210 L110 194"/>
+      <path stroke="#E95420" stroke-width="1.8" d="M286 42 L336 28"/>
+      <path stroke="#77216F" stroke-width="1.8" d="M292 176 L342 160"/>
+    </g>
+    <circle fill="#E95420" cx="84" cy="30" r="2.6"/>
+    <circle fill="#77216F" cx="36" cy="46" r="2.3"/>
+    <circle fill="#E95420" cx="76" cy="68" r="2.4"/>
+    <circle fill="#77216F" cx="82" cy="140" r="2.3"/>
+    <circle fill="#E95420" cx="110" cy="194" r="2.4"/>
+    <circle fill="#E95420" cx="336" cy="28" r="2.6"/>
+    <circle fill="#77216F" cx="342" cy="160" r="2.4"/>
+
+    <!-- CROWN / MANE (back of head, left-top) -->
+    <polygon fill="#5E2750" points="100,78 126,42 162,28 188,36 196,62 170,78 138,88"/>
+    <polygon fill="#77216F" points="100,78 138,88 148,118 120,132 92,118 86,94"/>
+    <polygon fill="#5E2750" points="86,94 92,118 108,148 84,166 66,144 64,112"/>
+    <polygon fill="#77216F" points="108,148 132,162 124,192 96,204 78,182 84,166"/>
+    <polygon fill="#E95420" points="126,42 162,28 176,48 152,58"/>
+
+    <!-- FOREHEAD / BROW -->
+    <polygon fill="#77216F" points="170,78 196,62 220,70 226,96 198,108 174,102"/>
+    <polygon fill="#E95420" points="188,36 214,44 220,70 196,62"/>
+    <polygon fill="#5E2750" points="138,88 170,78 174,102 148,118"/>
+
+    <!-- EYE -->
+    <polygon fill="#AEA79F" points="198,108 214,98 226,110 214,122"/>
+    <polygon fill="#5E2750" points="214,122 226,110 230,124 218,132"/>
+    <polygon fill="#E95420" points="214,98 226,96 232,108 226,110"/>
+
+    <!-- CHEEK / MID FACE -->
+    <polygon fill="#E95420" points="148,118 174,102 198,108 214,122 200,148 168,152"/>
+    <polygon fill="#77216F" points="120,132 148,118 168,152 154,176 128,168"/>
+    <polygon fill="#5E2750" points="168,152 200,148 214,168 190,186 154,176"/>
+    <polygon fill="#E95420" points="128,168 154,176 148,204 122,198 108,178"/>
+
+    <!-- MUZZLE RIDGE (characteristic mandrill nose bridge) -->
+    <polygon fill="#AEA79F" points="220,70 248,78 274,96 258,116 226,96"/>
+    <polygon fill="#AEA79F" points="226,96 258,116 266,140 238,150 214,122 214,98"/>
+    <polygon fill="#E95420" points="248,78 278,86 296,108 274,96"/>
+    <polygon fill="#77216F" points="274,96 296,108 292,132 266,140 258,116"/>
+    <polygon fill="#5E2750" points="214,122 238,150 250,172 222,180 200,148"/>
+    <polygon fill="#AEA79F" points="238,150 266,140 280,156 260,170 250,172"/>
+
+    <!-- NOSE TIP / MOUTH -->
+    <polygon fill="#E95420" points="280,156 304,148 318,166 298,180 278,174"/>
+    <polygon fill="#77216F" points="260,170 280,156 278,174 258,184 246,176"/>
+    <polygon fill="#5E2750" points="222,180 250,172 246,176 258,184 248,198 220,196 190,186"/>
+    <polygon fill="#E95420" points="190,186 220,196 210,216 180,210 154,176"/>
+    <polygon fill="#77216F" points="148,204 190,186 180,210 156,220 132,208"/>
+
+    <!-- LOWER MANE shards -->
+    <polygon fill="#E95420" points="96,204 124,192 132,208 112,222"/>
+    <polygon fill="#5E2750" points="78,182 96,204 88,224 66,212"/>
+    <polygon fill="#77216F" points="122,198 148,204 142,226 120,230 112,222"/>
+
+    <!-- Right: forward data burst / motion shards -->
+    <polygon fill="#E95420" points="318,118 338,110 334,130"/>
+    <polygon fill="#77216F" points="308,138 328,132 322,152"/>
+    <polygon fill="#E95420" points="320,182 340,174 334,196"/>
+    <polygon fill="#5E2750" points="330,92 348,86 344,104"/>
+    <polygon fill="#AEA79F" points="334,152 348,146 344,162"/>
+    <polygon fill="#77216F" points="298,196 316,190 310,210"/>
+  </g>
+</svg>
