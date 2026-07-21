@@ -25,7 +25,6 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 		{isPreview && <div class="preview-banner">Preview <strong>{versionId}</strong> · Wire <a href={localeHomePath(locale)}>Produção</a></div>}
 		<div class="frame" id="topo">
 			<header class="bar">
-				<span class="mono">// portfolio.layout = wire</span>
 				<div class="header-actions">
 					<ContactLinks content={content} variant="header" />
 					<div class="lang">{locales.map((l) => <a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>{l}</a>)}</div>
@@ -33,13 +32,12 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 			</header>
 			<div class="hero">
 				<img src={assetPath(siteConfig.brandLogo)} alt="" width="64" height="35" />
-				<p class="mono label">role</p>
+				<p class="mono label">{content.wire.role}</p>
 				<p class="role">{content.hero.headline}</p>
-				<p class="mono label">name</p>
+				<p class="mono label">{content.wire.name}</p>
 				<h1>{content.hero.eyebrow}</h1>
-				<p class="mono label">summary</p>
+				<p class="mono label">{content.wire.summary}</p>
 				<p class="tag">{content.hero.tagline}</p>
-				<p class="cta mono"><a href={`mailto:${siteConfig.email}`}>contact()</a> <a href={assetPath(siteConfig.resumePath)} download>resume.download()</a></p>
 				<ContributionGraph
 					content={content}
 					locale={locale}
@@ -49,9 +47,9 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 				/>
 			</div>
 
-			<section id="sobre"><p class="mono label">01 / about</p><h2>{content.about.title}</h2><p>{content.about.body}</p></section>
+			<section id="sobre"><p class="mono label">{content.wire.about}</p><h2>{content.about.title}</h2><p>{content.about.body}</p></section>
 			<section id="experiencia">
-				<p class="mono label">02 / experience</p><h2>{content.experience.title}</h2>
+				<p class="mono label">{content.wire.experience}</p><h2>{content.experience.title}</h2>
 				{content.experience.items.map((item) => (
 					<article class="job">
 						<p class="mono">{item.period}</p>
@@ -62,7 +60,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 				))}
 			</section>
 			<section id="competencias">
-				<p class="mono label">03 / skills</p><h2>{content.skills.title}</h2>
+				<p class="mono label">{content.wire.skills}</p><h2>{content.skills.title}</h2>
 				{content.skills.groups.map((g) => <p><span class="mono">{g.title}</span> — {g.items.join(', ')}</p>)}
 			</section>
 			<footer class="mono dim">© {year} {content.footer.rights}</footer>
@@ -76,16 +74,16 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 	.preview-banner a{color:var(--color-preview-link);font-weight:700}
 	.wire{margin:0;min-height:100vh;color:var(--color-ink);background-color:var(--color-bg-bot);background-image:linear-gradient(var(--color-line) 1px,transparent 1px),linear-gradient(90deg,var(--color-line) 1px,transparent 1px);background-size:24px 24px}
 	.frame{width:min(52rem,calc(100% - 1.5rem));margin:1rem auto 7rem;padding:1.25rem;border:1px solid rgba(119,33,111,.35);background:rgba(255,253,251,.88);box-shadow:8px 8px 0 rgba(119,33,111,.12)}
-	.bar{display:flex;justify-content:space-between;gap:1rem;padding-bottom:.75rem;border-bottom:1px dashed rgba(119,33,111,.35);margin-bottom:1.25rem}
+	.bar{display:flex;justify-content:flex-end;gap:1rem;padding-bottom:.75rem;border-bottom:1px dashed rgba(119,33,111,.35);margin-bottom:1.25rem}
 	.header-actions{display:flex;align-items:center;gap:.65rem}
 	.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.78rem}
-	.lang a{margin-left:.4rem;text-decoration:none;font-family:ui-monospace,Menlo,monospace;font-size:.75rem;font-weight:700;color:var(--color-muted);text-transform:uppercase}
+	.lang{display:flex;gap:.4rem;flex-shrink:0}
+	.lang a{text-decoration:none;font-family:ui-monospace,Menlo,monospace;font-size:.75rem;font-weight:700;color:var(--color-muted);text-transform:uppercase}
 	.lang a[aria-current='page']{color:var(--color-accent-deep)}
 	.label{margin:1rem 0 .2rem;color:var(--color-accent-deep);font-weight:700;letter-spacing:.04em}
 	.role{margin:0;font-weight:800;color:var(--color-brand)}
 	h1{margin:.15rem 0 0;font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.4rem);font-weight:var(--font-display-weight);letter-spacing:var(--font-tracking-display);color:var(--color-ink);line-height:1.05}
 	.tag{margin:.2rem 0 0;color:var(--color-ink-soft)}
-	.cta a{color:var(--color-brand);font-weight:700;margin-right:1rem}
 	.dim{color:var(--color-muted)}
 	section{padding:1.5rem 0;border-top:1px dashed rgba(119,33,111,.3)}
 	:global(.hero-contrib){margin-top:1.5rem;padding:1.25rem 0 1.5rem;border-top:1px dashed rgba(119,33,111,.3)}
@@ -94,4 +92,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 	.job h3{margin:.2rem 0;font-family:var(--font-display);font-size:1.05rem}
 	.job ul{margin:.4rem 0 0;padding-left:1.1rem;color:var(--color-ink-soft)}
 	footer{padding-top:1rem}
+	@media (max-width:36rem){
+		.header-actions{width:100%;justify-content:space-between}
+	}
 </style>

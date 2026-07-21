@@ -31,12 +31,29 @@ const palettes = [
 {
 	isDev && (
 		<div
+			id="dev-tools-panel"
 			class="dev-tools"
 			data-dev-tools
 			data-base={base}
 			data-locale={locale}
 			data-version={versionId}
 		>
+			<div class="dev-tools__header">
+				<p class="dev-tools__title">Preview tools</p>
+				<button
+					type="button"
+					class="dev-tools__close"
+					data-dev-tools-close
+					aria-label="Fechar ferramentas de preview"
+					title="Fechar"
+					hidden
+				>
+					<svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16">
+						<path d="M6 6l12 12M18 6 6 18" />
+					</svg>
+				</button>
+			</div>
+
 			<div class="dev-tools__block" data-dev-fonts>
 				<p class="dev-tools__label">Tipografia</p>
 				<div class="dev-tools__row" role="group" aria-label="Tipografia">
@@ -104,8 +121,39 @@ const palettes = [
 				const fontPanel = tools.querySelector('[data-dev-fonts]');
 				const palettePanel = tools.querySelector('[data-dev-palettes]');
 				const layoutPanel = tools.querySelector('[data-dev-layouts]');
+				const closeButton = tools.querySelector('[data-dev-tools-close]');
+				const previewBar = document.querySelector('.preview-banner');
 				const base = tools.getAttribute('data-base') || '';
 				const locale = tools.getAttribute('data-locale') || 'pt';
+				let trigger = null;
+
+				const setToolsOpen = (open) => {
+					tools.hidden = !open;
+					trigger?.setAttribute('aria-expanded', open ? 'true' : 'false');
+				};
+
+				if (previewBar && closeButton) {
+					trigger = document.createElement('button');
+					trigger.type = 'button';
+					trigger.className = 'dev-tools-trigger';
+					trigger.setAttribute('aria-label', 'Abrir ferramentas de preview');
+					trigger.setAttribute('title', 'Ferramentas de preview');
+					trigger.setAttribute('aria-controls', 'dev-tools-panel');
+					trigger.setAttribute('aria-expanded', 'true');
+					trigger.innerHTML =
+						'<svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M10 14v6"/></svg>';
+					previewBar.append(trigger);
+					closeButton.hidden = false;
+
+					closeButton.addEventListener('click', () => {
+						setToolsOpen(false);
+						trigger.focus();
+					});
+
+					trigger.addEventListener('click', () => {
+						setToolsOpen(true);
+					});
+				}
 
 				const applyFont = (id) => {
 					if (!FONTS.has(id)) id = FONT_DEFAULT;
@@ -200,6 +248,61 @@ const palettes = [
 		font-family: var(--font-body);
 	}
 
+	.dev-tools[hidden],
+	.dev-tools__close[hidden] {
+		display: none;
+	}
+
+	.dev-tools__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+	}
+
+	.dev-tools__title {
+		margin: 0;
+		font-size: 0.72rem;
+		font-weight: 800;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+		color: var(--color-ink-soft);
+	}
+
+	.dev-tools__close {
+		appearance: none;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex: 0 0 auto;
+		width: 2rem;
+		height: 2rem;
+		padding: 0;
+		border: 1px solid var(--color-line);
+		border-radius: 0.3rem;
+		background: var(--color-surface-elevated);
+		color: var(--color-ink-soft);
+		cursor: pointer;
+	}
+
+	.dev-tools__close svg {
+		display: block;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 2;
+		stroke-linecap: round;
+	}
+
+	.dev-tools__close:hover {
+		border-color: var(--color-accent);
+		color: var(--color-brand);
+	}
+
+	.dev-tools__close:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 2px;
+	}
+
 	.dev-tools__block {
 		display: grid;
 		gap: 0.4rem;
@@ -246,5 +349,45 @@ const palettes = [
 		background: var(--color-brand);
 		border-color: var(--color-brand);
 		color: var(--color-on-brand);
+	}
+
+	:global(.preview-banner:has(.dev-tools-trigger)) {
+		align-items: center;
+		gap: 0.6rem;
+	}
+
+	:global(.dev-tools-trigger) {
+		appearance: none;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex: 0 0 auto;
+		width: 2rem;
+		height: 2rem;
+		margin-left: 0.25rem;
+		padding: 0;
+		border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+		border-radius: 0.3rem;
+		background: color-mix(in srgb, currentColor 10%, transparent);
+		color: inherit;
+		cursor: pointer;
+	}
+
+	:global(.dev-tools-trigger:hover) {
+		background: color-mix(in srgb, currentColor 18%, transparent);
+	}
+
+	:global(.dev-tools-trigger svg) {
+		display: block;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.8;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	:global(.dev-tools-trigger:focus-visible) {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 2px;
 	}
 </style>

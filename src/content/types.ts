@@ -69,4 +69,14 @@ export type PortfolioContent = {
 		rights: string;
 		brandNote: string;
 	};
+	/** Chrome labels for Wire (v6) and similar technical layouts */
+	wire: {
+		role: string;
+		name: string;
+		summary: string;
+		activityGithub: string;
+		about: string;
+		experience: string;
+		skills: string;
+	};
 };

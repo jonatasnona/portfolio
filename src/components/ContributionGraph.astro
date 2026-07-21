@@ -136,7 +136,7 @@ const monthsMobile = data ? monthSegments(mobileWeeks) : [];
 				design === 'stat' ? (
 					<div class="contrib-stat-layout">
 						<div class="contrib-stat-copy">
-							{variant === 'wire' && <p class="contrib-chrome">activity / github</p>}
+							{variant === 'wire' && <p class="contrib-chrome">{content.wire.activityGithub}</p>}
 							<p class="contrib-stat" id={headingId}>
 								<span class="contrib-stat-num">{totalFormatted}</span>
 								<span class="contrib-stat-label">{statLabel}</span>
@@ -198,7 +198,7 @@ const monthsMobile = data ? monthSegments(mobileWeeks) : [];
 					</div>
 				) : (
 					<>
-						{variant === 'wire' && <p class="contrib-chrome">activity / github</p>}
+						{variant === 'wire' && <p class="contrib-chrome">{content.wire.activityGithub}</p>}
 						<div
 							class="contrib-board contrib-board--desktop"
 							style={`--weeks:${boardFull.length}`}

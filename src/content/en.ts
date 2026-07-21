@@ -215,4 +215,13 @@ export const en: PortfolioContent = {
 		rights: 'Jonatas Pedraza. All rights reserved.',
 		brandNote: 'Visual identity: Mandril Solutions',
 	},
+	wire: {
+		role: 'role',
+		name: 'name',
+		summary: 'summary',
+		activityGithub: 'activity / github',
+		about: '01 / about',
+		experience: '02 / experience',
+		skills: '03 / skills',
+	},
 };
