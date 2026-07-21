@@ -11,6 +11,7 @@ import SiteHead from '../../components/SiteHead.astro';
 import DevTools from '../../components/DevTools.astro';
 import ContactLinks from '../../components/ContactLinks.astro';
 import ContributionGraph from '../../components/ContributionGraph.astro';
+import ExperienceExpandable from '../../components/ExperienceExpandable.astro';
 
 type Props = { locale: Locale; content: PortfolioContent; versionId: VersionId; isPreview?: boolean };
 const { locale, content, versionId, isPreview = false } = Astro.props;
@@ -50,14 +51,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 			<section id="sobre"><p class="mono label">{content.wire.about}</p><h2>{content.about.title}</h2><p>{content.about.body}</p></section>
 			<section id="experiencia">
 				<p class="mono label">{content.wire.experience}</p><h2>{content.experience.title}</h2>
-				{content.experience.items.map((item) => (
-					<article class="job">
-						<p class="mono">{item.period}</p>
-						<h3>{item.role} @ {item.company}</h3>
-						<p class="mono dim">{item.location}</p>
-						<p class="job-summary">{item.summary}</p>
-					</article>
-				))}
+				<ExperienceExpandable items={content.experience.items} />
 			</section>
 			<section id="competencias">
 				<p class="mono label">{content.wire.skills}</p><h2>{content.skills.title}</h2>
@@ -88,9 +82,6 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 	section{padding:1.5rem 0;border-top:1px dashed rgba(119,33,111,.3)}
 	:global(.hero-contrib){margin-top:1.5rem;padding:1.25rem 0 1.5rem;border-top:1px dashed rgba(119,33,111,.3)}
 	h2{margin:.2rem 0 .8rem;font-family:var(--font-display);font-size:1.25rem;color:var(--color-brand)}
-	.job+.job{margin-top:1.2rem}
-	.job h3{margin:.2rem 0;font-family:var(--font-display);font-size:1.05rem}
-	.job-summary{margin:.4rem 0 0;color:var(--color-ink-soft)}
 	footer{padding-top:1rem}
 	@media (max-width:36rem){
 		.header-actions{width:100%;justify-content:space-between}

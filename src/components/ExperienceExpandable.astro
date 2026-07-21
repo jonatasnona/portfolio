@@ -1,0 +1,187 @@
+---
+/**
+ * Expandable experience timeline for Wire (v6).
+ * Always shows period, role, company, location; summary + tech expand on demand.
+ * Inspired by v8 accordion — native <details>, no JS.
+ */
+import type { Experience } from '../content/types';
+
+type Props = {
+	items: Experience[];
+	/** When true, the first (current) role starts open. Default: true. */
+	openFirst?: boolean;
+};
+
+const { items, openFirst = true } = Astro.props;
+---
+
+<div class="exp-list">
+	{
+		items.map((item, i) => (
+			<details class="exp" open={openFirst && i === 0}>
+				<summary class="exp-head">
+					<span class="exp-when">{item.period}</span>
+					<span class="exp-who">
+						<strong>{item.role}</strong>
+						<span class="exp-at"> @ {item.company}</span>
+					</span>
+					<span class="exp-where">{item.location}</span>
+				</summary>
+				<div class="exp-body">
+					<p class="exp-summary">{item.summary}</p>
+					{
+						item.technologies.length > 0 && (
+							<p class="exp-tech">{item.technologies.join(' · ')}</p>
+						)
+					}
+				</div>
+			</details>
+		))
+	}
+</div>
+
+<style>
+	.exp-list {
+		display: grid;
+		gap: 0;
+	}
+
+	.exp {
+		border-bottom: 1px dashed rgba(119, 33, 111, 0.3);
+		padding: 0.15rem 0;
+	}
+
+	.exp:first-child {
+		border-top: 1px dashed rgba(119, 33, 111, 0.3);
+	}
+
+	.exp-head {
+		display: grid;
+		grid-template-columns: max-content minmax(0, 1fr) auto auto;
+		gap: 0.35rem 0.75rem;
+		align-items: baseline;
+		cursor: pointer;
+		list-style: none;
+		padding: 0.85rem 0;
+		min-height: 2.75rem;
+	}
+
+	.exp-head::-webkit-details-marker {
+		display: none;
+	}
+
+	.exp-head::after {
+		content: '+';
+		font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+		font-size: 1rem;
+		font-weight: 800;
+		color: var(--color-accent-deep);
+		align-self: center;
+		justify-self: end;
+		line-height: 1;
+		width: 1.75rem;
+		height: 1.75rem;
+		display: grid;
+		place-items: center;
+	}
+
+	.exp[open] .exp-head::after {
+		content: '−';
+	}
+
+	.exp-head:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 3px;
+	}
+
+	.exp-when {
+		font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+		font-size: 0.78rem;
+		font-weight: 700;
+		color: var(--color-muted);
+		white-space: nowrap;
+	}
+
+	.exp-who {
+		font-family: var(--font-display);
+		font-size: 1.05rem;
+		color: var(--color-ink);
+		line-height: 1.25;
+	}
+
+	.exp-at {
+		font-weight: 600;
+		color: var(--color-brand-mid);
+	}
+
+	.exp-where {
+		font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+		font-size: 0.75rem;
+		color: var(--color-muted);
+		justify-self: end;
+	}
+
+	.exp-body {
+		padding: 0 0 1rem;
+		animation: exp-in 0.2s ease;
+	}
+
+	.exp-summary {
+		margin: 0;
+		color: var(--color-ink-soft);
+		line-height: 1.5;
+	}
+
+	.exp-tech {
+		margin: 0.65rem 0 0;
+		font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+		font-size: 0.72rem;
+		font-weight: 600;
+		color: var(--color-muted);
+	}
+
+	@keyframes exp-in {
+		from {
+			opacity: 0;
+			transform: translateY(-0.25rem);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@media (max-width: 40rem) {
+		.exp-head {
+			grid-template-columns: 1fr auto;
+			grid-template-areas:
+				'when toggle'
+				'who toggle'
+				'where toggle';
+		}
+
+		.exp-when {
+			grid-area: when;
+		}
+
+		.exp-who {
+			grid-area: who;
+		}
+
+		.exp-where {
+			grid-area: where;
+			justify-self: start;
+		}
+
+		.exp-head::after {
+			grid-area: toggle;
+			align-self: start;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.exp-body {
+			animation: none;
+		}
+	}
+</style>
