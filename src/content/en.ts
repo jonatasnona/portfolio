@@ -18,7 +18,7 @@ export const en: PortfolioContent = {
 		eyebrow: 'Jonatas Pedraza',
 		headline: 'Software Engineer',
 		tagline:
-			'Backend, architecture, and cloud for products that must scale with reliability.',
+			'Backend, frontend, architecture, and cloud for products that must scale with reliability.',
 		ctaContact: 'Get in touch',
 		ctaResume: 'Download resume',
 	},

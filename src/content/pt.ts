@@ -18,7 +18,7 @@ export const pt: PortfolioContent = {
 		eyebrow: 'Jonatas Pedraza',
 		headline: 'Engenheiro de Software',
 		tagline:
-			'Backend, arquitetura e cloud para produtos que precisam escalar com confiabilidade.',
+			'Backend, frontend, arquitetura e cloud para produtos que precisam escalar com confiabilidade.',
 		ctaContact: 'Fale comigo',
 		ctaResume: 'Baixar currículo',
 	},
