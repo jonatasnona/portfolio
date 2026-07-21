@@ -2,7 +2,9 @@
 import { getContent } from '../../../../content';
 import { isVersionId, loadVersionLayout, versionIds } from '../../../../versions/registry';
 
+/** Layout previews are local-dev only — not emitted in production builds. */
 export function getStaticPaths() {
+	if (import.meta.env.PROD) return [];
 	return versionIds.map((version) => ({ params: { version } }));
 }
 

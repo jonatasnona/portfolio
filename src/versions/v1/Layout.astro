@@ -175,21 +175,25 @@ const localeNames: Record<Locale, string> = {
 						<p class="muted">{content.footer.brandNote}</p>
 					</div>
 				</div>
-				<details class="version-panel">
-					<summary>{content.nav.versionPreview}</summary>
-					<ul>
-						{
-							versionIds.map((id) => (
-								<li>
-									<a href={previewPath(id, locale)}>
-										{id}
-										{id === siteConfig.activeVersion ? ' · ativa' : ''}
-									</a>
-								</li>
-							))
-						}
-					</ul>
-				</details>
+				{
+					import.meta.env.DEV && (
+						<details class="version-panel">
+							<summary>{content.nav.versionPreview}</summary>
+							<ul>
+								{
+									versionIds.map((id) => (
+										<li>
+											<a href={previewPath(id, locale)}>
+												{id}
+												{id === siteConfig.activeVersion ? ' · ativa' : ''}
+											</a>
+										</li>
+									))
+								}
+							</ul>
+						</details>
+					)
+				}
 			</div>
 		</footer>
 		<DevTools locale={locale} versionId={versionId} />
