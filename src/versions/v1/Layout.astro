@@ -44,7 +44,7 @@ const localeNames: Record<Locale, string> = {
 ---
 
 <!doctype html>
-<html lang={locale} translate="no" class="notranslate" data-fonts="outfit">
+<html lang={locale} translate="no" class="notranslate" data-fonts="outfit" data-palette="ocean">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -87,11 +87,11 @@ const localeNames: Record<Locale, string> = {
 							const savedPalette = localStorage.getItem('portfolio:dev-palette');
 							document.documentElement.setAttribute(
 								'data-palette',
-								savedPalette && PALETTES.has(savedPalette) ? savedPalette : 'mandril',
+								savedPalette && PALETTES.has(savedPalette) ? savedPalette : 'ocean',
 							);
 						} catch {
 							document.documentElement.setAttribute('data-fonts', 'outfit');
-							document.documentElement.setAttribute('data-palette', 'mandril');
+							document.documentElement.setAttribute('data-palette', 'ocean');
 						}
 					})();
 				</script>

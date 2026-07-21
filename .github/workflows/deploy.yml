@@ -1,8 +1,8 @@
 name: Deploy GitHub Pages
 
-# Manual only until the portfolio is ready for public Pages.
-# Re-enable `push: branches: [main]` when you want auto-deploy.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:

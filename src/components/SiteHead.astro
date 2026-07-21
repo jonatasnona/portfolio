@@ -47,11 +47,11 @@ const { content } = Astro.props;
 					const savedPalette = localStorage.getItem('portfolio:dev-palette');
 					document.documentElement.setAttribute(
 						'data-palette',
-						savedPalette && PALETTES.has(savedPalette) ? savedPalette : 'mandril',
+						savedPalette && PALETTES.has(savedPalette) ? savedPalette : 'ocean',
 					);
 				} catch {
 					document.documentElement.setAttribute('data-fonts', 'outfit');
-					document.documentElement.setAttribute('data-palette', 'mandril');
+					document.documentElement.setAttribute('data-palette', 'ocean');
 				}
 			})();
 		</script>

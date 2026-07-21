@@ -28,7 +28,7 @@ In `npm run dev`, bottom-right panel:
 - **Palette** — instant CSS (`data-palette`)
 - **Layout** — navigates to `/v/<id>/` (DEV-only; omitted from production builds)
 
-Production: `activeVersion` in `src/site.config.ts`. Preview routes are not shipped.
+Production: `activeVersion` in `src/site.config.ts` (currently `v6`). Defaults: Outfit + Ocean. Preview routes are not shipped.
 
 ## Design
 

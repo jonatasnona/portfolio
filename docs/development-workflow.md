@@ -32,7 +32,7 @@ Go Issue → PR directly for:
 4. Implement (new layout version for large experiments)
 5. `npm run check` and `npm run build`
 6. PR linked to the Issue; description in English
-7. Merge to `main` (Pages publish is **manual** until auto-deploy is re-enabled)
+7. Merge to `main` publishes via Actions (push deploy)
 
 ## Agent rules
 

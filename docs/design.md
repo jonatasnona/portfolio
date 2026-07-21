@@ -28,7 +28,7 @@ Everything else serves that funnel — it must not compete with it.
 | Space / base | `src/styles/tokens.css` | — |
 | Composition | `src/versions/<id>/` | DevTools → Layout (DEV-only `/v/` routes) |
 
-Production: default typography/palette on HTML; layout = `siteConfig.activeVersion`. Layout preview URLs are not emitted in production builds.
+Production: typography `outfit`, palette `ocean`, layout = `siteConfig.activeVersion` (`v6`). Layout preview URLs are not emitted in production builds.
 
 ## Contact (guideline)
 

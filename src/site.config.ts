@@ -4,7 +4,7 @@ export const locales: Locale[] = ['pt', 'en', 'es'];
 
 export const siteConfig = {
 	/** Layout version served at `/`, `/en/`, `/es/`. Preview routes are DEV-only. */
-	activeVersion: 'v1',
+	activeVersion: 'v6',
 	name: 'Jonatas Pedraza',
 	siteUrl: 'https://jonatasnona.github.io',
 	base: '/portfolio',

@@ -44,8 +44,6 @@ MIT — see [LICENSE](LICENSE).
 
 ## Deploy
 
-The GitHub Actions workflow is **manual only** (`workflow_dispatch`) — pushes to `main` do not publish automatically.
-
-Actions → **Deploy GitHub Pages** → Run workflow.
+Pushes to `main` trigger `.github/workflows/deploy.yml` (also available as manual `workflow_dispatch`).
 
 Details: [docs/github-pages.md](docs/github-pages.md).

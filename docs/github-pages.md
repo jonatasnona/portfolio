@@ -12,18 +12,10 @@ If this becomes a user site (`jonatasnona.github.io`), set `base` to `/` and adj
 
 File: `.github/workflows/deploy.yml`
 
-**Deploy is `workflow_dispatch` only** (manual) until review is done. Pushes to `main` do **not** publish.
+Triggers:
 
-To publish: Actions → “Deploy GitHub Pages” → Run workflow.
-
-When you want auto-deploy, restore in the YAML:
-
-```yaml
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-```
+- `push` to `main` (auto-deploy)
+- `workflow_dispatch` (manual)
 
 Job steps:
 

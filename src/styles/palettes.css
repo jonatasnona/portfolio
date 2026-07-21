@@ -1,16 +1,38 @@
 /**
- * Paletas — trocar via data-palette no <html>
- * Dev switcher: só em import.meta.env.DEV
+ * Palettes — switch via data-palette on <html>
+ * Dev switcher: import.meta.env.DEV only
  *
- * mandril — Ubuntu / Mandril (padrão)
- * slate   — aço + teal
- * forest  — verde profundo + âmbar
- * noir    — carvão + azul elétrico
- * clay    — pedra quente + índigo
- * ocean   — navy + coral
+ * ocean   — navy + coral (default)
+ * mandril — Ubuntu / Mandril
+ * slate   — steel + teal
+ * forest  — deep green + amber
+ * noir    — charcoal + electric blue
+ * clay    — warm stone + indigo
  */
 
 :root,
+html[data-palette='ocean'] {
+	--color-ink: #0b1f2a;
+	--color-ink-soft: #1e3a4c;
+	--color-muted: #6a7c88;
+	--color-surface: #eaf1f4;
+	--color-surface-elevated: #f5fafc;
+	--color-accent: #f07167;
+	--color-accent-deep: #d9554c;
+	--color-brand: #0e4d6b;
+	--color-brand-mid: #166088;
+	--color-line: rgba(14, 77, 107, 0.16);
+	--color-glow: rgba(240, 113, 103, 0.16);
+	--color-glow-alt: rgba(22, 96, 136, 0.12);
+	--color-bg-top: #f2f7fa;
+	--color-bg-bot: #e0ebf0;
+	--color-canvas: #d4e2ea;
+	--color-paper: #eef5f8;
+	--color-on-brand: #ffffff;
+	--color-on-ink: #eaf4f8;
+	--color-preview-link: #ffc9c4;
+}
+
 html[data-palette='mandril'] {
 	--color-ink: #2c001e;
 	--color-ink-soft: #5e2750;
@@ -119,26 +141,4 @@ html[data-palette='clay'] {
 	--color-on-brand: #ffffff;
 	--color-on-ink: #f5f0ea;
 	--color-preview-link: #c7d2fe;
-}
-
-html[data-palette='ocean'] {
-	--color-ink: #0b1f2a;
-	--color-ink-soft: #1e3a4c;
-	--color-muted: #6a7c88;
-	--color-surface: #eaf1f4;
-	--color-surface-elevated: #f5fafc;
-	--color-accent: #f07167;
-	--color-accent-deep: #d9554c;
-	--color-brand: #0e4d6b;
-	--color-brand-mid: #166088;
-	--color-line: rgba(14, 77, 107, 0.16);
-	--color-glow: rgba(240, 113, 103, 0.16);
-	--color-glow-alt: rgba(22, 96, 136, 0.12);
-	--color-bg-top: #f2f7fa;
-	--color-bg-bot: #e0ebf0;
-	--color-canvas: #d4e2ea;
-	--color-paper: #eef5f8;
-	--color-on-brand: #ffffff;
-	--color-on-ink: #eaf4f8;
-	--color-preview-link: #ffc9c4;
 }

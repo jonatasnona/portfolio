@@ -45,4 +45,4 @@ Static one-page with Hero, About, Experience, and Skills; contact via persistent
 
 - Repo published as project site `jonatasnona.github.io/portfolio`
 - Single PT PDF in the MVP for all locales
-- Production ships one chosen layout (`activeVersion`); other versions stay a local lab
+- Production ships layout `v6` (Wire) with Outfit + Ocean; other versions stay a local lab

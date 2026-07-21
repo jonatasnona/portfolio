@@ -18,7 +18,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 ---
 
 <!doctype html>
-<html lang={locale} translate="no" class="notranslate" data-fonts="outfit" data-layout="v11">
+<html lang={locale} translate="no" class="notranslate" data-fonts="outfit" data-palette="ocean" data-layout="v11">
 	<head><SiteHead locale={locale} content={content} /></head>
 	<body class="mosaic">
 		{isPreview && <div class="preview-banner">Preview <strong>{versionId}</strong> · Mosaic <a href={localeHomePath(locale)}>Produção</a></div>}
