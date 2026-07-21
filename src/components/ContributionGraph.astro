@@ -106,13 +106,6 @@ function monthSegments(weeks: ContributionWeek[]): MonthSegment[] {
 	return segs;
 }
 
-const weekdayFmt = new Intl.DateTimeFormat(locale, { weekday: 'short', timeZone: 'UTC' });
-// 2023-01-01 is a Sunday; offset by weekday index for a reference label.
-const weekdayLabels = [1, 3, 5].map((wd) => ({
-	wd,
-	label: weekdayFmt.format(new Date(`2023-01-0${1 + wd}T00:00:00Z`)),
-}));
-
 const boardFull = data ? renderBoard(fullWeeks) : [];
 const boardMobile = data ? renderBoard(mobileWeeks) : [];
 const monthsFull = data ? monthSegments(fullWeeks) : [];
@@ -154,18 +147,15 @@ const monthsMobile = data ? monthSegments(mobileWeeks) : [];
 								aria-hidden="true"
 							>
 								{monthsFull.map((seg) => (
-									<span class="contrib-month" style={`grid-column:${seg.start + 2}/span ${seg.span}`}>
+									<span class="contrib-month" style={`grid-column:${seg.start + 1}/span ${seg.span}`}>
 										{seg.label}
 									</span>
-								))}
-								{weekdayLabels.map((w) => (
-									<span class="contrib-wd" style={`grid-row:${w.wd + 2}`}>{w.label}</span>
 								))}
 								{boardFull.map((week, wi) =>
 									week.days.map((day) => (
 										<span
 											class={`contrib-cell level-${day.level}`}
-											style={`grid-column:${wi + 2};grid-row:${day.wd + 2}`}
+											style={`grid-column:${wi + 1};grid-row:${day.wd + 2}`}
 											title={day.title}
 										/>
 									)),
@@ -177,18 +167,15 @@ const monthsMobile = data ? monthSegments(mobileWeeks) : [];
 								aria-hidden="true"
 							>
 								{monthsMobile.map((seg) => (
-									<span class="contrib-month" style={`grid-column:${seg.start + 2}/span ${seg.span}`}>
+									<span class="contrib-month" style={`grid-column:${seg.start + 1}/span ${seg.span}`}>
 										{seg.label}
 									</span>
-								))}
-								{weekdayLabels.map((w) => (
-									<span class="contrib-wd" style={`grid-row:${w.wd + 2}`}>{w.label}</span>
 								))}
 								{boardMobile.map((week, wi) =>
 									week.days.map((day) => (
 										<span
 											class={`contrib-cell level-${day.level}`}
-											style={`grid-column:${wi + 2};grid-row:${day.wd + 2}`}
+											style={`grid-column:${wi + 1};grid-row:${day.wd + 2}`}
 											title={day.title}
 										/>
 									)),
@@ -205,18 +192,15 @@ const monthsMobile = data ? monthSegments(mobileWeeks) : [];
 							aria-hidden="true"
 						>
 							{monthsFull.map((seg) => (
-								<span class="contrib-month" style={`grid-column:${seg.start + 2}/span ${seg.span}`}>
+								<span class="contrib-month" style={`grid-column:${seg.start + 1}/span ${seg.span}`}>
 									{seg.label}
 								</span>
-							))}
-							{weekdayLabels.map((w) => (
-								<span class="contrib-wd" style={`grid-row:${w.wd + 2}`}>{w.label}</span>
 							))}
 							{boardFull.map((week, wi) =>
 								week.days.map((day) => (
 									<span
 										class={`contrib-cell level-${day.level}`}
-										style={`grid-column:${wi + 2};grid-row:${day.wd + 2}`}
+										style={`grid-column:${wi + 1};grid-row:${day.wd + 2}`}
 										title={day.title}
 									/>
 								)),
@@ -228,18 +212,15 @@ const monthsMobile = data ? monthSegments(mobileWeeks) : [];
 							aria-hidden="true"
 						>
 							{monthsMobile.map((seg) => (
-								<span class="contrib-month" style={`grid-column:${seg.start + 2}/span ${seg.span}`}>
+								<span class="contrib-month" style={`grid-column:${seg.start + 1}/span ${seg.span}`}>
 									{seg.label}
 								</span>
-							))}
-							{weekdayLabels.map((w) => (
-								<span class="contrib-wd" style={`grid-row:${w.wd + 2}`}>{w.label}</span>
 							))}
 							{boardMobile.map((week, wi) =>
 								week.days.map((day) => (
 									<span
 										class={`contrib-cell level-${day.level}`}
-										style={`grid-column:${wi + 2};grid-row:${day.wd + 2}`}
+										style={`grid-column:${wi + 1};grid-row:${day.wd + 2}`}
 										title={day.title}
 									/>
 								)),
@@ -351,10 +332,10 @@ const monthsMobile = data ? monthSegments(mobileWeeks) : [];
 	}
 
 	/* ——— Heatmap-led ——— */
-	/* ——— Shared board (CSS grid: weekday col + week cols; month header row) ——— */
+	/* ——— Shared board (week columns + month header row) ——— */
 	.contrib-board {
 		display: grid;
-		grid-template-columns: auto repeat(var(--weeks), minmax(0, 1fr));
+		grid-template-columns: repeat(var(--weeks), minmax(0, 1fr));
 		grid-template-rows: auto repeat(7, minmax(0, 1fr));
 		gap: var(--contrib-gap);
 		width: 100%;
@@ -386,16 +367,6 @@ const monthsMobile = data ? monthSegments(mobileWeeks) : [];
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: clip;
-	}
-
-	.contrib-wd {
-		grid-column: 1;
-		align-self: center;
-		padding-right: 0.4rem;
-		font-size: 0.62rem;
-		line-height: 1;
-		color: var(--color-muted);
-		white-space: nowrap;
 	}
 
 	.contrib-cell {
