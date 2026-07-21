@@ -31,7 +31,7 @@ export const pt: PortfolioContent = {
 		items: [
 			{
 				company: 'Nuvemshop',
-				role: 'Engenheiro de Software',
+				role: 'Software Engineer',
 				period: 'Mar 2024 — Atual',
 				location: 'São Paulo, Brasil',
 				bullets: [
