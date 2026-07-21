@@ -28,6 +28,7 @@ Thumbs.db
 /logotipo-*.png
 /resume_jonatas_pedraza_pt.pdf
 *.pdf.png
+public/brand/*-source.png
 
 # Cursor (version rule files only)
 .cursor/*
