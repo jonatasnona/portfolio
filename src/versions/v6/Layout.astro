@@ -48,7 +48,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 				/>
 			</div>
 
-			<section id="sobre"><p class="mono label">{content.wire.about}</p><h2>{content.about.title}</h2><p>{content.about.body}</p></section>
+			<section id="sobre"><p class="mono label">{content.wire.about}</p><h2>{content.about.title}</h2><p class="about-body">{content.about.body}</p></section>
 			<section id="experiencia">
 				<p class="mono label">{content.wire.experience}</p><h2>{content.experience.title}</h2>
 				<ExperienceExpandable items={content.experience.items} />
@@ -85,5 +85,15 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 	footer{padding-top:1rem}
 	@media (max-width:36rem){
 		.header-actions{width:100%;justify-content:space-between}
+	}
+</style>
+
+<style is:global>
+	/* Justify About copy — global to avoid scoped-CSS misses on this paragraph */
+	html[data-layout='v6'] #sobre .about-body {
+		margin: 0;
+		text-align: justify;
+		-webkit-hyphens: auto;
+		hyphens: auto;
 	}
 </style>
