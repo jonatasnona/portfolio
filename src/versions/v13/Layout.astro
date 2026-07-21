@@ -27,7 +27,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 			<div class="inner">
 				<div class="cover-top">
 					<div class="lang">{locales.map((l) => <a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>{l.toUpperCase()}</a>)}</div>
-					<ContactLinks content={content} variant="header" />
+					<ContactLinks content={content} locale={locale} variant="header" />
 				</div>
 				<p class="vol">Vol. 01 · {year}</p>
 				<img src={assetPath(siteConfig.brandLogo)} alt="" width="80" height="44" />
@@ -36,7 +36,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 				<p class="tag">{content.hero.tagline}</p>
 				<div class="cta">
 					<a href={`mailto:${siteConfig.email}`}>{content.hero.ctaContact}</a>
-					<a class="ghost" href={assetPath(siteConfig.resumePath)} download>{content.hero.ctaResume}</a>
+					<a class="ghost" href={assetPath(siteConfig.resumePath[locale])} download>{content.hero.ctaResume}</a>
 				</div>
 			</div>
 		</section>
@@ -90,7 +90,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 			<div class="inner">
 				<p class="pg">Colophon</p>
 				<p>{content.contact.body}</p>
-				<ContactLinks content={content} variant="spread" />
+				<ContactLinks content={content} locale={locale} variant="spread" />
 				<p class="fine">© {year} {content.footer.rights}</p>
 			</div>
 		</section>

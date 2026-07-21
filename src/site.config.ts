@@ -16,7 +16,11 @@ export const siteConfig = {
 		en: 'Carpina, PE, Brazil',
 		es: 'Carpina, PE, Brasil',
 	},
-	resumePath: '/resume/resume_jonatas_pedraza_pt.pdf',
+	resumePath: {
+		pt: '/resume/resume_jonatas_pedraza_pt.pdf',
+		en: '/resume/resume_jonatas_pedraza_en.pdf',
+		es: '/resume/resume_jonatas_pedraza_es.pdf',
+	},
 	brandLogo: '/brand/mandril-logo.png',
 } as const;
 

@@ -28,6 +28,7 @@ Static one-page professional site for **Jonatas Pedraza**, published on GitHub P
 - `specs/` — Spec Kit (artifacts in English)
   - `specs/001-portfolio-mvp/` — MVP
   - `specs/002-github-contribution-graph/` — contribution heatmap feasibility
+  - `specs/003-locale-resume-pdf/` — build-time locale resume PDFs
 
 ## Selective reading
 
@@ -44,6 +45,7 @@ Static one-page professional site for **Jonatas Pedraza**, published on GitHub P
 ```sh
 npm run dev
 npm run build
+npm run generate:resumes
 npm run preview
 npm run check
 ```

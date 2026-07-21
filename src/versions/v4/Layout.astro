@@ -28,7 +28,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 			<div class="cover-inner">
 				<div class="hero-actions">
 					<div class="lang">{locales.map((l) => <a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>{l.toUpperCase()}</a>)}</div>
-					<ContactLinks content={content} variant="header" />
+					<ContactLinks content={content} locale={locale} variant="header" />
 				</div>
 				<p class="role">{content.hero.headline}</p>
 				<h1>{content.hero.eyebrow}</h1>
@@ -36,7 +36,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 				<div class="cta">
 					<a href="#sobre">{content.nav.about}</a>
 					<a href={`mailto:${siteConfig.email}`}>{content.hero.ctaContact}</a>
-					<a class="ghost" href={assetPath(siteConfig.resumePath)} download>{content.hero.ctaResume}</a>
+					<a class="ghost" href={assetPath(siteConfig.resumePath[locale])} download>{content.hero.ctaResume}</a>
 				</div>
 				<a class="scroll" href="#sobre" aria-label="Scroll">↓</a>
 			</div>

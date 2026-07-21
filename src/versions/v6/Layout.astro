@@ -26,7 +26,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 		<div class="frame" id="topo">
 			<header class="bar">
 				<div class="header-actions">
-					<ContactLinks content={content} variant="header" />
+					<ContactLinks content={content} locale={locale} variant="header" />
 					<div class="lang">{locales.map((l) => <a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>{l}</a>)}</div>
 				</div>
 			</header>

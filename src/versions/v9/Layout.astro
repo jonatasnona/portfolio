@@ -33,7 +33,7 @@ const today = new Date().toLocaleDateString(locale === 'en' ? 'en-US' : locale =
 				<div class="meta-row">
 					<span>{today}</span>
 					<div class="header-actions">
-						<ContactLinks content={content} variant="header" />
+						<ContactLinks content={content} locale={locale} variant="header" />
 						<div class="lang">{locales.map((l) => <a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>{l.toUpperCase()}</a>)}</div>
 					</div>
 					<span>{location}</span>

@@ -24,7 +24,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 		{isPreview && <div class="preview-banner">Preview <strong>{versionId}</strong> · Poster <a href={localeHomePath(locale)}>Produção</a></div>}
 
 		<header class="top-bar">
-			<ContactLinks content={content} variant="header" />
+			<ContactLinks content={content} locale={locale} variant="header" />
 			<div class="lang">{locales.map((l) => <a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>{l.toUpperCase()}</a>)}</div>
 		</header>
 
@@ -40,7 +40,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 				<p class="tag">{content.hero.tagline}</p>
 				<div class="cta">
 					<a href={`mailto:${siteConfig.email}`}>{content.hero.ctaContact}</a>
-					<a class="ghost" href={assetPath(siteConfig.resumePath)} download>{content.hero.ctaResume}</a>
+					<a class="ghost" href={assetPath(siteConfig.resumePath[locale])} download>{content.hero.ctaResume}</a>
 				</div>
 			</div>
 		</section>
@@ -79,7 +79,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 			<div class="panel-inner">
 				<p class="n">05</p>
 				<p>{content.contact.body}</p>
-				<ContactLinks content={content} variant="spread" />
+				<ContactLinks content={content} locale={locale} variant="spread" />
 				<p class="fine">© {year} {content.footer.rights}</p>
 			</div>
 		</section>

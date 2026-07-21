@@ -54,7 +54,7 @@ const nav = [
 					<p class="brand-pane__role">{content.hero.headline}</p>
 					<div class="brand-pane__cta">
 						<a href={`mailto:${siteConfig.email}`}>{content.hero.ctaContact}</a>
-						<a href={assetPath(siteConfig.resumePath)} download>{content.hero.ctaResume}</a>
+						<a href={assetPath(siteConfig.resumePath[locale])} download>{content.hero.ctaResume}</a>
 					</div>
 				</div>
 			</aside>
@@ -65,7 +65,7 @@ const nav = [
 						{nav.map((item) => <a href={item.href}>{item.label}</a>)}
 					</nav>
 					<div class="header-actions">
-						<ContactLinks content={content} variant="header" />
+						<ContactLinks content={content} locale={locale} variant="header" />
 						<div class="lang">
 							{
 								locales.map((l) => (

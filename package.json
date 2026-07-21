@@ -23,17 +23,20 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/generate-resumes.mjs",
+    "build:site": "astro build",
     "preview": "astro preview",
     "check": "astro check",
     "astro": "astro",
-    "fetch:contributions": "node scripts/fetch-github-contributions.mjs"
+    "fetch:contributions": "node scripts/fetch-github-contributions.mjs",
+    "generate:resumes": "node scripts/generate-resumes.mjs"
   },
   "dependencies": {
     "astro": "^7.1.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
+    "playwright": "^1.54.2",
     "typescript": "^5.9.2"
   }
 }

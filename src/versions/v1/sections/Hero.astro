@@ -9,7 +9,7 @@ type Props = {
 	locale: Locale;
 };
 
-const { content } = Astro.props;
+const { content, locale } = Astro.props;
 ---
 
 <section class="hero" aria-labelledby="hero-title">
@@ -22,7 +22,7 @@ const { content } = Astro.props;
 				<a class="btn btn-primary" href={`mailto:${siteConfig.email}`}>
 					{content.hero.ctaContact}
 				</a>
-				<a class="btn btn-secondary" href={assetPath(siteConfig.resumePath)} download>
+				<a class="btn btn-secondary" href={assetPath(siteConfig.resumePath[locale])} download>
 					{content.hero.ctaResume}
 				</a>
 			</div>

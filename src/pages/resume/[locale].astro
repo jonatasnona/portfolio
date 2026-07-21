@@ -1,0 +1,286 @@
+---
+/**
+ * Printable A4 resume — content-driven, brand tokens, no Wire chrome.
+ * Used for preview in DEV and as source for Playwright PDF export.
+ */
+import { getContent } from '../../content';
+import { locales, siteConfig, type Locale } from '../../site.config';
+import { assetPath } from '../../lib/paths';
+import '../../styles/tokens.css';
+import '../../styles/typography.css';
+import '../../styles/palettes.css';
+
+export function getStaticPaths() {
+	return locales.map((locale) => ({
+		params: { locale },
+	}));
+}
+
+const { locale: localeParam } = Astro.params;
+const locale = (locales.includes(localeParam as Locale) ? localeParam : 'pt') as Locale;
+const content = getContent(locale);
+const location = siteConfig.location[locale];
+---
+
+<!doctype html>
+<html lang={locale} data-fonts="outfit" data-palette="ocean">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex" />
+		<title>{siteConfig.name} — {content.nav.resume}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,600&family=Outfit:wght@500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<article class="resume" data-resume>
+			<header class="resume-hero">
+				<img
+					class="resume-logo"
+					src={assetPath(siteConfig.brandLogo)}
+					alt=""
+					width="72"
+					height="40"
+				/>
+				<p class="resume-role">{content.hero.headline}</p>
+				<h1 class="resume-name">{content.hero.eyebrow}</h1>
+				<p class="resume-tag">{content.hero.tagline}</p>
+				<ul class="resume-contact">
+					<li><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></li>
+					<li><a href={siteConfig.linkedin}>LinkedIn</a></li>
+					<li><a href={siteConfig.github}>GitHub</a></li>
+					<li>{location}</li>
+				</ul>
+			</header>
+
+			<section class="resume-section resume-section--avoid-break">
+				<h2>{content.about.title}</h2>
+				<p class="resume-body">{content.about.body}</p>
+			</section>
+
+			<section class="resume-section">
+				<h2>{content.experience.title}</h2>
+				{
+					content.experience.items.map((item) => (
+						<article class="resume-job">
+							<div class="resume-job-head">
+								<h3>
+									{item.role}
+									<span class="resume-at"> @ {item.company}</span>
+								</h3>
+								<p class="resume-meta">
+									{item.period} · {item.location}
+								</p>
+							</div>
+							<ul>
+								{item.bullets.map((b) => (
+									<li>{b}</li>
+								))}
+							</ul>
+							{
+								item.technologies.length > 0 && (
+									<p class="resume-tech">{item.technologies.join(' · ')}</p>
+								)
+							}
+						</article>
+					))
+				}
+			</section>
+
+			<section class="resume-section resume-section--avoid-break">
+				<h2>{content.skills.title}</h2>
+				<div class="resume-skills">
+					{
+						content.skills.groups.map((g) => (
+							<p>
+								<strong>{g.title}</strong>
+								<span> — {g.items.join(', ')}</span>
+							</p>
+						))
+					}
+				</div>
+			</section>
+		</article>
+	</body>
+</html>
+
+<style is:global>
+	@page {
+		size: A4;
+		margin: 12mm 14mm;
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+		background: #fff;
+		color: var(--color-ink);
+		font-family: var(--font-body);
+		font-size: 9.4pt;
+		line-height: 1.32;
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+
+	.resume {
+		max-width: 210mm;
+		margin: 0 auto;
+		padding: 1.25rem 1.5rem 2rem;
+	}
+
+	@media print {
+		.resume {
+			max-width: none;
+			padding: 0;
+		}
+	}
+
+	.resume-hero {
+		padding-bottom: 0.7rem;
+		border-bottom: 2px solid var(--color-brand);
+		margin-bottom: 0.8rem;
+	}
+
+	.resume-logo {
+		display: block;
+		margin-bottom: 0.65rem;
+	}
+
+	.resume-role {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: 0.85rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--color-brand);
+	}
+
+	.resume-name {
+		margin: 0.15rem 0 0;
+		font-family: var(--font-display);
+		font-size: 1.85rem;
+		font-weight: 800;
+		letter-spacing: var(--font-tracking-display);
+		line-height: 1.05;
+		color: var(--color-ink);
+	}
+
+	.resume-tag {
+		margin: 0.4rem 0 0;
+		color: var(--color-ink-soft);
+		font-size: 0.95rem;
+		max-width: 36rem;
+	}
+
+	.resume-contact {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem 1rem;
+		margin: 0.75rem 0 0;
+		padding: 0;
+		list-style: none;
+		font-size: 0.78rem;
+		color: var(--color-muted);
+	}
+
+	.resume-contact a {
+		color: var(--color-brand);
+		text-decoration: none;
+		font-weight: 600;
+	}
+
+	.resume-section {
+		margin-top: 0.65rem;
+	}
+
+	/* Keep short sections whole; let the long Experience list flow across pages. */
+	.resume-section--avoid-break {
+		break-inside: avoid;
+	}
+
+	.resume-section h2 {
+		margin: 0 0 0.45rem;
+		font-family: var(--font-display);
+		font-size: 0.95rem;
+		font-weight: 700;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		color: var(--color-brand);
+		border-bottom: 1px solid var(--color-line);
+		padding-bottom: 0.2rem;
+	}
+
+	.resume-body {
+		margin: 0;
+		color: var(--color-ink-soft);
+		font-size: 0.9rem;
+	}
+
+	.resume-job {
+		margin-top: 0.55rem;
+		break-inside: avoid;
+	}
+
+	.resume-job + .resume-job {
+		padding-top: 0.55rem;
+		border-top: 1px dashed var(--color-line);
+	}
+
+	.resume-job-head h3 {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: 1rem;
+		font-weight: 700;
+		color: var(--color-ink);
+	}
+
+	.resume-at {
+		font-weight: 600;
+		color: var(--color-brand-mid);
+	}
+
+	.resume-meta {
+		margin: 0.15rem 0 0;
+		font-size: 0.75rem;
+		color: var(--color-muted);
+	}
+
+	.resume-job ul {
+		margin: 0.35rem 0 0;
+		padding-left: 1.1rem;
+		color: var(--color-ink-soft);
+		font-size: 0.86rem;
+	}
+
+	.resume-job li + li {
+		margin-top: 0.15rem;
+	}
+
+	.resume-tech {
+		margin: 0.35rem 0 0;
+		font-size: 0.72rem;
+		color: var(--color-muted);
+	}
+
+	.resume-skills p {
+		margin: 0.25rem 0 0;
+		font-size: 0.86rem;
+		color: var(--color-ink-soft);
+	}
+
+	.resume-skills strong {
+		color: var(--color-ink);
+		font-family: var(--font-display);
+		font-weight: 700;
+	}
+</style>

@@ -8,7 +8,7 @@
  */
 import type { PortfolioContent } from '../content/types';
 import { assetPath } from '../lib/paths';
-import { siteConfig } from '../site.config';
+import { siteConfig, type Locale } from '../site.config';
 
 export type ContactLinksVariant =
 	| 'header'
@@ -21,11 +21,12 @@ export type ContactLinksVariant =
 
 type Props = {
 	content: PortfolioContent;
+	locale?: Locale;
 	variant?: ContactLinksVariant;
 	class?: string;
 };
 
-const { content, variant = 'row', class: className } = Astro.props;
+const { content, locale = 'pt', variant = 'row', class: className } = Astro.props;
 const labels = content.contact.labels;
 const resumeLabel = content.nav.resume;
 
@@ -53,7 +54,7 @@ const links = [
 	},
 	{
 		id: 'resume',
-		href: assetPath(siteConfig.resumePath),
+		href: assetPath(siteConfig.resumePath[locale]),
 		label: resumeLabel,
 		external: false,
 		download: true,

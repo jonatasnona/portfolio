@@ -29,7 +29,7 @@ const signoff =
 		<header class="top shell">
 			<a class="brand" href="#topo"><img src={assetPath(siteConfig.brandLogo)} alt="" width="44" height="24" />{siteConfig.name}</a>
 			<div class="header-actions">
-				<ContactLinks content={content} variant="header" />
+				<ContactLinks content={content} locale={locale} variant="header" />
 				<div class="lang">{locales.map((l) => <a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>{l.toUpperCase()}</a>)}</div>
 			</div>
 		</header>
@@ -45,7 +45,7 @@ const signoff =
 				<p class="cta">
 					<a href={`mailto:${siteConfig.email}`}>{content.hero.ctaContact}</a>
 					·
-					<a href={assetPath(siteConfig.resumePath)} download>{content.hero.ctaResume}</a>
+					<a href={assetPath(siteConfig.resumePath[locale])} download>{content.hero.ctaResume}</a>
 				</p>
 			</article>
 

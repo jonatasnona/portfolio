@@ -25,7 +25,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 		<header class="top shell">
 			<a class="brand" href="#topo"><img src={assetPath(siteConfig.brandLogo)} alt="" width="48" height="26" />{siteConfig.name}</a>
 			<div class="header-actions">
-				<ContactLinks content={content} variant="header" />
+				<ContactLinks content={content} locale={locale} variant="header" />
 				<div class="lang">{locales.map((l) => <a href={langHref(l)} aria-current={l === locale ? 'page' : undefined} hreflang={l}>{l.toUpperCase()}</a>)}</div>
 			</div>
 		</header>
@@ -33,7 +33,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 			<p class="role">{content.hero.headline}</p>
 			<h1>{content.hero.eyebrow}</h1>
 			<p class="tag">{content.hero.tagline}</p>
-			<p class="cta"><a href={`mailto:${siteConfig.email}`}>{content.hero.ctaContact}</a> · <a href={assetPath(siteConfig.resumePath)} download>{content.hero.ctaResume}</a></p>
+			<p class="cta"><a href={`mailto:${siteConfig.email}`}>{content.hero.ctaContact}</a> · <a href={assetPath(siteConfig.resumePath[locale])} download>{content.hero.ctaResume}</a></p>
 
 			<section id="sobre"><h2>{content.about.title}</h2><p>{content.about.body}</p></section>
 
