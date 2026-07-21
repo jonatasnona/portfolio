@@ -116,7 +116,7 @@ export const pt: PortfolioContent = {
 				company: 'Globo.com',
 				role: 'Software Engineer',
 				period: 'Nov 2014 — Nov 2015',
-				location: 'Brasil',
+				location: 'Rio de Janeiro, Brasil',
 				bullets: [
 					'Serviços backend para plataforma de vídeo, com foco em performance, escala e resiliência (ao vivo e sob demanda).',
 					'Contribuição em DevOps e CI/CD com Python, Node.js, Redis, Docker, PostgreSQL, MongoDB, Elasticsearch e Nginx.',
