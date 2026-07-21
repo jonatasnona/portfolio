@@ -2,7 +2,7 @@
 
 One-page personal site (Astro + TypeScript) for GitHub Pages.
 
-- Live site: `https://jonatasnona.github.io/portfolio/`
+- Live site: `https://jonatasnona.github.io/`
 - Locales: PT (default), EN, ES
 - Versioned layouts (local lab): see [docs/layout-versions.md](docs/layout-versions.md)
 
@@ -17,7 +17,7 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:4321/portfolio/`.
+Open `http://localhost:4321/`.
 
 ```sh
 npm run check

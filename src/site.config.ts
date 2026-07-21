@@ -7,7 +7,7 @@ export const siteConfig = {
 	activeVersion: 'v6',
 	name: 'Jonatas Pedraza',
 	siteUrl: 'https://jonatasnona.github.io',
-	base: '/portfolio',
+	base: '/',
 	github: 'https://github.com/jonatasnona',
 	linkedin: 'https://linkedin.com/in/jonatasnona',
 	email: 'jonatas.nona@gmail.com',

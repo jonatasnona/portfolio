@@ -15,12 +15,12 @@ Static one-page portfolio to present Jonatas Pedraza to hiring managers and peop
 
 | URL | Role |
 |-----|------|
-| `/portfolio/` | Production PT (`activeVersion`) |
-| `/portfolio/en/` | Production EN |
-| `/portfolio/es/` | Production ES |
-| `/portfolio/v/<version>/` | Version preview (PT) — **DEV builds only** |
-| `/portfolio/v/<version>/en/` | Version preview (EN) — **DEV builds only** |
-| `/portfolio/v/<version>/es/` | Version preview (ES) — **DEV builds only** |
+| `/` | Production PT (`activeVersion`) |
+| `/en/` | Production EN |
+| `/es/` | Production ES |
+| `/v/<version>/` | Version preview (PT) — **DEV builds only** |
+| `/v/<version>/en/` | Version preview (EN) — **DEV builds only** |
+| `/v/<version>/es/` | Version preview (ES) — **DEV builds only** |
 
 ## Render flow
 
@@ -35,8 +35,8 @@ Layouts load via `import.meta.glob` in `src/versions/registry.ts`.
 
 - Mandril logo (transparent PNG, Ubuntu poly-art): `public/brand/mandril-logo.png`
 - Resume PDFs (generated at build): `public/resume/resume_jonatas_pedraza_{pt,en,es}.pdf`
-- Printable HTML source: `/portfolio/resume/{pt,en,es}/` → Playwright → PDF (`scripts/generate-resumes.mjs`)
-- Public paths go through `src/lib/paths.ts` (`withBase`) because of `base: '/portfolio'`
+- Printable HTML source: `/resume/{pt,en,es}/` → Playwright → PDF (`scripts/generate-resumes.mjs`)
+- Public paths go through `src/lib/paths.ts` (`withBase`) because of `base: '/'`
 - `siteConfig.resumePath` is per-locale; `ContactLinks` receives `locale`
 ## Design / UI
 

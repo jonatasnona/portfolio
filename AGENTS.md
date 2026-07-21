@@ -50,7 +50,7 @@ npm run preview
 npm run check
 ```
 
-Local dev with base path: open `http://localhost:4321/portfolio/`.
+Local dev: open `http://localhost:4321/`.
 
 ## Non-negotiables
 

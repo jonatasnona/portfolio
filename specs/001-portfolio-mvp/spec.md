@@ -32,7 +32,7 @@ Static one-page with Hero, About, Experience, and Skills; contact via persistent
 
 ## Acceptance criteria
 
-1. Visitor on `/portfolio/` sees the PT one-page with Hero, About, Experience, Skills
+1. Visitor on `/` sees the PT one-page with Hero, About, Experience, Skills
 2. `/en/` and `/es/` show the same layout with translated copy
 3. Mandril logo appears in header/hero/footer as designed per layout
 4. Header icons reach email, LinkedIn, GitHub, and resume download
@@ -43,6 +43,6 @@ Static one-page with Hero, About, Experience, and Skills; contact via persistent
 
 ## Assumptions
 
-- Repo published as project site `jonatasnona.github.io/portfolio`
+- Repo published as user site `jonatasnona.github.io`
 - Single PT PDF in the MVP for all locales
 - Production ships layout `v6` (Wire) with Outfit + Ocean; other versions stay a local lab

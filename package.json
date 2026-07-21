@@ -10,13 +10,13 @@
     "url": "https://github.com/jonatasnona"
   },
   "license": "MIT",
-  "homepage": "https://jonatasnona.github.io/portfolio/",
+  "homepage": "https://jonatasnona.github.io/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jonatasnona/portfolio.git"
+    "url": "git+https://github.com/jonatasnona/jonatasnona.github.io.git"
   },
   "bugs": {
-    "url": "https://github.com/jonatasnona/portfolio/issues"
+    "url": "https://github.com/jonatasnona/jonatasnona.github.io/issues"
   },
   "engines": {
     "node": ">=22"

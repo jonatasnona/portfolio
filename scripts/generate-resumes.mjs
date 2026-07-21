@@ -17,7 +17,8 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
 const PUBLIC_RESUME = join(ROOT, 'public/resume');
 const DIST_RESUME = join(DIST, 'resume');
-const BASE = '/portfolio';
+/** Astro `base` for the user site (`/`). Empty string avoids double slashes in URLs. */
+const BASE = '';
 const LOCALES = ['pt', 'en', 'es'];
 
 const MIME = {
@@ -38,7 +39,7 @@ const MIME = {
 
 function resolveFile(urlPath) {
 	let pathname = decodeURIComponent(urlPath.split('?')[0]);
-	if (pathname.startsWith(BASE)) pathname = pathname.slice(BASE.length) || '/';
+	if (BASE && pathname.startsWith(BASE)) pathname = pathname.slice(BASE.length) || '/';
 	if (!pathname.startsWith('/')) pathname = `/${pathname}`;
 
 	const candidates = [];

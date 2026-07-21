@@ -3,10 +3,8 @@
 ## Astro config
 
 - `site`: `https://jonatasnona.github.io`
-- `base`: `/portfolio` (project site for the `portfolio` repo)
+- `base`: `/` (user site for the `jonatasnona.github.io` repo)
 - `trailingSlash`: `always`
-
-If this becomes a user site (`jonatasnona.github.io`), set `base` to `/` and adjust the workflow/paths.
 
 ## Workflow
 
@@ -32,7 +30,7 @@ On GitHub: Settings → Pages → Source = **GitHub Actions**.
 
 ```sh
 npm run dev
-# http://localhost:4321/portfolio/
+# http://localhost:4321/
 ```
 
 ```sh

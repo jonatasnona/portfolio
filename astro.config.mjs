@@ -4,7 +4,7 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://jonatasnona.github.io',
-	base: '/portfolio',
+	base: '/',
 	i18n: {
 		defaultLocale: 'pt',
 		locales: ['pt', 'en', 'es'],

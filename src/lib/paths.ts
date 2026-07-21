@@ -1,7 +1,7 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { type Locale } from '../site.config';
 
-/** Prefixa com `base` do Astro (GitHub Pages project site). */
+/** Prefixa com `base` do Astro (GitHub Pages user site: `/`). */
 export function withBase(path: string): string {
 	const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
 	const normalized = path.startsWith('/') ? path : `/${path}`;
