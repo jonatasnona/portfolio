@@ -26,6 +26,8 @@ Static one-page professional site for **Jonatas Pedraza**, published on GitHub P
 - `docs/github-pages.md` — base path, Actions, URLs
 - `docs/layout-versions.md` — create / promote / revert layout versions
 - `specs/` — Spec Kit (artifacts in English)
+  - `specs/001-portfolio-mvp/` — MVP
+  - `specs/002-github-contribution-graph/` — contribution heatmap feasibility
 
 ## Selective reading
 

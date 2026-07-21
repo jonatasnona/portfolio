@@ -26,7 +26,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "astro": "astro"
+    "astro": "astro",
+    "fetch:contributions": "node scripts/fetch-github-contributions.mjs"
   },
   "dependencies": {
     "astro": "^7.1.3"

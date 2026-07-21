@@ -190,6 +190,16 @@ export const es: PortfolioContent = {
 			},
 		],
 	},
+	contributions: {
+		title: 'Actividad en GitHub',
+		summary: '{total} contribuciones públicas en el último año.',
+		profileLink: 'Ver perfil en GitHub',
+		legendLabel: 'Nivel de actividad',
+		legendLess: 'Menos',
+		legendMore: 'Más',
+		contributionSingular: 'contribución',
+		contributionPlural: 'contribuciones',
+	},
 	contact: {
 		title: 'Contacto',
 		body: 'Abierto a conversaciones sobre ingeniería, arquitectura y oportunidades. Prefiero email o LinkedIn.',

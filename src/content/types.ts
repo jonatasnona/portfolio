@@ -44,6 +44,16 @@ export type PortfolioContent = {
 		title: string;
 		groups: SkillGroup[];
 	};
+	contributions: {
+		title: string;
+		summary: string;
+		profileLink: string;
+		legendLabel: string;
+		legendLess: string;
+		legendMore: string;
+		contributionSingular: string;
+		contributionPlural: string;
+	};
 	contact: {
 		title: string;
 		body: string;

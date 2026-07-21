@@ -1,0 +1,434 @@
+---
+/**
+ * GitHub contribution section — shared across layouts.
+ *
+ * design:
+ *   - 'stat'    — number-led; heatmap as supporting texture
+ *   - 'heatmap' — grid-led; total as caption
+ *
+ * Desktop: full ~365 days. Mobile: last ~26 weeks (~6 months).
+ * Soft-hides when JSON is missing/invalid. Never lists private repos/orgs.
+ */
+import type { Locale } from '../site.config';
+import type { PortfolioContent } from '../content/types';
+import {
+	loadGithubContributions,
+	weeksForViewport,
+	type ContributionDay,
+	type ContributionLevel,
+	type ContributionWeek,
+} from '../lib/github-contributions';
+import { siteConfig } from '../site.config';
+
+export type ContributionDesign = 'stat' | 'heatmap';
+export type ContributionVariant = 'default' | 'wire';
+
+type Props = {
+	content: PortfolioContent;
+	locale?: Locale;
+	design?: ContributionDesign;
+	/** Layout-specific chrome (e.g. Wire mono label) */
+	variant?: ContributionVariant;
+	/** Unique heading id when multiple instances share a page (A/B compare) */
+	headingId?: string;
+	class?: string;
+};
+
+const {
+	content,
+	locale = 'pt',
+	design = 'heatmap',
+	variant = 'default',
+	headingId = 'contrib-heading',
+	class: className,
+} = Astro.props;
+
+const data = loadGithubContributions();
+const copy = content.contributions;
+
+const fullWeeks = data ? weeksForViewport(data.weeks, 'full') : [];
+const mobileWeeks = data ? weeksForViewport(data.weeks, 'mobile') : [];
+
+const levelLabel: Record<ContributionLevel, string> = {
+	NONE: '0',
+	FIRST_QUARTILE: '1',
+	SECOND_QUARTILE: '2',
+	THIRD_QUARTILE: '3',
+	FOURTH_QUARTILE: '4',
+};
+
+const totalFormatted = data
+	? new Intl.NumberFormat(undefined).format(data.totalContributions)
+	: '';
+
+/** Summary without the number — used under the big stat */
+const statLabel = copy.summary.replace('{total}', '').replace(/\s+/g, ' ').trim();
+
+function cellLabel(day: ContributionDay): string {
+	const n = day.count;
+	const unit = n === 1 ? copy.contributionSingular : copy.contributionPlural;
+	return `${day.date}: ${n} ${unit}`;
+}
+
+function weekdayOf(date: string): number {
+	return new Date(`${date}T00:00:00Z`).getUTCDay();
+}
+
+function renderBoard(weeks: ContributionWeek[]) {
+	return weeks.map((week) => ({
+		days: week.days.map((day) => ({
+			level: levelLabel[day.level],
+			title: cellLabel(day),
+			wd: weekdayOf(day.date),
+		})),
+	}));
+}
+
+const monthFmt = new Intl.DateTimeFormat(locale, { month: 'short', timeZone: 'UTC' });
+
+type MonthSegment = { start: number; span: number; label: string };
+
+function monthSegments(weeks: ContributionWeek[]): MonthSegment[] {
+	const segs: MonthSegment[] = [];
+	let prevMonth = -1;
+	weeks.forEach((week, wi) => {
+		const first = week.days[0];
+		if (!first) return;
+		const d = new Date(`${first.date}T00:00:00Z`);
+		const m = d.getUTCMonth();
+		if (m !== prevMonth) {
+			segs.push({ start: wi, span: 1, label: monthFmt.format(d) });
+			prevMonth = m;
+		} else if (segs.length) {
+			segs[segs.length - 1].span += 1;
+		}
+	});
+	return segs;
+}
+
+const weekdayFmt = new Intl.DateTimeFormat(locale, { weekday: 'short', timeZone: 'UTC' });
+// 2023-01-01 is a Sunday; offset by weekday index for a reference label.
+const weekdayLabels = [1, 3, 5].map((wd) => ({
+	wd,
+	label: weekdayFmt.format(new Date(`2023-01-0${1 + wd}T00:00:00Z`)),
+}));
+
+const boardFull = data ? renderBoard(fullWeeks) : [];
+const boardMobile = data ? renderBoard(mobileWeeks) : [];
+const monthsFull = data ? monthSegments(fullWeeks) : [];
+const monthsMobile = data ? monthSegments(mobileWeeks) : [];
+---
+
+{
+	data && (
+		<section
+			id={headingId === 'contrib-heading' ? 'contribuicoes' : undefined}
+			class:list={[
+				'contrib',
+				`contrib--${design}`,
+				variant === 'wire' && 'contrib--wire',
+				className,
+			]}
+			aria-labelledby={design === 'stat' ? headingId : undefined}
+			aria-label={design === 'heatmap' ? copy.title : undefined}
+		>
+			{
+				design === 'stat' ? (
+					<div class="contrib-stat-layout">
+						<div class="contrib-stat-copy">
+							{variant === 'wire' && <p class="contrib-chrome">activity / github</p>}
+							<p class="contrib-stat" id={headingId}>
+								<span class="contrib-stat-num">{totalFormatted}</span>
+								<span class="contrib-stat-label">{statLabel}</span>
+							</p>
+							<p class="contrib-link">
+								<a href={siteConfig.github} rel="noopener noreferrer" target="_blank">
+									{copy.profileLink}
+								</a>
+							</p>
+						</div>
+						<div class="contrib-stat-visual">
+							<div
+								class="contrib-board contrib-board--desktop"
+								style={`--weeks:${boardFull.length}`}
+								aria-hidden="true"
+							>
+								{monthsFull.map((seg) => (
+									<span class="contrib-month" style={`grid-column:${seg.start + 2}/span ${seg.span}`}>
+										{seg.label}
+									</span>
+								))}
+								{weekdayLabels.map((w) => (
+									<span class="contrib-wd" style={`grid-row:${w.wd + 2}`}>{w.label}</span>
+								))}
+								{boardFull.map((week, wi) =>
+									week.days.map((day) => (
+										<span
+											class={`contrib-cell level-${day.level}`}
+											style={`grid-column:${wi + 2};grid-row:${day.wd + 2}`}
+											title={day.title}
+										/>
+									)),
+								)}
+							</div>
+							<div
+								class="contrib-board contrib-board--mobile"
+								style={`--weeks:${boardMobile.length}`}
+								aria-hidden="true"
+							>
+								{monthsMobile.map((seg) => (
+									<span class="contrib-month" style={`grid-column:${seg.start + 2}/span ${seg.span}`}>
+										{seg.label}
+									</span>
+								))}
+								{weekdayLabels.map((w) => (
+									<span class="contrib-wd" style={`grid-row:${w.wd + 2}`}>{w.label}</span>
+								))}
+								{boardMobile.map((week, wi) =>
+									week.days.map((day) => (
+										<span
+											class={`contrib-cell level-${day.level}`}
+											style={`grid-column:${wi + 2};grid-row:${day.wd + 2}`}
+											title={day.title}
+										/>
+									)),
+								)}
+							</div>
+						</div>
+					</div>
+				) : (
+					<>
+						{variant === 'wire' && <p class="contrib-chrome">activity / github</p>}
+						<div
+							class="contrib-board contrib-board--desktop"
+							style={`--weeks:${boardFull.length}`}
+							aria-hidden="true"
+						>
+							{monthsFull.map((seg) => (
+								<span class="contrib-month" style={`grid-column:${seg.start + 2}/span ${seg.span}`}>
+									{seg.label}
+								</span>
+							))}
+							{weekdayLabels.map((w) => (
+								<span class="contrib-wd" style={`grid-row:${w.wd + 2}`}>{w.label}</span>
+							))}
+							{boardFull.map((week, wi) =>
+								week.days.map((day) => (
+									<span
+										class={`contrib-cell level-${day.level}`}
+										style={`grid-column:${wi + 2};grid-row:${day.wd + 2}`}
+										title={day.title}
+									/>
+								)),
+							)}
+						</div>
+						<div
+							class="contrib-board contrib-board--mobile"
+							style={`--weeks:${boardMobile.length}`}
+							aria-hidden="true"
+						>
+							{monthsMobile.map((seg) => (
+								<span class="contrib-month" style={`grid-column:${seg.start + 2}/span ${seg.span}`}>
+									{seg.label}
+								</span>
+							))}
+							{weekdayLabels.map((w) => (
+								<span class="contrib-wd" style={`grid-row:${w.wd + 2}`}>{w.label}</span>
+							))}
+							{boardMobile.map((week, wi) =>
+								week.days.map((day) => (
+									<span
+										class={`contrib-cell level-${day.level}`}
+										style={`grid-column:${wi + 2};grid-row:${day.wd + 2}`}
+										title={day.title}
+									/>
+								)),
+							)}
+						</div>
+					</>
+				)
+			}
+
+			<p class="contrib-a11y">
+				{copy.summary.replace('{total}', totalFormatted)}
+			</p>
+		</section>
+	)
+}
+
+<style>
+	.contrib {
+		--contrib-cell: 10px;
+		--contrib-gap: 3px;
+		--contrib-0: color-mix(in srgb, var(--color-brand) 7%, var(--color-surface));
+		--contrib-1: color-mix(in srgb, var(--color-brand) 38%, var(--color-surface));
+		--contrib-2: color-mix(in srgb, var(--color-brand) 58%, var(--color-surface));
+		--contrib-3: color-mix(in srgb, var(--color-brand-mid) 82%, var(--color-surface));
+		--contrib-4: var(--color-brand);
+	}
+
+	.contrib--heatmap {
+		--contrib-cell: 12px;
+		--contrib-gap: 4px;
+	}
+
+	.contrib--stat {
+		--contrib-cell: 7px;
+		--contrib-gap: 2px;
+	}
+
+	.contrib-chrome {
+		margin: 0 0 0.35rem;
+		color: var(--color-accent-deep);
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+		font-size: 0.78rem;
+	}
+
+	/* ——— Stat-led ——— */
+	.contrib-stat-layout {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	@media (min-width: 48rem) {
+		.contrib-stat-layout {
+			flex-direction: row;
+			align-items: flex-end;
+			justify-content: space-between;
+			gap: 1.75rem;
+		}
+
+		.contrib-stat-copy {
+			flex: 0 1 16rem;
+			min-width: 0;
+		}
+
+		.contrib-stat-visual {
+			flex: 1 1 auto;
+			min-width: 0;
+			display: flex;
+			justify-content: flex-end;
+			overflow-x: auto;
+		}
+	}
+
+	.contrib-stat {
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.contrib-stat-num {
+		font-family: var(--font-display);
+		font-weight: var(--font-display-weight, 700);
+		font-size: clamp(2.75rem, 8vw, 4rem);
+		line-height: 0.95;
+		letter-spacing: var(--font-tracking-display, -0.02em);
+		color: var(--color-brand);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.contrib-stat-label {
+		font-size: 0.95rem;
+		line-height: 1.35;
+		color: var(--color-ink-soft);
+		max-width: 18rem;
+	}
+
+	.contrib-link {
+		margin: 0.75rem 0 0;
+	}
+
+	.contrib-link a {
+		color: var(--color-brand);
+		font-weight: 600;
+		font-size: 0.9rem;
+		text-underline-offset: 0.15em;
+	}
+
+	/* ——— Heatmap-led ——— */
+	/* ——— Shared board (CSS grid: weekday col + week cols; month header row) ——— */
+	.contrib-board {
+		display: grid;
+		grid-template-columns: auto repeat(var(--weeks), minmax(0, 1fr));
+		grid-template-rows: auto repeat(7, minmax(0, 1fr));
+		gap: var(--contrib-gap);
+		width: 100%;
+	}
+
+	.contrib-board--desktop {
+		display: none;
+	}
+
+	.contrib-board--mobile {
+		display: grid;
+	}
+
+	@media (min-width: 48rem) {
+		.contrib-board--desktop {
+			display: grid;
+		}
+		.contrib-board--mobile {
+			display: none;
+		}
+	}
+
+	.contrib-month {
+		grid-row: 1;
+		align-self: end;
+		font-size: 0.66rem;
+		line-height: 1;
+		color: var(--color-muted);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: clip;
+	}
+
+	.contrib-wd {
+		grid-column: 1;
+		align-self: center;
+		padding-right: 0.4rem;
+		font-size: 0.62rem;
+		line-height: 1;
+		color: var(--color-muted);
+		white-space: nowrap;
+	}
+
+	.contrib-cell {
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 1;
+		border-radius: 2px;
+		background: var(--contrib-0);
+	}
+
+	.contrib-cell.level-1 {
+		background: var(--contrib-1);
+	}
+	.contrib-cell.level-2 {
+		background: var(--contrib-2);
+	}
+	.contrib-cell.level-3 {
+		background: var(--contrib-3);
+	}
+	.contrib-cell.level-4 {
+		background: var(--contrib-4);
+	}
+
+	.contrib-a11y {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+</style>

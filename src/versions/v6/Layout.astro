@@ -10,6 +10,7 @@ import '../../styles/typography.css';
 import SiteHead from '../../components/SiteHead.astro';
 import DevTools from '../../components/DevTools.astro';
 import ContactLinks from '../../components/ContactLinks.astro';
+import ContributionGraph from '../../components/ContributionGraph.astro';
 
 type Props = { locale: Locale; content: PortfolioContent; versionId: VersionId; isPreview?: boolean };
 const { locale, content, versionId, isPreview = false } = Astro.props;
@@ -39,6 +40,13 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 				<p class="mono label">summary</p>
 				<p class="tag">{content.hero.tagline}</p>
 				<p class="cta mono"><a href={`mailto:${siteConfig.email}`}>contact()</a> <a href={assetPath(siteConfig.resumePath)} download>resume.download()</a></p>
+				<ContributionGraph
+					content={content}
+					locale={locale}
+					design="heatmap"
+					variant="wire"
+					class="hero-contrib"
+				/>
 			</div>
 
 			<section id="sobre"><p class="mono label">01 / about</p><h2>{content.about.title}</h2><p>{content.about.body}</p></section>
@@ -80,6 +88,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 	.cta a{color:var(--color-brand);font-weight:700;margin-right:1rem}
 	.dim{color:var(--color-muted)}
 	section{padding:1.5rem 0;border-top:1px dashed rgba(119,33,111,.3)}
+	:global(.hero-contrib){margin-top:1.5rem;padding:1.25rem 0 1.5rem;border-top:1px dashed rgba(119,33,111,.3)}
 	h2{margin:.2rem 0 .8rem;font-family:var(--font-display);font-size:1.25rem;color:var(--color-brand)}
 	.job+.job{margin-top:1.2rem}
 	.job h3{margin:.2rem 0;font-family:var(--font-display);font-size:1.05rem}
