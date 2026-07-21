@@ -26,9 +26,9 @@ In `npm run dev`, bottom-right panel:
 
 - **Typography** — instant CSS (`data-fonts`)
 - **Palette** — instant CSS (`data-palette`)
-- **Layout** — navigates to `/v/<id>/`
+- **Layout** — navigates to `/v/<id>/` (DEV-only; omitted from production builds)
 
-Production: `activeVersion` in `src/site.config.ts`.
+Production: `activeVersion` in `src/site.config.ts`. Preview routes are not shipped.
 
 ## Design
 

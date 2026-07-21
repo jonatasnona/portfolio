@@ -2,11 +2,15 @@
 
 One-page personal site (Astro + TypeScript) for GitHub Pages.
 
-- Production: `https://jonatasnona.github.io/portfolio/`
+- Live site: `https://jonatasnona.github.io/portfolio/`
 - Locales: PT (default), EN, ES
-- Versioned layouts: see [docs/layout-versions.md](docs/layout-versions.md)
+- Versioned layouts (local lab): see [docs/layout-versions.md](docs/layout-versions.md)
+
+Agent-assisted workflow docs (`AGENTS.md`, `.cursor/rules/`) are intentional — they encode review and design standards for this repo.
 
 ## Development
+
+Requires Node `>=22.12` (see `.nvmrc`).
 
 ```sh
 npm install
@@ -21,7 +25,7 @@ npm run build
 npm run preview
 ```
 
-In `npm run dev`, use the bottom-right DevTools panel to switch typography, color palette, and layout previews (`/v/<id>/`).
+In `npm run dev`, use the bottom-right DevTools panel to switch typography, color palette, and layout previews (`/v/<id>/`). Preview routes are **not** included in production builds.
 
 ## Quick structure
 
@@ -34,9 +38,13 @@ In `npm run dev`, use the bottom-right DevTools panel to switch typography, colo
 | `docs/` | Architecture & process |
 | `AGENTS.md` | Guidance for AI agents |
 
+## License
+
+MIT — see [LICENSE](LICENSE).
+
 ## Deploy
 
-The GitHub Actions workflow is **manual only** (`workflow_dispatch`) for now — pushes to `main` do not publish.
+The GitHub Actions workflow is **manual only** (`workflow_dispatch`) — pushes to `main` do not publish automatically.
 
 Actions → **Deploy GitHub Pages** → Run workflow.
 

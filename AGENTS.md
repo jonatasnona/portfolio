@@ -34,6 +34,7 @@ Static one-page professional site for **Jonatas Pedraza**, published on GitHub P
 - New layout version: `docs/layout-versions.md`, then `src/versions/<id>/`
 - i18n / routes: `astro.config.mjs`, `src/pages/`, `src/lib/paths.ts`
 - Pages deploy: `docs/github-pages.md`, `.github/workflows/deploy.yml`
+- Layout preview routes (`/v/<id>/`) are **DEV-only** — not shipped in production builds
 - Visual tokens: `src/styles/tokens.css`, `src/styles/palettes.css`, `src/styles/typography.css`
 
 ## Commands

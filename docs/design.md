@@ -26,9 +26,9 @@ Everything else serves that funnel — it must not compete with it.
 | Typography | `src/styles/typography.css` (`data-fonts`) | DevTools → Typography |
 | Palette | `src/styles/palettes.css` (`data-palette`) | DevTools → Palette |
 | Space / base | `src/styles/tokens.css` | — |
-| Composition | `src/versions/<id>/` | DevTools → Layout |
+| Composition | `src/versions/<id>/` | DevTools → Layout (DEV-only `/v/` routes) |
 
-Production: default typography/palette on HTML; layout = `siteConfig.activeVersion`.
+Production: default typography/palette on HTML; layout = `siteConfig.activeVersion`. Layout preview URLs are not emitted in production builds.
 
 ## Contact (guideline)
 

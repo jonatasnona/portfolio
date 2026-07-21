@@ -6,7 +6,7 @@ Jonatas Pedraza needs a public site to present himself to hiring managers and pe
 
 ## Desired outcome
 
-Static one-page with Hero, About, Experience, Skills, and contact actions; i18n pt/en/es; Mandril logo as an asset; layout-version structure so experiments do not break production.
+Static one-page with Hero, About, Experience, and Skills; contact via persistent header icons; i18n pt/en/es; Mandril logo as an asset; layout-version lab for local experiments without shipping every variant to production.
 
 ## Scope
 
@@ -16,28 +16,33 @@ Static one-page with Hero, About, Experience, Skills, and contact actions; i18n 
 - Content derived from the PT resume
 - Language switcher and hreflang
 - Resume PDF download
-- `activeVersion` + `/v/<version>/` routes
+- Header contact icons (email, LinkedIn, GitHub, resume)
+- `activeVersion` for production layout
+- Layout preview routes (`/v/<version>/`) **DEV-only**
 - Docs and `AGENTS.md` in English
+- MIT license
 
 ### Out
 
 - Blog / CMS
 - Dedicated Projects section
 - Automatic preview per PR
-- Custom domain
+- Public layout-preview URLs in production
+- Custom domain (optional later)
 
 ## Acceptance criteria
 
-1. Visitor on `/portfolio/` sees the PT one-page with the core sections
+1. Visitor on `/portfolio/` sees the PT one-page with Hero, About, Experience, Skills
 2. `/en/` and `/es/` show the same layout with translated copy
 3. Mandril logo appears in header/hero/footer as designed per layout
-4. Resume CTA downloads the PDF
-5. `/v/v1/` renders a preview with banner; production uses `activeVersion`
-6. `npm run check` and `npm run build` pass
-7. Specs and process docs are in English
+4. Header icons reach email, LinkedIn, GitHub, and resume download
+5. Production build does **not** emit `/v/<version>/` routes; local `npm run dev` still previews them
+6. Production uses `siteConfig.activeVersion`
+7. `npm run check` and `npm run build` pass
+8. Specs and process docs are in English
 
 ## Assumptions
 
 - Repo published as project site `jonatasnona.github.io/portfolio`
 - Single PT PDF in the MVP for all locales
-- One layout version (`v1`) at launch
+- Production ships one chosen layout (`activeVersion`); other versions stay a local lab

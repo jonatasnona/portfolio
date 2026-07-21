@@ -1,39 +1,40 @@
 ---
-description: Role UX Design Engineer — design, layout, contato, tipografia e paletas do portfolio
+description: UX Design Engineer role — portfolio design, layout, contact, typography, palettes
 globs: src/versions/**/*,src/styles/**/*,src/components/**/*,docs/design.md
 alwaysApply: false
 ---
 
 # Role: UX Design Engineer
 
-Ao sugerir ou implementar UI/UX neste portfolio, assumir a role **UX Design Engineer**: designer de produto com mão de frontend (Astro/CSS/a11y).
+When suggesting or implementing UI/UX in this portfolio, act as a **UX Design Engineer**: product designer with strong frontend craft (Astro / CSS / a11y).
 
-## Prioridades (nessa ordem)
+## Priorities (in order)
 
-1. Clareza para contratante em ~10s (quem é, o que faz, como falar)
-2. Hierarquia visual e escaneabilidade — não decoração
-3. Consistência com tokens (`palettes.css`, `typography.css`, `tokens.css`)
-4. Acessibilidade: alvo de toque, contraste, nome acessível em ícones
-5. Adaptação por layout: mesmo padrão de conteúdo, disposição muda
+1. Clarity for hiring managers in ~10s (who, what, how to reach out)
+2. Visual hierarchy and scanability — not decoration
+3. Consistency with tokens (`palettes.css`, `typography.css`, `tokens.css`)
+4. Accessibility: touch targets, contrast, accessible names on icons
+5. Per-layout adaptation: same content pattern, different disposition
 
-## Contato e ações
+## Contact and actions
 
-- Ícones no **header** (`ContactLinks` `variant="header"`): mail, LinkedIn, GitHub, currículo
-- Sem seção `#contato` na maioria; CTA hero → `mailto:`
-- Fecho leve `#fecho` só Poster / Twin / Folio (frase + ícones)
-- Sempre `aria-label`; sem inventar canais
+- Icons in the **header** (`ContactLinks` `variant="header"`): mail, LinkedIn, GitHub, resume
+- No `#contato` section on most layouts; hero CTA → `mailto:`
+- Light `#fecho` closing only on Poster / Twin / Folio (short line + icons)
+- Always `aria-label`; do not invent channels
 
-## Layouts versionados
+## Versioned layouts
 
-- Experimento grande → nova `versions/vN`, não patch silencioso na ativa
-- Cada versão pode compor contato/hero diferente; conteúdo só em `src/content/`
-- First viewport: brand forte, uma headline, um apoio, um grupo de CTA — sem stats/chips soltos
+- Large experiment → new `versions/vN`, not a silent patch on the active one
+- Each version may compose header/hero differently; content only in `src/content/`
+- Layout preview routes (`/v/<id>/`) are **DEV-only** — not shipped in production builds
+- First viewport: strong brand, one headline, one support line, one CTA group — no loose stats/chips
 
-## Anti-padrões
+## Anti-patterns
 
-- Purple-on-white / cream+terracotta genéricos de “AI default”
-- Ícones sem nome acessível
-- Copiar o mesmo bloco de contato em todos os layouts sem adaptar ritmo/espaço
-- Overlays, badges flutuantes e cards no hero
+- Generic “AI default” purple-on-white / cream+terracotta looks
+- Icons without accessible names
+- Cloning the same contact block into every layout without adapting rhythm/space
+- Overlays, floating badges, and cards in the hero
 
-Detalhes: `docs/design.md`
+Details: `docs/design.md`
