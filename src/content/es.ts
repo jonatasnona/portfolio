@@ -31,6 +31,7 @@ export const es: PortfolioContent = {
 		items: [
 			{
 				company: 'Nuvemshop',
+				companyUrl: 'https://www.nuvemshop.com.br/',
 				role: 'Ingeniero de Software',
 				period: 'Mar 2024 — Actual',
 				location: 'São Paulo, Brasil',
@@ -50,6 +51,7 @@ export const es: PortfolioContent = {
 			},
 			{
 				company: 'Delivery Much Brasil',
+				companyUrl: 'https://www.deliverymuch.com.br/',
 				role: 'Arquitecto de Software',
 				period: 'Jun 2021 — Feb 2024',
 				location: 'Santa Catarina, Brasil',
@@ -68,6 +70,7 @@ export const es: PortfolioContent = {
 			},
 			{
 				company: 'Pagar.me',
+				companyUrl: 'https://www.pagar.me/',
 				role: 'Ingeniero de Software',
 				period: 'Ago 2017 — Jun 2021',
 				location: 'São Paulo, Brasil',
@@ -87,6 +90,7 @@ export const es: PortfolioContent = {
 			},
 			{
 				company: 'Nokia Networks',
+				companyUrl: 'https://www.nokia.com/networks/',
 				role: 'Ingeniero de Integración de Sistemas',
 				period: 'Dic 2015 — Ago 2017',
 				location: 'Río de Janeiro, Brasil',
@@ -104,6 +108,7 @@ export const es: PortfolioContent = {
 			},
 			{
 				company: 'Globo.com',
+				companyUrl: 'https://www.globo.com/',
 				role: 'Software Engineer',
 				period: 'Nov 2014 — Nov 2015',
 				location: 'Río de Janeiro, Brasil',
@@ -123,6 +128,7 @@ export const es: PortfolioContent = {
 			},
 			{
 				company: 'Neemu',
+				companyUrl: 'https://www.linx.com.br/',
 				role: 'Software Developer',
 				period: 'Feb 2013 — Oct 2014',
 				location: 'Manaus, Brasil',
@@ -142,6 +148,7 @@ export const es: PortfolioContent = {
 			},
 			{
 				company: 'INdT',
+				companyUrl: 'https://indt.org.br/',
 				role: 'Software Developer',
 				period: 'Abr 2012 — Feb 2013',
 				location: 'Manaus, Brasil',

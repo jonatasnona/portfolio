@@ -10,6 +10,7 @@ import '../../styles/typography.css';
 import SiteHead from '../../components/SiteHead.astro';
 import DevTools from '../../components/DevTools.astro';
 import ContactLinks from '../../components/ContactLinks.astro';
+import CompanyLink from '../../components/CompanyLink.astro';
 
 type Props = { locale: Locale; content: PortfolioContent; versionId: VersionId; isPreview?: boolean };
 const { locale, content, versionId, isPreview = false } = Astro.props;
@@ -61,7 +62,7 @@ const today = new Date().toLocaleDateString(locale === 'en' ? 'en-US' : locale =
 					{content.experience.items.map((item) => (
 						<article class="story">
 							<h2>{item.role}</h2>
-							<p class="byline">{item.company} · {item.period} · {item.location}</p>
+							<p class="byline"><CompanyLink name={item.company} url={item.companyUrl} /> · {item.period} · {item.location}</p>
 							<p class="job-summary">{item.summary}</p>
 							<p class="tech">{item.technologies.join(' · ')}</p>
 						</article>

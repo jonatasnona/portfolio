@@ -10,6 +10,7 @@ import '../../styles/typography.css';
 import SiteHead from '../../components/SiteHead.astro';
 import DevTools from '../../components/DevTools.astro';
 import ContactLinks from '../../components/ContactLinks.astro';
+import CompanyLink from '../../components/CompanyLink.astro';
 
 type Props = { locale: Locale; content: PortfolioContent; versionId: VersionId; isPreview?: boolean };
 const { locale, content, versionId, isPreview = false } = Astro.props;
@@ -49,7 +50,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 				{content.experience.items.map((item) => (
 					<article class="job">
 						<p class="when">{item.period} · {item.location}</p>
-						<h3>{item.role} · {item.company}</h3>
+						<h3>{item.role} · <CompanyLink name={item.company} url={item.companyUrl} /></h3>
 						<p class="job-summary">{item.summary}</p>
 					</article>
 				))}

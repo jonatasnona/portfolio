@@ -1,0 +1,44 @@
+---
+/** Company name as an external link (new tab). */
+type Props = {
+	name: string;
+	url: string;
+	class?: string;
+};
+
+const { name, url, class: className } = Astro.props;
+---
+
+<a
+	class:list={['company-link', className]}
+	href={url}
+	target="_blank"
+	rel="noopener noreferrer"
+	data-company-link
+>
+	{name}
+</a>
+
+<script>
+	document.querySelectorAll('a[data-company-link]').forEach((link) => {
+		link.addEventListener('click', (e) => {
+			e.stopPropagation();
+		});
+	});
+</script>
+
+<style>
+	.company-link {
+		color: inherit;
+		text-decoration: underline;
+		text-decoration-color: transparent;
+		text-underline-offset: 0.15em;
+		transition: text-decoration-color 0.15s ease, color 0.15s ease;
+	}
+
+	.company-link:hover,
+	.company-link:focus-visible {
+		color: var(--color-brand);
+		text-decoration-color: var(--color-brand);
+	}
+</style>

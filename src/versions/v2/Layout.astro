@@ -12,6 +12,7 @@ import '../../styles/typography.css';
 import SiteHead from '../../components/SiteHead.astro';
 import DevTools from '../../components/DevTools.astro';
 import ContactLinks from '../../components/ContactLinks.astro';
+import CompanyLink from '../../components/CompanyLink.astro';
 
 type Props = {
 	locale: Locale;
@@ -99,7 +100,7 @@ const nav = [
 								</div>
 								<h3>
 									{item.role}
-									<em>{item.company}</em>
+									<em><CompanyLink name={item.company} url={item.companyUrl} /></em>
 								</h3>
 								<p class="job-summary">{item.summary}</p>
 								<p class="tech">{item.technologies.join(' · ')}</p>

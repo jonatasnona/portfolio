@@ -5,6 +5,7 @@
  * Inspired by v8 accordion — native <details>, no JS.
  */
 import type { Experience } from '../content/types';
+import CompanyLink from './CompanyLink.astro';
 
 type Props = {
 	items: Experience[];
@@ -23,7 +24,10 @@ const { items, openFirst = true } = Astro.props;
 					<span class="exp-when">{item.period}</span>
 					<span class="exp-who">
 						<strong>{item.role}</strong>
-						<span class="exp-at"> @ {item.company}</span>
+						<span class="exp-at">
+							{' @ '}
+							<CompanyLink name={item.company} url={item.companyUrl} />
+						</span>
 					</span>
 					<span class="exp-where">{item.location}</span>
 				</summary>

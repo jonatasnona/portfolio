@@ -12,6 +12,7 @@ import '../../styles/typography.css';
 import SiteHead from '../../components/SiteHead.astro';
 import DevTools from '../../components/DevTools.astro';
 import ContactLinks from '../../components/ContactLinks.astro';
+import CompanyLink from '../../components/CompanyLink.astro';
 
 type Props = {
 	locale: Locale;
@@ -116,7 +117,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 									<td>
 										<strong>{item.role}</strong>
 										<br />
-										{item.company}
+										<CompanyLink name={item.company} url={item.companyUrl} />
 										<br />
 										<small class="tech">{item.technologies.join(' · ')}</small>
 									</td>

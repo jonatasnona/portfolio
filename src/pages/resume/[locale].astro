@@ -70,7 +70,10 @@ const location = siteConfig.location[locale];
 							<div class="resume-job-head">
 								<h3>
 									{item.role}
-									<span class="resume-at"> @ {item.company}</span>
+									<span class="resume-at">
+										{' @ '}
+										<a href={item.companyUrl}>{item.company}</a>
+									</span>
 								</h3>
 								<p class="resume-meta">
 									{item.period} · {item.location}
@@ -243,6 +246,11 @@ const location = siteConfig.location[locale];
 	.resume-at {
 		font-weight: 600;
 		color: var(--color-brand-mid);
+	}
+
+	.resume-at a {
+		color: inherit;
+		text-decoration: none;
 	}
 
 	.resume-meta {

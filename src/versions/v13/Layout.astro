@@ -10,6 +10,7 @@ import '../../styles/typography.css';
 import SiteHead from '../../components/SiteHead.astro';
 import DevTools from '../../components/DevTools.astro';
 import ContactLinks from '../../components/ContactLinks.astro';
+import CompanyLink from '../../components/CompanyLink.astro';
 
 type Props = { locale: Locale; content: PortfolioContent; versionId: VersionId; isPreview?: boolean };
 const { locale, content, versionId, isPreview = false } = Astro.props;
@@ -60,7 +61,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 						<p class="pg">{String(i + 3).padStart(2, '0')}</p>
 						<p class="when">{item.period}</p>
 						<h2>{item.role}</h2>
-						<p class="co">{item.company}</p>
+						<p class="co"><CompanyLink name={item.company} url={item.companyUrl} /></p>
 						<p class="loc">{item.location}</p>
 					</div>
 					<div class="right">

@@ -5,6 +5,8 @@ export type SkillGroup = {
 
 export type Experience = {
 	company: string;
+	/** Public company site — opens in a new tab from the experience list. */
+	companyUrl: string;
 	role: string;
 	period: string;
 	location: string;

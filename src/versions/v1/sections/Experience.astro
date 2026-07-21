@@ -1,5 +1,6 @@
 ---
 import type { PortfolioContent } from '../../../content/types';
+import CompanyLink from '../../../components/CompanyLink.astro';
 
 type Props = {
 	content: PortfolioContent;
@@ -22,7 +23,7 @@ const { content } = Astro.props;
 						<div class="body">
 							<h3>
 								{item.role}
-								<span class="company"> · {item.company}</span>
+								<span class="company"> · <CompanyLink name={item.company} url={item.companyUrl} /></span>
 							</h3>
 							<p class="job-summary">{item.summary}</p>
 							<p class="tech">{item.technologies.join(' · ')}</p>
