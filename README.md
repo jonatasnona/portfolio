@@ -1,4 +1,4 @@
-# Portfolio — Jonatas Pedraza
+# Portfolio
 
 One-page personal site (Astro + TypeScript) for GitHub Pages.
 
@@ -10,7 +10,7 @@ Agent-assisted workflow docs (`AGENTS.md`, `.cursor/rules/`) are intentional —
 
 ## Development
 
-Requires Node `>=22.12` (see `.nvmrc`).
+Requires Node **22** (see `.nvmrc`).
 
 ```sh
 npm install

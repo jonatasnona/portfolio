@@ -19,7 +19,7 @@
     "url": "https://github.com/jonatasnona/portfolio/issues"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22"
   },
   "scripts": {
     "dev": "astro dev",
