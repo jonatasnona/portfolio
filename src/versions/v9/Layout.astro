@@ -62,7 +62,7 @@ const today = new Date().toLocaleDateString(locale === 'en' ? 'en-US' : locale =
 						<article class="story">
 							<h2>{item.role}</h2>
 							<p class="byline">{item.company} · {item.period} · {item.location}</p>
-							<ul>{item.bullets.map((b) => <li>{b}</li>)}</ul>
+							<p class="job-summary">{item.summary}</p>
 							<p class="tech">{item.technologies.join(' · ')}</p>
 						</article>
 					))}
@@ -107,7 +107,7 @@ const today = new Date().toLocaleDateString(locale === 'en' ? 'en-US' : locale =
 	.story{padding:1rem 0;border-bottom:1px solid var(--color-line)}
 	.story h2{margin:0;font-family:var(--font-display);font-size:1.35rem;line-height:1.15}
 	.byline{margin:.35rem 0 .6rem;font-size:.85rem;font-style:italic;color:var(--color-muted)}
-	.story ul{margin:0;padding-left:1.05rem;color:var(--color-ink-soft)}
+	.story .job-summary{margin:0;color:var(--color-ink-soft);line-height:1.45}
 	.tech{margin:.5rem 0 0;font-size:.78rem;font-weight:600;color:var(--color-muted)}
 	.side-block{margin-bottom:1rem;padding-bottom:.85rem;border-bottom:1px solid var(--color-line)}
 	.side-block h3{margin:0 0 .25rem;font-family:var(--font-display);font-size:1rem}

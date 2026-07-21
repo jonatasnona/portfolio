@@ -8,7 +8,8 @@ export type Experience = {
 	role: string;
 	period: string;
 	location: string;
-	bullets: string[];
+	/** Narrative summary of the role — storytelling, not a bullet dump. */
+	summary: string;
 	technologies: string[];
 };
 

@@ -61,7 +61,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 					<article class="job">
 						<p class="when">{item.period} · {item.location}</p>
 						<h3>{item.role} · {item.company}</h3>
-						<ul>{item.bullets.map((b) => <li>{b}</li>)}</ul>
+						<p class="job-summary">{item.summary}</p>
 					</article>
 				))}
 			</div>
@@ -122,7 +122,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 	.job+.job{margin-top:1.5rem}
 	.when{margin:0;font-weight:700;color:var(--color-muted)}
 	.job h3{margin:.25rem 0 .5rem;font-family:var(--font-display)}
-	.job ul{margin:0;padding-left:1.1rem;color:var(--color-ink-soft)}
+	.job-summary{margin:0;color:var(--color-ink-soft)}
 	.aubergine p,.orange p{opacity:.92}
 	.mail{display:inline-flex;margin:.5rem 0 1rem;padding:.75rem 1.1rem;border-radius:.35rem;background:var(--color-surface-elevated);color:var(--color-accent-deep);font-weight:800;text-decoration:none}
 	.orange a{color:var(--color-on-brand);font-weight:700}

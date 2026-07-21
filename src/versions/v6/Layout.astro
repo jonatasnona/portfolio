@@ -55,7 +55,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 						<p class="mono">{item.period}</p>
 						<h3>{item.role} @ {item.company}</h3>
 						<p class="mono dim">{item.location}</p>
-						<ul>{item.bullets.map((b) => <li>{b}</li>)}</ul>
+						<p class="job-summary">{item.summary}</p>
 					</article>
 				))}
 			</section>
@@ -90,7 +90,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 	h2{margin:.2rem 0 .8rem;font-family:var(--font-display);font-size:1.25rem;color:var(--color-brand)}
 	.job+.job{margin-top:1.2rem}
 	.job h3{margin:.2rem 0;font-family:var(--font-display);font-size:1.05rem}
-	.job ul{margin:.4rem 0 0;padding-left:1.1rem;color:var(--color-ink-soft)}
+	.job-summary{margin:.4rem 0 0;color:var(--color-ink-soft)}
 	footer{padding-top:1rem}
 	@media (max-width:36rem){
 		.header-actions{width:100%;justify-content:space-between}

@@ -24,11 +24,7 @@ const { content } = Astro.props;
 								{item.role}
 								<span class="company"> · {item.company}</span>
 							</h3>
-							<ul>
-								{item.bullets.map((bullet) => (
-									<li>{bullet}</li>
-								))}
-							</ul>
+							<p class="job-summary">{item.summary}</p>
 							<p class="tech">{item.technologies.join(' · ')}</p>
 						</div>
 					</li>
@@ -110,14 +106,10 @@ const { content } = Astro.props;
 		font-weight: 700;
 	}
 
-	ul {
+	.job-summary {
 		margin: 0;
-		padding-left: 1.1rem;
 		color: var(--color-ink-soft);
-	}
-
-	ul li + li {
-		margin-top: 0.4rem;
+		line-height: 1.55;
 	}
 
 	.tech {

@@ -76,11 +76,7 @@ const location = siteConfig.location[locale];
 									{item.period} · {item.location}
 								</p>
 							</div>
-							<ul>
-								{item.bullets.map((b) => (
-									<li>{b}</li>
-								))}
-							</ul>
+							<p class="resume-summary">{item.summary}</p>
 							{
 								item.technologies.length > 0 && (
 									<p class="resume-tech">{item.technologies.join(' · ')}</p>
@@ -255,15 +251,11 @@ const location = siteConfig.location[locale];
 		color: var(--color-muted);
 	}
 
-	.resume-job ul {
+	.resume-summary {
 		margin: 0.35rem 0 0;
-		padding-left: 1.1rem;
 		color: var(--color-ink-soft);
 		font-size: 0.86rem;
-	}
-
-	.resume-job li + li {
-		margin-top: 0.15rem;
+		line-height: 1.4;
 	}
 
 	.resume-tech {

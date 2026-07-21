@@ -101,11 +101,7 @@ const nav = [
 									{item.role}
 									<em>{item.company}</em>
 								</h3>
-								<ul>
-									{item.bullets.map((b) => (
-										<li>{b}</li>
-									))}
-								</ul>
+								<p class="job-summary">{item.summary}</p>
 								<p class="tech">{item.technologies.join(' · ')}</p>
 							</article>
 						))
@@ -296,9 +292,8 @@ const nav = [
 		font-size: 0.95rem;
 		margin-top: 0.15rem;
 	}
-	.job ul {
+	.job-summary {
 		margin: 0;
-		padding-left: 1.1rem;
 		color: var(--color-ink-soft);
 	}
 	.tech {

@@ -65,7 +65,7 @@ const signoff =
 						<div>
 							<h3>{item.role}</h3>
 							<p class="co">{item.company}</p>
-							<ul>{item.bullets.map((b) => <li>{b}</li>)}</ul>
+							<p class="job-summary">{item.summary}</p>
 							<p class="tech">{item.technologies.join(' · ')}</p>
 						</div>
 					</article>
@@ -112,7 +112,7 @@ const signoff =
 	.loc{margin:.15rem 0 0;font-size:.8rem;color:var(--color-muted)}
 	.job h3{margin:0;font-family:var(--font-display);font-size:1.15rem}
 	.co{margin:.2rem 0 .5rem;font-weight:700;color:var(--color-brand-mid)}
-	.job ul{margin:0;padding-left:1.05rem;color:var(--color-ink-soft)}
+	.job-summary{margin:0;color:var(--color-ink-soft)}
 	.tech{margin:.5rem 0 0;font-size:.8rem;font-weight:600;color:var(--color-muted)}
 	.skills{display:grid;gap:1rem}
 	.skills h3{margin:0 0 .25rem;font-family:var(--font-display);font-size:1rem}

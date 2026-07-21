@@ -121,11 +121,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 										<small class="tech">{item.technologies.join(' · ')}</small>
 									</td>
 									<td>
-										<ul>
-											{item.bullets.map((b) => (
-												<li>{b}</li>
-											))}
-										</ul>
+										<p class="job-summary">{item.summary}</p>
 									</td>
 								</tr>
 							))
@@ -347,9 +343,9 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 	td strong {
 		color: var(--color-ink);
 	}
-	td ul {
+	td .job-summary {
 		margin: 0;
-		padding-left: 1rem;
+		line-height: 1.45;
 	}
 	td small {
 		color: var(--color-muted);

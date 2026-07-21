@@ -47,7 +47,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 								<span class="who"><strong>{item.role}</strong> · {item.company}</span>
 								<span class="where">{item.location}</span>
 							</summary>
-							<ul>{item.bullets.map((b) => <li>{b}</li>)}</ul>
+							<p class="job-summary">{item.summary}</p>
 							<p class="tech">{item.technologies.join(' · ')}</p>
 						</details>
 					))}
@@ -91,7 +91,7 @@ const langHref = (l: Locale) => (isPreview ? previewPath(versionId, l) : localeH
 	.when{font-size:.82rem;font-weight:700;color:var(--color-muted)}
 	.who{font-size:1rem}
 	.where{font-size:.78rem;color:var(--color-muted);display:none}
-	.row ul{margin:0 0 .75rem;padding-left:1.05rem;color:var(--color-ink-soft)}
+	.row .job-summary{margin:0 0 .75rem;color:var(--color-ink-soft);line-height:1.45}
 	.tech{margin:0 0 1rem;font-size:.82rem;font-weight:600;color:var(--color-muted)}
 	.skills{display:grid;gap:1rem}
 	.skills h3{margin:0 0 .25rem;font-family:var(--font-display);font-size:1rem}
