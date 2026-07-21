@@ -1,7 +1,23 @@
 {
   "name": "portfolio",
-  "type": "module",
   "version": "0.1.0",
+  "private": true,
+  "description": "Personal portfolio of Jonatas Pedraza — software engineer. Astro + TypeScript, i18n (pt/en/es), versioned layouts.",
+  "type": "module",
+  "author": {
+    "name": "Jonatas Pedraza",
+    "email": "jonatas.nona@gmail.com",
+    "url": "https://github.com/jonatasnona"
+  },
+  "license": "MIT",
+  "homepage": "https://jonatasnona.github.io/portfolio/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonatasnona/portfolio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jonatasnona/portfolio/issues"
+  },
   "engines": {
     "node": ">=22.12.0"
   },
